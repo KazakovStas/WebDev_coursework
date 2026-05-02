@@ -45,7 +45,7 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px; 
+    gap: 10px; /* Отступ между текстом и иконкой */
     font-size: 24px;
     font-weight: 600;
     color: #000;
@@ -55,12 +55,14 @@ body {
 .logo-icon {
     width: 40px;
     height: 40px;
-    background-color: #F4D03F; 
+    background-color: #F4D03F; /* Желтый цвет */
     border-radius: 50%;
     position: relative;
+    /* Чтобы иконка не сжималась */
     flex-shrink: 0; 
 }
 
+/* Черная точка (глаз) */
 .logo-icon::before {
     content: '';
     position: absolute;
@@ -68,21 +70,22 @@ body {
     height: 8px;
     background-color: #000;
     border-radius: 50%;
-    top: 10px; 
-    left: 14px; 
+    top: 10px; /* Смещаем вверх */
+    left: 14px; /* Смещаем влево */
 }
 
+/* Клюв (треугольник справа) */
 .logo-icon::after {
     content: '';
     position: absolute;
-    right: -12px;
+    right: -12px; /* Выдвигаем за пределы круга */
     top: 50%;
     transform: translateY(-50%);
     width: 0;
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
-    border-left: 14px solid #F4D03F; 
+    border-left: 14px solid #F4D03F; /* Желтый треугольник */
 }
 
 .main-nav {
@@ -205,6 +208,7 @@ body {
     height: 12px;
 }
 
+/* Hero Section (Main Block) */
 .hero-section {
     padding: 80px 40px;
     background-color: #ffffff;
@@ -472,7 +476,7 @@ body {
 
 .sub-note {
     font-size: 14px;
-    color: #d32f2f; 
+    color: #d32f2f; /* Красный акцент как на макете */
     font-weight: 500;
     margin: 0;
 }
