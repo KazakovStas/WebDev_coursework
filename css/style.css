@@ -53,8 +53,8 @@ body {
 }
 
 .logo-icon {
-    width: 40px;
-    height: 40px;
+    width: 24px;
+    height: 24px;
     background-color: #F4D03F;
     border-radius: 50%;
     position: relative;
@@ -64,25 +64,25 @@ body {
 .logo-icon::before {
     content: '';
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 3px;
+    height: 3px;
     background-color: #000;
     border-radius: 50%;
-    top: 10px;
-    left: 14px;
+    top: 7px;
+    left: 8px;
 }
 
 
 .logo-icon::after {
     content: '';
     position: absolute;
-    right: -12px;
-    top: 10px; 
+    right: -4px;
+    top: 6px; 
     width: 0;
     height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 14px solid #F4D03F;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid #F4D03F;
 }
 
 .main-nav {
