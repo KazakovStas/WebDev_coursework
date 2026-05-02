@@ -207,3 +207,101 @@ body {
     width: 12px;
     height: 12px;
 }
+
+/* Hero Section (Main Block) */
+.hero-section {
+    padding: 80px 40px;
+    background-color: #ffffff;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.hero-title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #111;
+    margin: 0;
+}
+
+.hero-title .highlight {
+    background-color: #F4D03F;
+    padding: 0 8px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.hero-description {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #555;
+    margin: 0;
+    max-width: 480px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #F4D03F;
+    color: #000;
+    border: 2px solid #F4D03F;
+}
+
+.btn-primary:hover {
+    background-color: #E5C036;
+    border-color: #E5C036;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #333;
+    border: 2px solid #ddd;
+}
+
+.btn-secondary:hover {
+    border-color: #333;
+    color: #000;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
