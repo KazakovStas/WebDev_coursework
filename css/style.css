@@ -29,9 +29,9 @@ body {
 
 .header-top {
     display: flex;
-    align-items: center;
+    align-items: center; 
     justify-content: space-between;
-    padding: 16px 40px;
+    padding: 22px 40px;
     max-width: 1440px;
     margin: 0 auto;
 }
@@ -39,22 +39,24 @@ body {
 .logo-nav {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 4px; 
+    flex-shrink: 0;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 24px;
+    gap: 4px;
+    font-size: 20px;
     font-weight: 600;
     color: #000;
     text-decoration: none;
+    margin-left: 32px;
 }
 
 .logo-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     background-color: #F4D03F;
     border-radius: 50%;
     position: relative;
@@ -68,16 +70,15 @@ body {
     height: 3px;
     background-color: #000;
     border-radius: 50%;
-    top: 7px;
-    left: 8px;
+    top: 6px;
+    left: 4px;
 }
-
 
 .logo-icon::after {
     content: '';
     position: absolute;
-    right: -4px;
-    top: 6px; 
+    right: -2px;
+    top: 4px; 
     width: 0;
     height: 0;
     border-top: 6px solid transparent;
@@ -87,26 +88,53 @@ body {
 
 .main-nav {
     display: flex;
-    gap: 24px;
+    align-items: center;
+    gap: 16px; 
     list-style: none;
+    margin: 0; 
 }
 
 .main-nav a {
     text-decoration: none;
     color: var(--text-secondary);
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 500;
+    white-space: nowrap; 
     transition: color 0.3s;
 }
 
-.main-nav a:hover {
+.main-nav li:first-child a {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-right: 32px; 
+     margin-left: 0px;
+}
+
+.main-nav li:nth-child(3) {
+    margin-left: 16px; 
+}
+
+.main-nav li:nth-child(4) {
+    margin-left: 14px; 
+}
+
+.main-nav li:nth-child(5) {
+    margin-left: 14px; 
+}
+
+.main-nav li:nth-child(n+2) a {
+    font-size: 15px;
+    font-weight: 400;
     color: var(--text-main);
 }
 
 .search-auth {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 45px; 
+     margin-right: 35px;
+
 }
 
 .search-box {
@@ -117,18 +145,22 @@ body {
 
 .search-icon {
     position: absolute;
-    left: 12px;
+    left: 14px;
     width: 18px;
     height: 18px;
     opacity: 0.5;
+    pointer-events: none;
 }
 
 .search-input {
+    flex-shrink: 0; 
     width: 320px;
-    padding: 10px 16px 10px 40px;
+    height: 36px; 
+    padding: 0px 22px 0 40px;
     border: 1px solid var(--border);
     border-radius: 24px;
     font-size: 14px;
+    line-height: 44px; 
     outline: none;
     transition: border-color 0.3s;
 }
@@ -142,10 +174,13 @@ body {
 }
 
 .login-btn {
+    flex-shrink: 0;
     background-color: var(--accent);
     color: var(--text-main);
     border: none;
-    padding: 10px 32px;
+    height: 36px;
+    width: 150px;
+    margin-left: 0px; 
     border-radius: 24px;
     font-size: 15px;
     font-weight: 600;
@@ -498,7 +533,6 @@ body {
     background-color: #f0f0f0;
 }
 
-/* Candidates Section */
 .candidates-section {
     padding: 80px 40px;
     background-color: var(--bg-body);
