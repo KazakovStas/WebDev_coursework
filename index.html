@@ -34,30 +34,42 @@
         </div>
         <div class="header-bottom">
             <ul class="secondary-nav">
-                <li><a href="#">Маркетологи</a></li>
-                <li><a href="#">Backend-разработчики</a></li>
-                <li><a href="#">Дизайнеры</a></li>
-                <li><a href="#">Менеджеры по продажам</a></li>
-                <li><a href="#">Пункт 1</a></li>
-                <li><a href="#">Пункт 2</a></li>
-                <li><a href="#">Пункт 3</a></li>
-                <li><a href="#">Пункт 3</a></li>
-                <li><a href="#">Пункт 3</a></li>
-                <li><a href="#">Пункт 1</a></li>
-                <li><a href="#">Пункт 2</a></li>
-                <li><a href="#">Пункт 3</a></li>
-                <li><a href="#">Пункт 3</a></li>
-                <li><a href="#">Пункт 3</a></li>
-                <li>
-                    <button class="hide-btn">
-                        <span>Ещё</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 15l-6-6-6 6"/>
-                        </svg>
-                    </button>
-                </li>
-            </ul>
-        </div>
+    <li><a href="#">Маркетологи</a></li>
+    <li><a href="#">Backend-разработчики</a></li>
+    <li><a href="#">Дизайнеры</a></li>
+    <li><a href="#">Менеджеры по продажам</a></li>
+    
+    <!-- Кнопка "Ещё" с id="moreBtn" -->
+    <li>
+        <button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()">
+            <span>Ещё</span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+    </li>
+</ul>
+
+<!-- Скрытые пункты (добавь ЭТО после ul.secondary-nav) -->
+<div class="nav-extra" id="navExtra">
+    <a href="#">Пункт 1</a>
+    <a href="#">Пункт 2</a>
+    <a href="#">Пункт 3</a>
+    <a href="#">Пункт 3</a>
+    <a href="#">Пункт 3</a>
+    <a href="#">Пункт 1</a>
+    <a href="#">Пункт 2</a>
+    <a href="#">Пункт 3</a>
+    <a href="#">Пункт 3</a>
+    <a href="#">Пункт 3</a>
+    
+    <button class="hide-btn" type="button" onclick="toggleNav()">
+        <span>Скрыть</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+</div>
     </header>
 
     <main>
@@ -327,6 +339,27 @@
             </div>
         </div>
     </footer>
-    
+    <script>
+    function toggleNav() {
+        const navExtra = document.getElementById('navExtra');
+        const moreBtn = document.getElementById('moreBtn');
+        const arrow = moreBtn ? moreBtn.querySelector('.arrow') : null;
+        const span = moreBtn ? moreBtn.querySelector('span') : null;
+        
+        if (!navExtra) return;
+        
+        navExtra.classList.toggle('active');
+        
+        if (span && arrow) {
+            if (navExtra.classList.contains('active')) {
+                span.textContent = 'Скрыть';
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                span.textContent = 'Ещё';
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+    }
+</script>
 </body>
 </html>
