@@ -11,9 +11,9 @@
         <div class="header-top">
             <div class="logo-nav">
                 <a href="#" class="logo">
-    <span>ЛИЦА</span>
-    <div class="logo-icon"></div>
-</a>
+                    <span>ЛИЦА</span>
+                    <div class="logo-icon"></div>
+                </a>
                 <nav>
                     <ul class="main-nav">
                         <li><a href="#">Кандидаты</a></li>
@@ -32,271 +32,273 @@
                 <button class="login-btn">Войти</button>
             </div>
         </div>
+        
         <div class="header-bottom">
             <ul class="secondary-nav">
-    <li><a href="#">Маркетологи</a></li>
-    <li><a href="#">Backend-разработчики</a></li>
-    <li><a href="#">Дизайнеры</a></li>
-    <li><a href="#">Менеджеры по продажам</a></li>
-    
-    <!-- Кнопка "Ещё" с id="moreBtn" -->
-    <li>
-        <button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()">
-            <span>Ещё</span>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-            </svg>
-        </button>
-    </li>
-</ul>
-
-<!-- Скрытые пункты (добавь ЭТО после ul.secondary-nav) -->
-<div class="nav-extra" id="navExtra">
-    <a href="#">Пункт 1</a>
-    <a href="#">Пункт 2</a>
-    <a href="#">Пункт 3</a>
-    <a href="#">Пункт 3</a>
-    <a href="#">Пункт 3</a>
-    <a href="#">Пункт 1</a>
-    <a href="#">Пункт 2</a>
-    <a href="#">Пункт 3</a>
-    <a href="#">Пункт 3</a>
-    <a href="#">Пункт 3</a>
-    
-    <button class="hide-btn" type="button" onclick="toggleNav()">
-        <span>Скрыть</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 15l-6-6-6 6"/>
-        </svg>
-    </button>
-</div>
+                <li><a href="#">Маркетологи</a></li>
+                <li><a href="#">Backend-разработчики</a></li>
+                <li><a href="#">Дизайнеры</a></li>
+                <li><a href="#">Менеджеры по продажам</a></li>
+                
+                <!-- Скрытые пункты -->
+                <li class="nav-hidden"><a href="#">Пункт 1</a></li>
+                <li class="nav-hidden"><a href="#">Пункт 2</a></li>
+                <li class="nav-hidden"><a href="#">Пункт sssssss</a></li>
+                <li class="nav-hidden"><a href="#">Пункт 3sssssssss</a></li>
+                <li class="nav-hidden"><a href="#">Пункт 3ssss</a></li>
+                <li class="nav-hidden"><a href="#">Пункт 1</a></li>
+                <li class="nav-hidden"><a href="#">Пункт 2</a></li>
+                <li class="nav-hidden"><a href="#">Пункт 3</a></li>
+                <li class="nav-hidden"><a href="#">Пункт 3</a></li>
+                <li class="nav-hidden"><a href="#">Пункт 3</a></li>
+                
+                <!-- Кнопка Ещё -->
+                <li class="more-li">
+                    <button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()">
+                        <span>Ещё</span>
+                        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                </li>
+                
+                <!-- Кнопка Скрыть (изначально скрыта) -->
+                <li class="hide-li" style="display: none;">
+                    <button class="hide-btn" type="button" onclick="toggleNav()">
+                        <span>Скрыть</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 15l-6-6-6 6"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
     </header>
 
     <main>
-    <section class="hero-section">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">Нанимайте проверенных <span class="highlight">кандидатов</span></h1>
-                <p class="hero-description">Мы уже со всеми провели собеседования и подтверждаем их профессионализм</p>
-                <div class="hero-buttons">
-                    <a href="#" class="btn btn-primary">Выбрать кандидата</a>
-                    <a href="#" class="btn btn-secondary">Попасть в базу</a>
+        <section class="hero-section">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Нанимайте проверенных <span class="highlight">кандидатов</span></h1>
+                    <p class="hero-description">Мы уже со всеми провели собеседования и подтверждаем их профессионализм</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary">Выбрать кандидата</a>
+                        <a href="#" class="btn btn-secondary">Попасть в базу</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="img/Scene 1.png" alt="Собеседование кандидатов по видеосвязи">
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="img/Scene 1.png" alt="Собеседование кандидатов по видеосвязи">
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="directions-section">
-        <div class="container directions-container">
-            <h2 class="section-title">Выберите направление работы</h2>
-            
-            <div class="directions-grid">
-                <div class="direction-card">
-                    <div class="card-icon">
-                        <img src="img/dir.png" alt="Маркетинг">
-                    </div>
-                    <span class="card-title">Маркетинг</span>
-                    <span class="card-badge">40+</span>
-                </div>
-
-                <div class="direction-card">
-                    <div class="card-icon">
-                        <img src="img/dev.png" alt="Разработка">
-                    </div>
-                    <span class="card-title">Разработка</span>
-                    <span class="card-badge">80+</span>
-                </div>
-
-                <div class="direction-card">
-                    <div class="card-icon">
-                        <img src="img/ana.png" alt="Аналитика">
-                    </div>
-                    <span class="card-title">Аналитика</span>
-                </div>
-
-                <div class="direction-card">
-                    <div class="card-icon">
-                        <img src="img/com.png" alt="Комьюнити">
-                    </div>
-                    <span class="card-title">Комьюнити</span>
-                </div>
-
-                <div class="direction-card">
-                    <div class="card-icon">
-                        <img src="img/dis.png" alt="Дизайн">
-                    </div>
-                    <span class="card-title">Дизайн</span>
-                </div>
-
-                <div class="direction-card">
-                    <div class="card-icon">
-                        <img src="img/sel.png" alt="Продажи">
-                    </div>
-                    <span class="card-title">Продажи</span>
-                </div>
-
-                <div class="direction-card">
-                    <div class="card-icon">
-                        <img src="img/cont.png" alt="Контент">
-                    </div>
-                    <span class="card-title">Контент</span>
-                </div>
-
-                <div class="direction-card">
-                    <div class="card-icon">
-                        <img src="img/top.png" alt="Топ-менеджмент">
-                    </div>
-                    <span class="card-title">Топ-менеджмент</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="benefits-section">
-        <div class="container benefits-container">
-            
-            <div class="benefits-left">
-                <h2 class="section-title-left">Почему работодатели выбирают ЛИЦА?</h2>
+        <section class="directions-section">
+            <div class="container directions-container">
+                <h2 class="section-title">Выберите направление работы</h2>
                 
-                <div class="benefit-item">
-                    <img src="img/yes.png" alt="Галочка" class="check-icon">
-                    <div class="benefit-text">
-                        <h3 class="benefit-title">Проверка компетенций</h3>
-                        <p class="benefit-desc">Всех кандидатов с нашей стороны собеседуют не рекрутера, а эксперты в своих областях. По результаты мы составляем справку о кандидате, чтобы вы могли узнать его лучше.</p>
+                <div class="directions-grid">
+                    <div class="direction-card">
+                        <div class="card-icon">
+                            <img src="img/dir.png" alt="Маркетинг">
+                        </div>
+                        <span class="card-title">Маркетинг</span>
+                        <span class="card-badge">40+</span>
                     </div>
-                </div>
 
-                <div class="benefit-item">
-                    <img src="img/yes.png" alt="Галочка" class="check-icon">
-                    <div class="benefit-text">
-                        <h3 class="benefit-title">Сотни кандидатов по подписке</h3>
-                        <p class="benefit-desc">Вы сможете самостоятельно связываться с кандидатами – все они дали согласие на это.</p>
+                    <div class="direction-card">
+                        <div class="card-icon">
+                            <img src="img/dev.png" alt="Разработка">
+                        </div>
+                        <span class="card-title">Разработка</span>
+                        <span class="card-badge">80+</span>
                     </div>
-                </div>
 
-                <div class="benefit-item">
-                    <img src="img/yes.png" alt="Галочка" class="check-icon">
-                    <div class="benefit-text">
-                        <h3 class="benefit-title">Еженедельное обновление базы</h3>
-                        <p class="benefit-desc">В рамках сервиса ЛИЦА.Работа мы проводим по несколько десятков собеседований еженедельно, и пополняем базу новыми справками по лучшим кандидатам.</p>
+                    <div class="direction-card">
+                        <div class="card-icon">
+                            <img src="img/ana.png" alt="Аналитика">
+                        </div>
+                        <span class="card-title">Аналитика</span>
                     </div>
-                </div>
-            </div>
 
-        
-            <div class="benefits-right">
-                <div class="subscription-card">
-                    <h3 class="sub-title">Кандидаты по подписке</h3>
-                    <div class="sub-price">4900 ₽ в месяц</div>
-                    <p class="sub-note">В 10-100 раз ниже стоимости любого подбора</p>
-                    <a href="#" class="btn btn-white">Выбрать кандидата</a>
-                </div>
-            </div>
+                    <div class="direction-card">
+                        <div class="card-icon">
+                            <img src="img/com.png" alt="Комьюнити">
+                        </div>
+                        <span class="card-title">Комьюнити</span>
+                    </div>
 
-        </div>
-    </section>
+                    <div class="direction-card">
+                        <div class="card-icon">
+                            <img src="img/dis.png" alt="Дизайн">
+                        </div>
+                        <span class="card-title">Дизайн</span>
+                    </div>
 
-    <section class="candidates-section">
-        <div class="container">
-            <h2 class="section-title">Как выглядит база кандидатов</h2>
-            
-            <div class="candidates-grid">
-                <div class="candidate-card">
-                    <div class="candidate-badges">
-                        <span class="badge badge-parttime">part-time</span>
-                        <span class="badge badge-fulltime">full-time</span>
+                    <div class="direction-card">
+                        <div class="card-icon">
+                            <img src="img/sel.png" alt="Продажи">
+                        </div>
+                        <span class="card-title">Продажи</span>
                     </div>
-                    <div class="candidate-avatar">
-                        <img src="img/Avatar1.png" alt="Анциферов Владимир">
-                    </div>
-                    <h3 class="candidate-name">Анциферов Владимир</h3>
-                    <p class="candidate-position">Директор по маркетингу</p>
-                    <div class="candidate-info">
-                        <p class="info-item">Опыт: более 13 лет</p>
-                        <p class="info-item">Зарплата: 200 тыс. ₽</p>
-                    </div>
-                    <button class="btn-candidate">Посмотреть справку</button>
-                </div>
 
-                <div class="candidate-card">
-                    <div class="candidate-badges">
-                        <span class="badge badge-fulltime">full-time</span>
+                    <div class="direction-card">
+                        <div class="card-icon">
+                            <img src="img/cont.png" alt="Контент">
+                        </div>
+                        <span class="card-title">Контент</span>
                     </div>
-                    <div class="candidate-avatar">
-                        <img src="img/Avatar2.png" alt="Сикорская Анна">
-                    </div>
-                    <h3 class="candidate-name">Сикорская Анна</h3>
-                    <p class="candidate-position">Аналитик</p>
-                    <div class="candidate-info">
-                        <p class="info-item">Опыт: более 13 лет</p>
-                        <p class="info-item">Зарплата: от 150 тыс. ₽</p>
-                    </div>
-                    <button class="btn-candidate">Посмотреть справку</button>
-                </div>
 
-                <div class="candidate-card">
-                    <div class="candidate-badges">
-                        <span class="badge badge-parttime">part-time</span>
-                        <span class="badge badge-fulltime">full-time</span>
+                    <div class="direction-card">
+                        <div class="card-icon">
+                            <img src="img/top.png" alt="Топ-менеджмент">
+                        </div>
+                        <span class="card-title">Топ-менеджмент</span>
                     </div>
-                    <div class="candidate-avatar">
-                        <img src="img/Avatar3.png" alt="Демидова Дарья">
-                    </div>
-                    <h3 class="candidate-name">Демидова Дарья</h3>
-                    <p class="candidate-position">Брендмейкер</p>
-                    <div class="candidate-info">
-                        <p class="info-item">Опыт: более 10 лет</p>
-                        <p class="info-item">Зарплата: от 100 тыс. ₽</p>
-                    </div>
-                    <button class="btn-candidate">Посмотреть справку</button>
-                </div>
-
-                <div class="candidate-card">
-                    <div class="candidate-badges">
-                        <span class="badge badge-fulltime">full-time</span>
-                    </div>
-                    <div class="candidate-avatar">
-                        <img src="img/Avatar4.png" alt="Харисов Евгений">
-                    </div>
-                    <h3 class="candidate-name">Харисов Евгений</h3>
-                    <p class="candidate-position">Директор по развитию бизнеса</p>
-                    <div class="candidate-info">
-                        <p class="info-item">Опыт: более 20 лет</p>
-                        <p class="info-item">Зарплата: от 150 тыс. ₽</p>
-                    </div>
-                    <button class="btn-candidate">Посмотреть справку</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-        <!-- Блок Подписка на обновления -->
-    <section class="subscribe-section">
-        <div class="container subscribe-container">
-            <div class="subscribe-image">
-                <img src="img/Scene 2.png" alt="Подписка на обновления базы кандидатов">
-            </div>
-            
-            <div class="subscribe-form-wrapper">
-                <h2 class="subscribe-title">Подписаться на обновления базы</h2>
-                <p class="subscribe-description">Мы будет присылать вам информацию каждую неделю, по каким сферам у нас появились кандидаты.</p>
+        <section class="benefits-section">
+            <div class="container benefits-container">
                 
-                <form class="subscribe-form" action="#" method="POST">
-                    <input type="text" class="form-input" placeholder="Ваше имя" required>
-                    <input type="email" class="form-input" placeholder="Email" required>
-                    <input type="tel" class="form-input" placeholder="Номер телефона" required>
+                <div class="benefits-left">
+                    <h2 class="section-title-left">Почему работодатели выбирают ЛИЦА?</h2>
                     
-                    <button type="submit" class="btn-subscribe">Подписаться</button>
-                    
-                    <p class="form-agreement">Отправка данной формы означает согласие с <a href="#" class="agreement-link">Пользовательским соглашением</a> и <a href="#" class="agreement-link">Политикой конфиденциальности</a></p>
-                </form>
+                    <div class="benefit-item">
+                        <img src="img/yes.png" alt="Галочка" class="check-icon">
+                        <div class="benefit-text">
+                            <h3 class="benefit-title">Проверка компетенций</h3>
+                            <p class="benefit-desc">Всех кандидатов с нашей стороны собеседуют не рекрутера, а эксперты в своих областях. По результаты мы составляем справку о кандидате, чтобы вы могли узнать его лучше.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <img src="img/yes.png" alt="Галочка" class="check-icon">
+                        <div class="benefit-text">
+                            <h3 class="benefit-title">Сотни кандидатов по подписке</h3>
+                            <p class="benefit-desc">Вы сможете самостоятельно связываться с кандидатами – все они дали согласие на это.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <img src="img/yes.png" alt="Галочка" class="check-icon">
+                        <div class="benefit-text">
+                            <h3 class="benefit-title">Еженедельное обновление базы</h3>
+                            <p class="benefit-desc">В рамках сервиса ЛИЦА.Работа мы проводим по несколько десятков собеседований еженедельно, и пополняем базу новыми справками по лучшим кандидатам.</p>
+                        </div>
+                    </div>
+                </div>
+
+            
+                <div class="benefits-right">
+                    <div class="subscription-card">
+                        <h3 class="sub-title">Кандидаты по подписке</h3>
+                        <div class="sub-price">4900 ₽ в месяц</div>
+                        <p class="sub-note">В 10-100 раз ниже стоимости любого подбора</p>
+                        <a href="#" class="btn btn-white">Выбрать кандидата</a>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </section>
-</main>
+        </section>
+
+        <section class="candidates-section">
+            <div class="container">
+                <h2 class="section-title">Как выглядит база кандидатов</h2>
+                
+                <div class="candidates-grid">
+                    <div class="candidate-card">
+                        <div class="candidate-badges">
+                            <span class="badge badge-parttime">part-time</span>
+                            <span class="badge badge-fulltime">full-time</span>
+                        </div>
+                        <div class="candidate-avatar">
+                            <img src="img/Avatar1.png" alt="Анциферов Владимир">
+                        </div>
+                        <h3 class="candidate-name">Анциферов Владимир</h3>
+                        <p class="candidate-position">Директор по маркетингу</p>
+                        <div class="candidate-info">
+                            <p class="info-item">Опыт: более 13 лет</p>
+                            <p class="info-item">Зарплата: 200 тыс. ₽</p>
+                        </div>
+                        <button class="btn-candidate">Посмотреть справку</button>
+                    </div>
+
+                    <div class="candidate-card">
+                        <div class="candidate-badges">
+                            <span class="badge badge-fulltime">full-time</span>
+                        </div>
+                        <div class="candidate-avatar">
+                            <img src="img/Avatar2.png" alt="Сикорская Анна">
+                        </div>
+                        <h3 class="candidate-name">Сикорская Анна</h3>
+                        <p class="candidate-position">Аналитик</p>
+                        <div class="candidate-info">
+                            <p class="info-item">Опыт: более 13 лет</p>
+                            <p class="info-item">Зарплата: от 150 тыс. ₽</p>
+                        </div>
+                        <button class="btn-candidate">Посмотреть справку</button>
+                    </div>
+
+                    <div class="candidate-card">
+                        <div class="candidate-badges">
+                            <span class="badge badge-parttime">part-time</span>
+                            <span class="badge badge-fulltime">full-time</span>
+                        </div>
+                        <div class="candidate-avatar">
+                            <img src="img/Avatar3.png" alt="Демидова Дарья">
+                        </div>
+                        <h3 class="candidate-name">Демидова Дарья</h3>
+                        <p class="candidate-position">Брендмейкер</p>
+                        <div class="candidate-info">
+                            <p class="info-item">Опыт: более 10 лет</p>
+                            <p class="info-item">Зарплата: от 100 тыс. ₽</p>
+                        </div>
+                        <button class="btn-candidate">Посмотреть справку</button>
+                    </div>
+
+                    <div class="candidate-card">
+                        <div class="candidate-badges">
+                            <span class="badge badge-fulltime">full-time</span>
+                        </div>
+                        <div class="candidate-avatar">
+                            <img src="img/Avatar4.png" alt="Харисов Евгений">
+                        </div>
+                        <h3 class="candidate-name">Харисов Евгений</h3>
+                        <p class="candidate-position">Директор по развитию бизнеса</p>
+                        <div class="candidate-info">
+                            <p class="info-item">Опыт: более 20 лет</p>
+                            <p class="info-item">Зарплата: от 150 тыс. ₽</p>
+                        </div>
+                        <button class="btn-candidate">Посмотреть справку</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="subscribe-section">
+            <div class="container subscribe-container">
+                <div class="subscribe-image">
+                    <img src="img/Scene 2.png" alt="Подписка на обновления базы кандидатов">
+                </div>
+                
+                <div class="subscribe-form-wrapper">
+                    <h2 class="subscribe-title">Подписаться на обновления базы</h2>
+                    <p class="subscribe-description">Мы будет присылать вам информацию каждую неделю, по каким сферам у нас появились кандидаты.</p>
+                    
+                    <form class="subscribe-form" action="#" method="POST">
+                        <input type="text" class="form-input" placeholder="Ваше имя" required>
+                        <input type="email" class="form-input" placeholder="Email" required>
+                        <input type="tel" class="form-input" placeholder="Номер телефона" required>
+                        
+                        <button type="submit" class="btn-subscribe">Подписаться</button>
+                        
+                        <p class="form-agreement">Отправка данной формы означает согласие с <a href="#" class="agreement-link">Пользовательским соглашением</a> и <a href="#" class="agreement-link">Политикой конфиденциальности</a></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <footer class="footer">
         <div class="container">
@@ -339,27 +341,27 @@
             </div>
         </div>
     </footer>
+    
     <script>
-    function toggleNav() {
-        const navExtra = document.getElementById('navExtra');
-        const moreBtn = document.getElementById('moreBtn');
-        const arrow = moreBtn ? moreBtn.querySelector('.arrow') : null;
-        const span = moreBtn ? moreBtn.querySelector('span') : null;
-        
-        if (!navExtra) return;
-        
-        navExtra.classList.toggle('active');
-        
-        if (span && arrow) {
-            if (navExtra.classList.contains('active')) {
-                span.textContent = 'Скрыть';
-                arrow.style.transform = 'rotate(180deg)';
+        function toggleNav() {
+            const hiddenItems = document.querySelectorAll('.nav-hidden');
+            const moreLi = document.querySelector('.more-li');
+            const hideLi = document.querySelector('.hide-li');
+            const arrow = document.querySelector('.more-btn .arrow');
+            
+            const isVisible = document.querySelector('.nav-hidden.show');
+            
+            if (!isVisible) {
+                hiddenItems.forEach(item => item.classList.add('show'));
+                moreLi.style.display = 'none';
+                hideLi.style.display = 'flex';
             } else {
-                span.textContent = 'Ещё';
-                arrow.style.transform = 'rotate(0deg)';
+                hiddenItems.forEach(item => item.classList.remove('show'));
+                moreLi.style.display = 'flex';
+                hideLi.style.display = 'none';
+                if (arrow) arrow.style.transform = 'rotate(0deg)';
             }
         }
-    }
-</script>
+    </script>
 </body>
 </html>

@@ -108,7 +108,7 @@ body {
     font-weight: 600;
     color: var(--text-main);
     margin-right: 32px; 
-     margin-left: 0px;
+    margin-left: 0px;
 }
 
 .main-nav li:nth-child(3) {
@@ -133,8 +133,7 @@ body {
     display: flex;
     align-items: center;
     gap: 45px; 
-     margin-right: 35px;
-
+    margin-right: 35px;
 }
 
 .search-box {
@@ -160,7 +159,7 @@ body {
     border: 1px solid var(--border);
     border-radius: 24px;
     font-size: 14px;
-    line-height: 44px; 
+    line-height: 36px;
     outline: none;
     transition: border-color 0.3s;
 }
@@ -197,20 +196,25 @@ body {
     padding: 12px 40px;
     max-width: 1440px;
     margin: 0 auto;
+    margin-left: 75px;
+    margin-top: 7px;
 }
 
 .secondary-nav {
     display: flex;
+    flex-wrap: wrap;
     gap: 24px;
+    row-gap: 36px;
     list-style: none;
     align-items: center;
-    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
 }
 
 .secondary-nav a {
     text-decoration: none;
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 16px;
     transition: color 0.3s;
     white-space: nowrap;
 }
@@ -219,25 +223,40 @@ body {
     color: var(--text-main);
 }
 
-.hide-btn {
+.nav-hidden {
+    display: none;
+}
+
+.nav-hidden.show {
+    display: flex;
+}
+
+.more-btn, .hide-btn {
     display: flex;
     align-items: center;
     gap: 4px;
+    margin-top: 6px;
     background: none;
     border: none;
     color: var(--text-muted);
     font-size: 14px;
     cursor: pointer;
     padding: 0;
+    white-space: nowrap;
+    transition: color 0.3s;
 }
 
-.hide-btn:hover {
+.more-btn:hover, .hide-btn:hover {
     color: var(--text-main);
 }
 
-.hide-btn svg {
+.more-btn svg, .hide-btn svg {
     width: 12px;
     height: 12px;
+}
+
+.more-btn .arrow {
+    transition: transform 0.3s;
 }
 
 .hero-section {
@@ -652,7 +671,6 @@ body {
     background-color: var(--accent-hover);
 }
 
-/* Subscribe Section */
 .subscribe-section {
     padding: 80px 40px;
     background-color: var(--bg-body);
@@ -839,57 +857,4 @@ body {
 .divider {
     color: var(--border);
     user-select: none;
-}
-
-/* Скрытые пункты меню */
-.nav-extra {
-    display: none;
-    gap: 24px;
-    align-items: center;
-    padding: 12px 40px 0 40px;
-    max-width: 1440px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-}
-
-.nav-extra.active {
-    display: flex;
-}
-
-.nav-extra a {
-    text-decoration: none;
-    color: var(--text-muted);
-    font-size: 14px;
-    transition: color 0.3s;
-    white-space: nowrap;
-}
-
-.nav-extra a:hover {
-    color: var(--text-main);
-}
-
-.more-btn, .hide-btn {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 14px;
-    cursor: pointer;
-    padding: 0;
-    transition: color 0.3s;
-}
-
-.more-btn:hover, .hide-btn:hover {
-    color: var(--text-main);
-}
-
-.more-btn svg, .hide-btn svg {
-    width: 12px;
-    height: 12px;
-}
-
-.more-btn .arrow {
-    transition: transform 0.3s;
 }
