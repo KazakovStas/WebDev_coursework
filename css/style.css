@@ -260,7 +260,7 @@ body {
 }
 
 .hero-section {
-    padding: 80px 40px;
+    padding: 80px 120px;
     background-color: #ffffff;
 }
 
@@ -281,11 +281,12 @@ body {
 }
 
 .hero-title {
-    font-size: 48px;
-    font-weight: 700;
-    line-height: 1.2;
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1.6;
     color: #111;
     margin: 0;
+    letter-spacing: 0%;
 }
 
 .hero-title .highlight {
