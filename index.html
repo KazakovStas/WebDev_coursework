@@ -29,7 +29,7 @@
                     <img src="img/Search.png" alt="Поиск" class="search-icon">
                     <input type="text" class="search-input" placeholder="Поиск">
                 </div>
-                <button class="login-btn">Войти</button>
+                <button class="login-btn" id="openModalBtn">Войти</button>
             </div>
         </div>
         
@@ -363,5 +363,59 @@
             }
         }
     </script>
+        <!-- Модальное окно входа -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-window">
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+            
+            <div class="modal-header">
+                <span class="modal-logo-text">ЛИЦА</span>
+                <span class="modal-logo-dot"></span>
+                <span class="modal-logo-text">Кандидаты</span>
+            </div>
+
+            <h2 class="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
+
+            <form class="modal-form" id="loginForm">
+                <input type="email" class="modal-input" placeholder="Email" required autocomplete="email">
+                <input type="password" class="modal-input" placeholder="Пароль" required autocomplete="current-password">
+                
+                <a href="#" class="forgot-pass">Забыли пароль?</a>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn-modal-login">Войти</button>
+                    <button type="button" class="btn-modal-reg">Зарегистрироваться</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Логика модального окна
+        const openBtn = document.getElementById('openModalBtn');
+        const modal = document.getElementById('loginModal');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        // Открыть
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Блокируем скролл
+        });
+
+        // Закрыть (крестик)
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Закрыть (клик по фону)
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+    
 </body>
 </html>
