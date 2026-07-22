@@ -8,7 +8,7 @@
       "experience": "13+ лет",
       "salary": 200000,
       "category": "marketing",
-      "tags": ["fulltime", "parttime"]
+      "tags": ["fulltime"]
     },
     {
       "id": 2,
@@ -18,6 +18,26 @@
       "experience": "13+ лет",
       "salary": 150000,
       "category": "analytics",
+      "tags": ["fulltime"]
+    },
+    {
+      "id": 3,
+      "name": "Демидова Дарья",
+      "position": "Брендмейкер",
+      "avatar": "img/Avatar3.png",
+      "experience": "10+ лет",
+      "salary": 100000,
+      "category": "marketing",
+      "tags": ["parttime", "fulltime"]
+    },
+    {
+      "id": 4,
+      "name": "Харисов Евгений",
+      "position": "Директор по развитию бизнеса",
+      "avatar": "img/Avatar4.png",
+      "experience": "20+ лет",
+      "salary": 150000,
+      "category": "sales",
       "tags": ["fulltime"]
     }
   ]
