@@ -1000,3 +1000,170 @@ body {
     transition: border 0.3s;
 }
 .btn-modal-reg:hover { border-color: #999; }
+
+
+/* === СТРАНИЦА КАТАЛОГА === */
+.catalog-main {
+    padding: 40px 0;
+    background-color: var(--bg-body);
+    min-height: 60vh;
+}
+
+.catalog-container {
+    display: flex;
+    gap: 24px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* Фильтры */
+.filters-sidebar {
+    flex: 0 0 260px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+.filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.filters-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.clear-filters {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.clear-filters:hover { color: var(--text-main); }
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-main);
+}
+
+.filter-range {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-range input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.checkbox-label input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.apply-filters {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+/* Сетка кандидатов */
+.candidates-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Пагинация */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+    padding: 0 40px;
+}
+
+.page-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.page-btn:hover { border-color: var(--accent); }
+.page-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    font-weight: 600;
+}
+
+.pagination-dots { color: var(--text-muted); }
+
+.show-more {
+    margin-left: 12px;
+    padding: 10px 20px;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.show-more:hover { border-color: var(--text-main); }
+
+/* Адаптив */
+@media (max-width: 1024px) {
+    .candidates-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .catalog-container {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+    .filters-sidebar {
+        flex: none;
+        width: 100%;
+        position: static;
+    }
+    .candidates-grid { grid-template-columns: 1fr; }
+}

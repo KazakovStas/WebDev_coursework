@@ -1,0 +1,24 @@
+{
+  "candidates": [
+    {
+      "id": 1,
+      "name": "Анциферов Владимир",
+      "position": "Директор по маркетингу",
+      "avatar": "img/Avatar1.png",
+      "experience": "13+ лет",
+      "salary": 200000,
+      "category": "marketing",
+      "tags": ["fulltime", "parttime"]
+    },
+    {
+      "id": 2,
+      "name": "Сикорская Анна",
+      "position": "Аналитик",
+      "avatar": "img/Avatar2.png",
+      "experience": "13+ лет",
+      "salary": 150000,
+      "category": "analytics",
+      "tags": ["fulltime"]
+    }
+  ]
+}
