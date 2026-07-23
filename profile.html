@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЛИЦА - Профиль кандидата</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-nav">
+                <a href="index.html" class="logo">
+                    <span>ЛИЦА</span>
+                    <div class="logo-icon"></div>
+                </a>
+                <nav>
+                    <ul class="main-nav">
+                        <li><a href="index.html">Кандидаты</a></li>
+                        <li><a href="catalog.html">Найти кандидата</a></li>
+                        <li><a href="#">Попасть в базу</a></li>
+                        <li><a href="#">О сервисе</a></li>
+                        <li><a href="#">Портал</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="search-auth">
+                <div class="search-box">
+                    <img src="img/Search.png" alt="Поиск" class="search-icon">
+                    <input type="text" class="search-input" placeholder="Поиск">
+                </div>
+                <button class="login-btn" id="openModalBtn">Войти</button>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <ul class="secondary-nav">
+                <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
+                <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
+                <li><a href="catalog.html?category=design">Дизайнеры</a></li>
+                <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
+                <li class="more-li">
+                    <button class="more-btn" onclick="toggleNav()">
+                        <span>Ещё</span>
+                        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                </li>
+                <li class="hide-li" style="display: none;">
+                    <button class="hide-btn" onclick="toggleNav()">
+                        <span>Скрыть</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 15l-6-6-6 6"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- MAIN PROFILE CONTENT -->
+    <main class="profile-main">
+        <div class="container profile-container">
+            
+            <!-- Левая колонка: Основной профиль + Информация -->
+            <div class="profile-main-content">
+                
+                <!-- Шапка профиля -->
+                <div class="profile-header-card">
+                    <div class="profile-avatar-section">
+                        <img src="" alt="" id="profileAvatar">
+                        <div class="profile-status-badge" id="profileStatus">full-time</div>
+                    </div>
+                    <div class="profile-info-section">
+                        <h1 id="profileName">Загрузка...</h1>
+                        <p class="profile-age" id="profileAge">31 год</p>
+                        <p class="profile-specialty" id="profileSpecialty">Интернет-маркетолог</p>
+                        <p class="profile-location" id="profileLocation">📍 Ташкент</p>
+                        <p class="profile-salary">Зарплатные ожидания: <strong id="profileSalary">200 000 ₽</strong></p>
+                        <button class="btn btn-primary profile-contacts-btn">Открыть контакты</button>
+                    </div>
+                </div>
+
+                <!-- Блоки с информацией -->
+                <div class="profile-sections">
+                    
+                    <div class="info-block">
+                        <h2>Причина поиска работы</h2>
+                        <div class="info-text" id="reasonBlock">
+                            <p>Полтора года назад кандидат работал в Альфа-Банке ведущим специалистом. В январе получил предложение от другой компании, но формат не подошёл. Сейчас рассматривает любые предложения, потому что текущая компания не предлагает удалённый формат.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-block">
+                        <h2>Общая информация, почему именно этот кандидат</h2>
+                        <div class="info-text" id="generalBlock">
+                            <p>В сфере IT работает всю карьеру, начинал с администратора баз данных и Oracle-разработчика. Последние 6 лет занимается тестированием. Имеет техническое образование — прикладная информатика в экономике. В Альфа-Банке работал в продуктовой команде, был единственным тестировщиком на проекте, поэтому нёс ответственность за качество продукта.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-block">
+                        <h2>Опыт в тестировании</h2>
+                        <div class="info-text" id="testExpBlock">
+                            <p><strong>Виды используемых автотестов:</strong></p>
+                            <ul>
+                                <li>2 года писал end-2-end на аналоге selenium</li>
+                                <li>1,5 года писал end-2-end на bdd фреймворке Akita</li>
+                                <li>В Альфа Банке 1 год тестировал руками триф-апи</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="info-block">
+                        <h2>Опыт работы с API и тестирования бэкенда</h2>
+                        <div class="info-text" id="apiBlock">
+                            <p>REST API начал тестировать руками в Infowatch. На протяжении 2 лет в hh.ru также приходилось тестировать Rest. Инструменты: Postman, SoapUI.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Правая колонка: Сайдбар с действиями -->
+            <aside class="profile-sidebar">
+                <div class="sidebar-actions">
+                    <button class="btn-sidebar">Посмотреть резюме</button>
+                    <button class="btn-sidebar btn-accent">Обсудить сотрудничество</button>
+                    <button class="btn-sidebar">Найти похожего</button>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Портфолио</h3>
+                    <a href="#" class="sidebar-link" id="portfolioLink">Портфолио кандидата</a>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Примеры</h3>
+                    <a href="#" class="sidebar-link">Пример кейс-экономики</a>
+                    <a href="#" class="sidebar-link">Пример отчёта</a>
+                </div>
+
+                <div class="sidebar-stats">
+                    <div class="stat-item">
+                        <span>Открыто контактов:</span>
+                        <strong>5/50</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Посмотрено кандидатов:</span>
+                        <strong>10/100</strong>
+                    </div>
+                    <button class="btn-sidebar-small">Докупить контакты</button>
+                    <button class="btn-sidebar-small">Скрыть из результатов</button>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3 class="footer-heading">ЛИЦА.КАНДИДАТЫ</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Найти кандидата</a></li>
+                        <li><a href="#">Попасть в базу</a></li>
+                        <li><a href="#">О сервисе</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-heading">ЛИЦА.РАБОТА</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Рекрутинг</a></li>
+                        <li><a href="#">Конструктор подбора</a></li>
+                        <li><a href="#">Аналитика подбора</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-heading">О ПОРТАЛЕ</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Обновления</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copyright">ООО «ЛИЦА»</span>
+                <div class="footer-legal">
+                    <a href="#">Реквизиты</a>
+                    <span class="divider">|</span>
+                    <a href="#">Правовая информация</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-window">
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+            <div class="modal-header">
+                <span class="modal-logo-text">ЛИЦА</span>
+                <span class="modal-logo-dot"></span>
+                <span class="modal-logo-text">Кандидаты</span>
+            </div>
+            <h2 class="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
+            <form class="modal-form" id="loginForm">
+                <input type="email" class="modal-input" placeholder="Email" required>
+                <input type="password" class="modal-input" placeholder="Пароль" required>
+                <a href="#" class="forgot-pass">Забыли пароль?</a>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-modal-login">Войти</button>
+                    <button type="button" class="btn-modal-reg">Зарегистрироваться</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Toggle Nav
+        function toggleNav() {
+            const hidden = document.querySelectorAll('.nav-hidden');
+            const more = document.querySelector('.more-li');
+            const hide = document.querySelector('.hide-li');
+            const arrow = document.querySelector('.more-btn .arrow');
+            const isVisible = document.querySelector('.nav-hidden.show');
+            if (!isVisible) {
+                hidden.forEach(i => i.classList.add('show'));
+                more.style.display = 'none';
+                hide.style.display = 'flex';
+            } else {
+                hidden.forEach(i => i.classList.remove('show'));
+                more.style.display = 'flex';
+                hide.style.display = 'none';
+                if (arrow) arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Modal Logic
+        const openBtn = document.getElementById('openModalBtn');
+        const modal = document.getElementById('loginModal');
+        const closeBtn = document.getElementById('closeModalBtn');
+        openBtn?.addEventListener('click', e => { e.stopPropagation(); modal.classList.add('active'); document.body.style.overflow = 'hidden'; });
+        closeBtn?.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow = ''; });
+        modal?.addEventListener('click', e => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } });
+
+        // PROFILE DATA LOADING
+        async function loadProfile() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id') || 1;
+    
+    try {
+        const res = await fetch('candidates.json');
+        const data = await res.json();
+        const candidates = data.candidates || data;
+        const c = candidates.find(user => user.id == id);
+        
+        if (!c) {
+            document.getElementById('profileName').textContent = 'Кандидат не найден';
+            return;
+        }
+
+        // Шапка
+        document.getElementById('profileAvatar').src = c.avatar;
+        document.getElementById('profileName').textContent = c.name;
+        document.getElementById('profileAge').textContent = c.age || 'Возраст не указан';
+        document.getElementById('profileSpecialty').textContent = c.position;
+        document.getElementById('profileLocation').textContent = `📍 ${c.location || 'Не указано'}`;
+        document.getElementById('profileSalary').textContent = `${c.salary.toLocaleString()} ₽`;
+        document.getElementById('profileStatus').textContent = c.tags?.[0] || 'full-time';
+        
+        // Текстовые блоки
+        document.getElementById('reasonBlock').innerHTML = `<p>${c.reason || 'Информация скоро появится.'}</p>`;
+        document.getElementById('generalBlock').innerHTML = `<p>${c.general_info || 'Информация скоро появится.'}</p>`;
+        document.getElementById('testExpBlock').innerHTML = `<p>${c.test_exp || 'Информация скоро появится.'}</p>`;
+        document.getElementById('apiBlock').innerHTML = `<p>${c.api_exp || 'Информация скоро появится.'}</p>`;
+        
+        document.title = `ЛИЦА - ${c.name}`;
+    } catch (err) {
+        console.error('Ошибка загрузки профиля:', err);
+    }
+}
+
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+</html>

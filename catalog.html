@@ -260,27 +260,27 @@
 
         // Отрисовка карточек
         function renderCandidates(candidates) {
-            const grid = document.getElementById('candidatesGrid');
-            if (!grid) return;
-            
-            grid.innerHTML = candidates.map(c => `
-                <div class="candidate-card">
-                    <div class="candidate-badges">
-                        ${c.tags?.map(t => `<span class="badge badge-${t}">${t}</span>`).join('') || ''}
-                    </div>
-                    <div class="candidate-avatar">
-                        <img src="${c.avatar || 'img/default-avatar.png'}" alt="${c.name}">
-                    </div>
-                    <h3 class="candidate-name">${c.name}</h3>
-                    <p class="candidate-position">${c.position}</p>
-                    <div class="candidate-info">
-                        <p class="info-item">Опыт: ${c.experience}</p>
-                        <p class="info-item">Зарплата: от ${c.salary} ₽</p>
-                    </div>
-                    <button class="btn-candidate">Посмотреть справку</button>
-                </div>
-            `).join('');
-        }
+    const grid = document.getElementById('candidatesGrid');
+    if (!grid) return;
+    
+    grid.innerHTML = candidates.map(c => `
+        <div class="candidate-card">
+            <div class="candidate-badges">
+                ${c.tags?.map(t => `<span class="badge badge-${t}">${t}</span>`).join('') || ''}
+            </div>
+            <div class="candidate-avatar">
+                <img src="${c.avatar || 'img/default-avatar.png'}" alt="${c.name}">
+            </div>
+            <h3 class="candidate-name">${c.name}</h3>
+            <p class="candidate-position">${c.position}</p>
+            <div class="candidate-info">
+                <p class="info-item">Опыт: ${c.experience}</p>
+                <p class="info-item">Зарплата: от ${c.salary} ₽</p>
+            </div>
+            <a href="profile.html?id=${c.id}" class="btn-candidate" style="text-decoration: none;">Посмотреть справку</a>
+        </div>
+    `).join('');
+}
 
         // Загрузка при старте
         document.addEventListener('DOMContentLoaded', () => {

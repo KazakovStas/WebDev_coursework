@@ -1167,3 +1167,291 @@ body {
     }
     .candidates-grid { grid-template-columns: 1fr; }
 }
+
+/* === ПРОФИЛЬ КАНДИДАТА === */
+.profile-main {
+    padding: 40px 0;
+    background: var(--bg-body);
+    min-height: 100vh;
+}
+
+.profile-container {
+    display: flex;
+    gap: 24px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.profile-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-sidebar {
+    flex: 0 0 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Карточка шапки профиля */
+.profile-header-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    border: 2px solid transparent;
+    transition: border 0.3s;
+}
+
+.profile-header-card:hover {
+    border-color: var(--accent);
+}
+
+.profile-avatar-section {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profile-avatar-section img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--border);
+}
+
+.profile-status-badge {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background: var(--accent);
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+}
+
+.profile-info-section h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.profile-age {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0 0 8px 0;
+}
+
+.profile-specialty {
+    font-size: 16px;
+    color: var(--text-main);
+    font-weight: 500;
+    margin: 0 0 4px 0;
+}
+
+.profile-location {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0 0 12px 0;
+}
+
+.profile-salary {
+    font-size: 15px;
+    margin: 0 0 16px 0;
+}
+
+.profile-contacts-btn {
+    width: 100%;
+    padding: 12px;
+}
+
+/* Блоки информации */
+.info-block {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.info-block h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: var(--text-main);
+}
+
+.info-text p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0 0 12px 0;
+}
+
+.info-text ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--text-secondary);
+}
+
+.info-text li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.read-more {
+    color: var(--accent-hover);
+    font-size: 14px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-weight: 500;
+}
+
+.read-more:hover { text-decoration: underline; }
+
+/* Сайдбар */
+.sidebar-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-sidebar {
+    width: 100%;
+    padding: 14px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.btn-sidebar:hover {
+    border-color: var(--text-main);
+    background: #f9f9f9;
+}
+
+.btn-accent {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+}
+
+.btn-accent:hover {
+    background: var(--accent-hover);
+}
+
+.sidebar-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.sidebar-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+}
+
+.sidebar-link {
+    display: block;
+    color: var(--accent-hover);
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.sidebar-link:hover { color: var(--text-main); }
+
+.sidebar-stats {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.stat-item strong {
+    color: var(--text-main);
+}
+
+.btn-sidebar-small {
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: var(--text-muted);
+}
+
+.btn-sidebar-small:hover {
+    border-color: var(--text-main);
+    color: var(--text-main);
+}
+
+/* Адаптив профиля */
+@media (max-width: 1024px) {
+    .profile-sidebar {
+        flex: 0 0 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+        padding: 0 16px;
+    }
+    
+    .profile-sidebar {
+        flex: none;
+        width: 100%;
+        order: -1; /* Сайдбар сверху на мобильных */
+    }
+    
+    .profile-header-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .profile-avatar-section img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-main { padding: 20px 0; }
+    
+    .info-block { padding: 16px; }
+    
+    .info-block h2 { font-size: 16px; }
+    
+    .info-text p { font-size: 14px; }
+    
+    .btn-sidebar { padding: 12px; font-size: 14px; }
+}
