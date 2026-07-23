@@ -221,71 +221,97 @@
 
     <!-- SCRIPTS -->
     <script>
-        // Toggle Nav
-        function toggleNav() {
-            const hidden = document.querySelectorAll('.nav-hidden');
-            const more = document.querySelector('.more-li');
-            const hide = document.querySelector('.hide-li');
-            const arrow = document.querySelector('.more-btn .arrow');
-            const isVisible = document.querySelector('.nav-hidden.show');
-            if (!isVisible) {
-                hidden.forEach(i => i.classList.add('show'));
-                more.style.display = 'none';
-                hide.style.display = 'flex';
-            } else {
-                hidden.forEach(i => i.classList.remove('show'));
-                more.style.display = 'flex';
-                hide.style.display = 'none';
-                if (arrow) arrow.style.transform = 'rotate(0deg)';
-            }
+    // === TOGGLE NAV ===
+    function toggleNav() {
+        const hidden = document.querySelectorAll('.nav-hidden');
+        const more = document.querySelector('.more-li');
+        const hide = document.querySelector('.hide-li');
+        const arrow = document.querySelector('.more-btn .arrow');
+        const isVisible = document.querySelector('.nav-hidden.show');
+        if (!isVisible) {
+            hidden.forEach(i => i.classList.add('show'));
+            more.style.display = 'none';
+            hide.style.display = 'flex';
+        } else {
+            hidden.forEach(i => i.classList.remove('show'));
+            more.style.display = 'flex';
+            hide.style.display = 'none';
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
         }
+    }
 
-        // Modal Logic
-        const openBtn = document.getElementById('openModalBtn');
-        const modal = document.getElementById('loginModal');
-        const closeBtn = document.getElementById('closeModalBtn');
-        openBtn?.addEventListener('click', e => { e.stopPropagation(); modal.classList.add('active'); document.body.style.overflow = 'hidden'; });
-        closeBtn?.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow = ''; });
-        modal?.addEventListener('click', e => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } });
+    // === MODAL LOGIC ===
+    const openBtn = document.getElementById('openModalBtn');
+    const modal = document.getElementById('loginModal');
+    const closeBtn = document.getElementById('closeModalBtn');
 
-        // PROFILE DATA LOADING
-        async function loadProfile() {
+    openBtn?.addEventListener('click', e => { 
+        e.stopPropagation(); 
+        modal.classList.add('active'); 
+        document.body.style.overflow = 'hidden'; 
+    });
+    closeBtn?.addEventListener('click', () => { 
+        modal.classList.remove('active'); 
+        document.body.style.overflow = ''; 
+    });
+    modal?.addEventListener('click', e => { 
+        if (e.target === modal) { 
+            modal.classList.remove('active'); 
+            document.body.style.overflow = ''; 
+        } 
+    });
+
+    // === ЗАГРУЗКА ПРОФИЛЯ ===
+    async function loadProfile() {
     const params = new URLSearchParams(window.location.search);
-    const id = params.get('id') || 1;
+    let targetId = params.get('id');
     
+    if (!targetId) {
+        try {
+            const session = JSON.parse(localStorage.getItem('currentUser'));
+            if (session?.candidateId) targetId = String(session.candidateId);
+        } catch(e) {}
+    }
+    
+    targetId = targetId || "1"; // Строка по умолчанию
+
     try {
-        const res = await fetch('candidates.json');
-        const data = await res.json();
-        const candidates = data.candidates || data;
-        const c = candidates.find(user => user.id == id);
+        // Получаем ВСЕХ кандидатов и ищем нужного
+        const res = await fetch('http://localhost:3000/candidates');
+        const candidates = await res.json();
+        
+        // Ищем кандидата по id (сравнение строк)
+        const c = candidates.find(candidate => String(candidate.id) === String(targetId));
         
         if (!c) {
             document.getElementById('profileName').textContent = 'Кандидат не найден';
             return;
         }
 
-        // Шапка
-        document.getElementById('profileAvatar').src = c.avatar;
-        document.getElementById('profileName').textContent = c.name;
-        document.getElementById('profileAge').textContent = c.age || 'Возраст не указан';
-        document.getElementById('profileSpecialty').textContent = c.position;
-        document.getElementById('profileLocation').textContent = `📍 ${c.location || 'Не указано'}`;
-        document.getElementById('profileSalary').textContent = `${c.salary.toLocaleString()} ₽`;
+        // Заполняем данные
+        document.getElementById('profileAvatar').src = c.avatar || 'img/default-avatar.png';
+        document.getElementById('profileName').textContent = c.name || '—';
+        document.getElementById('profileAge').textContent = c.age || '—';
+        document.getElementById('profileSpecialty').textContent = c.position || '—';
+        document.getElementById('profileLocation').textContent = `📍 ${c.location || '—'}`;
+        document.getElementById('profileSalary').textContent = `${Number(c.salary).toLocaleString()} ₽`;
         document.getElementById('profileStatus').textContent = c.tags?.[0] || 'full-time';
-        
-        // Текстовые блоки
-        document.getElementById('reasonBlock').innerHTML = `<p>${c.reason || 'Информация скоро появится.'}</p>`;
-        document.getElementById('generalBlock').innerHTML = `<p>${c.general_info || 'Информация скоро появится.'}</p>`;
-        document.getElementById('testExpBlock').innerHTML = `<p>${c.test_exp || 'Информация скоро появится.'}</p>`;
-        document.getElementById('apiBlock').innerHTML = `<p>${c.api_exp || 'Информация скоро появится.'}</p>`;
-        
         document.title = `ЛИЦА - ${c.name}`;
+
+        document.getElementById('reasonBlock').innerHTML = `<p>${c.reason || '—'}</p>`;
+        document.getElementById('generalBlock').innerHTML = `<p>${c.general_info || '—'}</p>`;
+        document.getElementById('testExpBlock').innerHTML = `<p>${c.test_exp || '—'}</p>`;
+        document.getElementById('apiBlock').innerHTML = `<p>${c.api_exp || '—'}</p>`;
+        
     } catch (err) {
         console.error('Ошибка загрузки профиля:', err);
+        document.getElementById('profileName').textContent = 'Ошибка загрузки';
     }
 }
+    
 
-        document.addEventListener('DOMContentLoaded', loadProfile);
-    </script>
+    // === ВЫЗОВ ПРИ ЗАГРУЗКЕ ===
+    document.addEventListener('DOMContentLoaded', loadProfile);
+</script>
 </body>
 </html>

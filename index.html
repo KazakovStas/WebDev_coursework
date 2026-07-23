@@ -377,8 +377,8 @@
             <h2 class="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
 
             <form class="modal-form" id="loginForm">
-                <input type="email" class="modal-input" placeholder="Email" required autocomplete="email">
-                <input type="password" class="modal-input" placeholder="Пароль" required autocomplete="current-password">
+                <input type="email" id="authEmail" class="modal-input" placeholder="Email" required autocomplete="email">
+<input type="password" id="authPassword" class="modal-input" placeholder="Пароль" required autocomplete="current-password">
                 
                 <a href="#" class="forgot-pass">Забыли пароль?</a>
 
@@ -391,31 +391,121 @@
     </div>
 
     <script>
-        // Логика модального окна
-        const openBtn = document.getElementById('openModalBtn');
-        const modal = document.getElementById('loginModal');
-        const closeBtn = document.getElementById('closeModalBtn');
+    // === ЛОГИКА МОДАЛЬНОГО ОКНА ===
+    const openBtn = document.getElementById('openModalBtn');
+    const modal = document.getElementById('loginModal');
+    const closeBtn = document.getElementById('closeModalBtn');
 
-        // Открыть
-        openBtn.addEventListener('click', () => {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Блокируем скролл
-        });
+    openBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
 
-        // Закрыть (крестик)
-        closeBtn.addEventListener('click', () => {
+    closeBtn?.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    modal?.addEventListener('click', (e) => {
+        if (e.target === modal) {
             modal.classList.remove('active');
             document.body.style.overflow = '';
-        });
+        }
+    });
 
-        // Закрыть (клик по фону)
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
+    // === ЛОГИКА АВТОРИЗАЦИИ ===
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
+            
+            // Ищем элемент для ошибки (создаём если нет)
+            let errorEl = document.querySelector('.auth-error');
+            if (!errorEl) {
+                errorEl = document.createElement('span');
+                errorEl.className = 'auth-error';
+                errorEl.style.cssText = 'color: #d32f2f; font-size: 13px; text-align: center; display: block; margin-top: 8px;';
+                loginForm.appendChild(errorEl);
+            }
+
+            try {
+                // Запрос к JSON Server: ищем пользователя с таким email и паролем
+                const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+                const users = await res.json();
+                
+                if (users.length > 0) {
+                    const user = users[0];
+                    
+                    // ✅ Успех: сохраняем сессию в localStorage
+                    localStorage.setItem('currentUser', JSON.stringify({
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        candidateId: user.candidateId
+                    }));
+                    
+                    // Закрываем модалку, очищаем форму
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    loginForm.reset();
+                    errorEl.style.display = 'none';
+                    
+                    // Обновляем кнопку в хедере
+                    updateHeaderAuth(user);
+                    
+                    // Редирект на профиль этого кандидата
+                    window.location.href = `profile.html?id=${user.candidateId}`;
+                    
+                } else {
+                    // ❌ Ошибка: неверные данные
+                    errorEl.textContent = 'Неверный email или пароль';
+                    errorEl.style.display = 'block';
+                }
+            } catch (err) {
+                console.error('Ошибка входа:', err);
+                errorEl.textContent = 'Ошибка сервера';
+                errorEl.style.display = 'block';
             }
         });
-    </script>
+    }
+
+    // === ОБНОВЛЕНИЕ ХЕДЕРА ПРИ ВХОДЕ ===
+    function updateHeaderAuth(user) {
+        const btn = document.getElementById('openModalBtn');
+        if (btn) {
+            btn.textContent = user.name.split(' ')[0]; // Только имя
+            btn.style.backgroundColor = '#e5e5e5';
+            btn.onclick = (e) => {
+                e.preventDefault();
+                if (confirm(`Выйти из аккаунта ${user.name}?`)) {
+                    localStorage.removeItem('currentUser');
+                    btn.textContent = 'Войти';
+                    btn.style.backgroundColor = '';
+                    btn.onclick = null;
+                    // Восстанавливаем открытие модалки
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    });
+                }
+            };
+        }
+    }
+
+    // === ПРОВЕРКА СЕССИИ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ===
+    document.addEventListener('DOMContentLoaded', () => {
+        const saved = localStorage.getItem('currentUser');
+        if (saved) {
+            const user = JSON.parse(saved);
+            updateHeaderAuth(user);
+        }
+    });
+</script>
     
 </body>
 </html>

@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Анциферов Владимир",
+      "email": "vladimir@lica.ru",
+      "password": "123",
+      "candidateId": 1
+    },
+    {
+      "id": 2,
+      "name": "Сикорская Анна",
+      "email": "anna@lica.ru",
+      "password": "123",
+      "candidateId": 2
+    },
+    {
+      "id": 3,
+      "name": "Демидова Дарья",
+      "email": "daria@lica.ru",
+      "password": "123",
+      "candidateId": 3
+    },
+    {
+      "id": 4,
+      "name": "Харисов Евгений",
+      "email": "evgeny@lica.ru",
+      "password": "123",
+      "candidateId": 4
+    }
+  ],
+  "candidates": [
+    {
+      "id": 1, "name": "Анциферов Владимир", "position": "Директор по маркетингу",
+      "avatar": "img/Avatar1.png", "experience": "13+ лет", "salary": 200000,
+      "category": "marketing", "tags": ["fulltime"], "age": "34 года", "location": "Москва",
+      "reason": "Ищет удалённый формат работы...", "general_info": "13 лет в маркетинге...",
+      "test_exp": "Настройка сквозной аналитики...", "api_exp": "Интеграция с CRM..."
+    },
+    {
+      "id": 2, "name": "Сикорская Анна", "position": "Аналитик",
+      "avatar": "img/Avatar2.png", "experience": "13+ лет", "salary": 150000,
+      "category": "analytics", "tags": ["fulltime"], "age": "31 год", "location": "СПб",
+      "reason": "Хочет работать с Big Data...", "general_info": "Эксперт в BI-системах...",
+      "test_exp": "SQL, Tableau, A/B тесты...", "api_exp": "REST API, вебхуки..."
+    },
+    {
+      "id": 3, "name": "Демидова Дарья", "position": "Брендмейкер",
+      "avatar": "img/Avatar3.png", "experience": "10+ лет", "salary": 100000,
+      "category": "marketing", "tags": ["parttime", "fulltime"], "age": "29 лет", "location": "Казань",
+      "reason": "Ищет креативную свободу...", "general_info": "Создала 5 бренд-айдентик...",
+      "test_exp": "Фокус-группы, юзабилити...", "api_exp": "Маркетинговые API..."
+    },
+    {
+      "id": 4, "name": "Харисов Евгений", "position": "Директор по развитию бизнеса",
+      "avatar": "img/Avatar4.png", "experience": "20+ лет", "salary": 150000,
+      "category": "sales", "tags": ["fulltime"], "age": "42 года", "location": "Екатеринбург",
+      "reason": "Выход на международные рынки...", "general_info": "Вывел 3 компании на прибыль...",
+      "test_exp": "Unit-экономика, гипотезы...", "api_exp": "Платёжные шлюзы, ERP..."
+    }
+  ]
+}
