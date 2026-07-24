@@ -1808,3 +1808,59 @@ body {
     .content-header { flex-direction: column; align-items: flex-start; }
     .projects-grid { grid-template-columns: 1fr; }
 }
+
+/* === БИРЖА ПРОЕКТОВ === */
+.projects-main { padding: 40px 0; background: var(--bg-body); min-height: 100vh; }
+.projects-container { display: flex; gap: 24px; max-width: 1440px; margin: 0 auto; padding: 0 40px; }
+
+/* Сайдбар фильтров */
+.projects-sidebar { flex: 0 0 280px; background: #fff; border-radius: 16px; padding: 24px; height: fit-content; position: sticky; top: 100px; }
+.filters-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.filters-header h2 { font-size: 18px; font-weight: 700; margin: 0; }
+.clear-filters { background: none; border: none; color: var(--text-muted); font-size: 13px; cursor: pointer; }
+.clear-filters:hover { color: var(--text-main); }
+
+.filter-group { margin-bottom: 20px; }
+.filter-group h3 { font-size: 14px; font-weight: 600; margin: 0 0 10px; }
+.checkbox-label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; cursor: pointer; font-size: 14px; color: var(--text-secondary); }
+.checkbox-label input { width: 16px; height: 16px; cursor: pointer; }
+.filter-range { display: flex; gap: 8px; }
+.filter-range input { flex: 1; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; }
+.apply-filters { width: 100%; margin-top: 8px; }
+
+/* Контент */
+.projects-content { flex: 1; }
+.content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.content-header h1 { font-size: 24px; margin: 0; }
+.projects-count { font-size: 15px; color: var(--text-muted); margin: 0; }
+
+/* Карточка проекта */
+.projects-list { display: flex; flex-direction: column; gap: 20px; }
+.project-card-lg { background: #fff; border-radius: 16px; padding: 24px; border: 2px solid transparent; transition: all 0.3s; }
+.project-card-lg:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+.project-header-lg { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+.project-meta-left { display: flex; gap: 10px; align-items: center; }
+.project-category { font-size: 13px; color: var(--text-muted); background: #f5f5f5; padding: 4px 10px; border-radius: 12px; }
+.project-budget { font-size: 18px; font-weight: 700; color: var(--text-main); }
+
+.project-title-lg { font-size: 20px; font-weight: 600; margin: 0 0 10px; }
+.project-desc-lg { font-size: 15px; color: var(--text-secondary); line-height: 1.5; margin: 0 0 16px; }
+
+.project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.tag { font-size: 12px; padding: 4px 10px; background: #f0f0f0; border-radius: 12px; color: var(--text-secondary); }
+.tag-format { background: #E6F4FF; color: #1976D2; }
+
+.project-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 16px; }
+.project-date { font-size: 13px; color: var(--text-muted); }
+.login-hint { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+/* Адаптив */
+@media (max-width: 1024px) {
+    .projects-container { flex-direction: column; padding: 0 20px; }
+    .projects-sidebar { flex: none; width: 100%; position: static; }
+}
+@media (max-width: 480px) {
+    .project-header-lg { flex-direction: column; align-items: flex-start; }
+    .project-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+}
