@@ -1864,3 +1864,80 @@ body {
     .project-header-lg { flex-direction: column; align-items: flex-start; }
     .project-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
 }
+
+/* === ДЕТАЛИ ПРОЕКТА === */
+.project-details-main { padding: 40px 0; background: var(--bg-body); min-height: 100vh; }
+.project-details-container { display: flex; gap: 24px; max-width: 1440px; margin: 0 auto; padding: 0 40px; }
+
+.project-breadcrumb { margin-bottom: 20px; }
+.project-breadcrumb a { color: var(--text-muted); text-decoration: none; font-size: 14px; }
+.project-breadcrumb a:hover { color: var(--text-main); }
+
+.project-details-content { flex: 1; }
+.project-sidebar { flex: 0 0 340px; }
+
+/* Шапка проекта */
+.project-header-details { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+.project-status-large { display: inline-block; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px; text-transform: uppercase; margin-bottom: 12px; }
+.status-open { background: #FFF4CC; color: #8B6914; }
+.status-progress { background: #E6F4FF; color: #1976D2; }
+.status-completed { background: #E8F5E9; color: #388E3C; }
+
+.project-header-details h1 { font-size: 24px; font-weight: 700; margin: 0 0 12px; }
+.project-meta-details { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.project-category-badge { font-size: 13px; color: var(--text-muted); background: #f5f5f5; padding: 6px 12px; border-radius: 12px; }
+.project-budget-large { font-size: 22px; font-weight: 700; color: var(--text-main); }
+
+/* Описание и требования */
+.project-description, .project-requirements, .project-timeline { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+.project-description h3, .project-requirements h3, .project-timeline h3 { font-size: 18px; font-weight: 600; margin: 0 0 16px; }
+.desc-text { font-size: 15px; line-height: 1.7; color: var(--text-secondary); margin: 0; white-space: pre-wrap; }
+
+.skills-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-tag { font-size: 13px; padding: 6px 12px; background: #f0f0f0; border-radius: 12px; color: var(--text-secondary); }
+
+.timeline-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.timeline-item:last-child { border-bottom: none; }
+.timeline-item strong { color: var(--text-main); }
+
+/* Карточка заказчика */
+.client-card { background: #fff; border-radius: 16px; padding: 20px; }
+.client-card h3 { font-size: 16px; margin: 0 0 16px; font-weight: 600; }
+.client-info { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.client-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.client-rating { font-size: 13px; color: var(--text-muted); margin: 0; }
+
+/* Сайдбар действий */
+.action-card { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+.action-card h3 { font-size: 18px; font-weight: 600; margin: 0 0 8px; }
+.action-note { font-size: 14px; color: var(--text-muted); margin: 0 0 20px; }
+
+.apply-form { display: flex; flex-direction: column; gap: 12px; }
+.apply-textarea { width: 100%; min-height: 120px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; font-size: 14px; resize: vertical; font-family: inherit; }
+.apply-textarea:focus { outline: none; border-color: var(--accent); }
+.apply-footer { display: flex; justify-content: space-between; align-items: center; }
+.apply-hint { font-size: 13px; color: var(--text-muted); font-style: italic; }
+.btn-apply { padding: 12px 24px; }
+.btn-apply:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.success-badge, .info-badge { display: inline-block; font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 20px; margin-bottom: 12px; }
+.success-badge { background: #E8F5E9; color: #388E3C; }
+.info-badge { background: #E3F2FD; color: #1976D2; }
+
+.btn-full { width: 100%; margin-bottom: 10px; justify-content: center; }
+.btn-full:last-child { margin-bottom: 0; }
+
+/* Состояния */
+.loading, .not-found { text-align: center; padding: 60px 20px; background: #fff; border-radius: 16px; }
+.not-found h2 { font-size: 20px; margin: 0 0 20px; }
+
+/* Адаптив */
+@media (max-width: 1024px) {
+    .project-details-container { flex-direction: column; padding: 0 20px; }
+    .project-sidebar { flex: none; width: 100%; }
+}
+@media (max-width: 480px) {
+    .project-meta-details { flex-direction: column; align-items: flex-start; }
+    .apply-footer { flex-direction: column; gap: 10px; align-items: stretch; }
+    .btn-apply { width: 100%; }
+}
