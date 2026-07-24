@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЛИЦА - Личный кабинет</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- HEADER (как в index.html) -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-nav">
+                <a href="index.html" class="logo">
+                    <span>ЛИЦА</span>
+                    <div class="logo-icon"></div>
+                </a>
+                <nav>
+                    <ul class="main-nav">
+                        <li><a href="index.html">Кандидаты</a></li>
+                        <li><a href="catalog.html">Найти кандидата</a></li>
+                        <li><a href="#">Попасть в базу</a></li>
+                        <li><a href="#">О сервисе</a></li>
+                        <li><a href="#">Портал</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="search-auth">
+                <div class="search-box">
+                    <img src="img/Search.png" alt="Поиск" class="search-icon">
+                    <input type="text" class="search-input" placeholder="Поиск">
+                </div>
+                
+                <button class="login-btn" id="openModalBtn">Войти</button>
+                
+                <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
+                    <div class="user-profile" id="userProfile">
+                        <span class="user-name" id="userName">Имя</span>
+                        <div class="user-avatar" id="userAvatar">И</div>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="dashboard.html" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Мой профиль
+                        </a>
+                        <button class="dropdown-item logout-btn" id="logoutBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                            Выйти
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <ul class="secondary-nav">
+                <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
+                <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
+                <li><a href="catalog.html?category=design">Дизайнеры</a></li>
+                <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
+                <li class="more-li"><button class="more-btn" onclick="toggleNav()"><span>Ещё</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
+                <li class="hide-li" style="display: none;"><button class="hide-btn" onclick="toggleNav()"><span>Скрыть</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></button></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- MAIN DASHBOARD -->
+    <main class="dashboard-main">
+        <div class="container dashboard-container">
+            
+            <!-- Левая панель: Профиль + Статистика -->
+            <aside class="dashboard-sidebar">
+                <div class="profile-card">
+                    <div class="profile-avatar-lg" id="dashAvatar">А</div>
+                    <h2 id="dashName">Загрузка...</h2>
+                    <p class="profile-email" id="dashEmail">email@lica.ru</p>
+                    <a href="#" class="btn-edit-profile">Редактировать профиль</a>
+                </div>
+
+                <div class="stats-card">
+                    <h3>Статистика</h3>
+                    <div class="stat-row">
+                        <span>Активных проектов:</span>
+                        <strong id="statActive">0</strong>
+                    </div>
+                    <div class="stat-row">
+                        <span>Завершённых:</span>
+                        <strong id="statCompleted">0</strong>
+                    </div>
+                    <div class="stat-row">
+                        <span>Заработано:</span>
+                        <strong id="statEarned">0 ₽</strong>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h3>Быстрые действия</h3>
+                    <button class="btn-action">+ Создать проект</button>
+                    <button class="btn-action">Найти кандидата</button>
+                    <button class="btn-action">Мои отклики</button>
+                </div>
+            </aside>
+
+            <!-- Правая часть: Проекты -->
+            <section class="dashboard-content">
+                <div class="content-header">
+                    <h1>Мои проекты</h1>
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="all">Все</button>
+                        <button class="tab-btn" data-tab="in-progress">В работе</button>
+                        <button class="tab-btn" data-tab="completed">Завершённые</button>
+                        <button class="tab-btn" data-tab="open">Открытые</button>
+                    </div>
+                </div>
+
+                <div id="projectsList" class="projects-grid">
+                    <!-- Проекты загрузятся через JS -->
+                </div>
+
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <p>У вас пока нет проектов</p>
+                    <button class="btn-primary">Создать первый проект</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER (как в index.html) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3 class="footer-heading">ЛИЦА.КАНДИДАТЫ</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Найти кандидата</a></li>
+                        <li><a href="#">Попасть в базу</a></li>
+                        <li><a href="#">О сервисе</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-heading">ЛИЦА.РАБОТА</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Рекрутинг</a></li>
+                        <li><a href="#">Конструктор подбора</a></li>
+                        <li><a href="#">Аналитика подбора</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-heading">О ПОРТАЛЕ</h3>
+                    <ul class="footer-list">
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Обновления</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copyright">ООО «ЛИЦА»</span>
+                <div class="footer-legal">
+                    <a href="#">Реквизиты</a><span class="divider">|</span><a href="#">Правовая информация</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL (как в index.html) -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-window">
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+            <div class="modal-header"><span class="modal-logo-text">ЛИЦА</span><span class="modal-logo-dot"></span><span class="modal-logo-text">Кандидаты</span></div>
+            <h2 class="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
+            <form class="modal-form" id="loginForm">
+                <input type="email" id="authEmail" class="modal-input" placeholder="Email" required>
+                <input type="password" id="authPassword" class="modal-input" placeholder="Пароль" required>
+                <a href="#" class="forgot-pass">Забыли пароль?</a>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-modal-login">Войти</button>
+                    <button type="button" class="btn-modal-reg">Зарегистрироваться</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // === TOGGLE NAV (как везде) ===
+        function toggleNav() { /* ...твой код... */ }
+
+        // === МОДАЛКА И АВТОРИЗАЦИЯ (копируй из index.html) ===
+        // (для краткости не дублирую, вставь свой рабочий код из index.html)
+
+        // === ЗАГРУЗКА ДАННЫХ ДАШБОРДА ===
+        async function loadDashboard() {
+            // 1. Проверяем сессию
+            const saved = localStorage.getItem('currentUser');
+            if (!saved) {
+                window.location.href = 'index.html';
+                return;
+            }
+            const user = JSON.parse(saved);
+
+            // 2. Заполняем профиль
+            document.getElementById('dashName').textContent = user.name;
+            document.getElementById('dashEmail').textContent = user.email;
+            document.getElementById('dashAvatar').textContent = user.name.charAt(0).toUpperCase();
+            document.getElementById('userName').textContent = user.name.split(' ')[0];
+            document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+
+            // 3. Загружаем проекты
+            try {
+                const res = await fetch('http://localhost:3000/jobs');
+                const jobs = await res.json();
+                
+                // Фильтруем: проекты, где пользователь — создатель ИЛИ исполнитель
+                const userJobs = jobs.filter(job => 
+                    job.creatorId == user.candidateId || job.applicantId == user.candidateId
+                );
+
+                renderProjects(userJobs);
+                updateStats(userJobs);
+                
+            } catch (err) {
+                console.error('Ошибка загрузки проектов:', err);
+                document.getElementById('projectsList').innerHTML = '<p>Не удалось загрузить проекты</p>';
+            }
+        }
+
+        // Отрисовка карточек проектов
+        function renderProjects(jobs, filter = 'all') {
+            const list = document.getElementById('projectsList');
+            const empty = document.getElementById('emptyState');
+            
+            const filtered = filter === 'all' ? jobs : jobs.filter(j => j.status === filter);
+            
+            if (filtered.length === 0) {
+                list.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            }
+            
+            list.style.display = 'grid';
+            empty.style.display = 'none';
+            
+            list.innerHTML = filtered.map(job => {
+                const isCreator = job.creatorId == JSON.parse(localStorage.getItem('currentUser'))?.candidateId;
+                const statusText = {
+                    'open': 'Открыт',
+                    'in-progress': 'В работе',
+                    'completed': 'Завершён'
+                }[job.status] || job.status;
+                
+                const statusClass = {
+                    'open': 'status-open',
+                    'in-progress': 'status-progress',
+                    'completed': 'status-completed'
+                }[job.status] || '';
+                
+                return `
+                    <div class="project-card">
+                        <div class="project-header">
+                            <span class="project-status ${statusClass}">${statusText}</span>
+                            <span class="project-date">${new Date(job.createdAt).toLocaleDateString('ru-RU')}</span>
+                        </div>
+                        <h3 class="project-title">${job.title}</h3>
+                        <p class="project-desc">${job.description}</p>
+                        <div class="project-meta">
+                            <span>Бюджет: <strong>${job.budget.toLocaleString()} ₽</strong></span>
+                            <span>Срок: ${new Date(job.deadline).toLocaleDateString('ru-RU')}</span>
+                        </div>
+                        <div class="project-actions">
+                            ${isCreator 
+                                ? `<button class="btn-sm">Редактировать</button>` 
+                                : `<button class="btn-sm">Связаться с заказчиком</button>`
+                            }
+                            <button class="btn-sm btn-outline">Детали</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Обновление статистики
+        function updateStats(jobs) {
+            const active = jobs.filter(j => j.status === 'in-progress').length;
+            const completed = jobs.filter(j => j.status === 'completed').length;
+            const earned = jobs
+                .filter(j => j.status === 'completed' && j.applicantId == JSON.parse(localStorage.getItem('currentUser'))?.candidateId)
+                .reduce((sum, j) => sum + j.budget, 0);
+            
+            document.getElementById('statActive').textContent = active;
+            document.getElementById('statCompleted').textContent = completed;
+            document.getElementById('statEarned').textContent = `${earned.toLocaleString()} ₽`;
+        }
+
+        // Переключение табов
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDashboard();
+            
+            // Табы
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    const filter = e.target.dataset.tab;
+                    // Перезагружаем с фильтром (в реальном проекте — оптимизировать)
+                    loadDashboard().then(() => {
+                        const jobs = JSON.parse(localStorage.getItem('dashboardJobs') || '[]');
+                        renderProjects(jobs, filter);
+                    });
+                });
+            });
+            
+           const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
+            
+            let errorEl = document.querySelector('.auth-error');
+            if (!errorEl) {
+                errorEl = document.createElement('span');
+                errorEl.className = 'auth-error';
+                errorEl.style.cssText = 'color: #d32f2f; font-size: 13px; text-align: center; display: block; margin-top: 8px;';
+                loginForm.appendChild(errorEl);
+            }
+
+            try {
+                const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
+                const users = await res.json();
+                
+                if (users.length > 0 && users[0].password === password) {
+                    const user = users[0];
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    loginForm.reset();
+                    errorEl.style.display = 'none';
+                    
+                    // Показываем профиль
+                    showUserProfile(user);
+                } else {
+                    errorEl.textContent = 'Неверный email или пароль';
+                    errorEl.style.display = 'block';
+                }
+            } catch (err) {
+                console.error('Ошибка входа:', err);
+                errorEl.textContent = 'Ошибка сервера';
+                errorEl.style.display = 'block';
+            }
+        });
+    }
+
+    // === ПОКАЗ ПРОФИЛЯ ===
+    function showUserProfile(user) {
+        // Скрываем кнопку "Войти"
+        if (openModalBtn) openModalBtn.style.display = 'none';
+        
+        // Показываем блок профиля
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const userDropdown = document.getElementById('userDropdown');
+        const profileLink = document.getElementById('profileLink');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        if (userProfileWrapper && userName && userAvatar) {
+            userProfileWrapper.style.display = 'flex';
+            
+            // Берём только ИМЯ (первое слово)
+            const firstName = user.name.split(' ')[0];
+            userName.textContent = firstName;
+            userAvatar.textContent = firstName.charAt(0).toUpperCase();
+            
+            // Устанавливаем ссылку на профиль с candidateId
+            if (profileLink && user.candidateId) {
+                profileLink.href = `profile.html?id=${user.candidateId}`;
+            }
+        }
+        
+        // Открытие/закрытие меню
+        const userProfile = document.getElementById('userProfile');
+        if (userProfile) {
+            userProfile.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (userDropdown) {
+                    userDropdown.classList.toggle('show');
+                }
+            });
+        }
+        
+        // Закрытие меню при клике вне его
+        document.addEventListener('click', (e) => {
+            if (userDropdown && !e.target.closest('.user-profile-wrapper')) {
+                userDropdown.classList.remove('show');
+            }
+        });
+        
+        // Выход
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (confirm('Выйти из аккаунта?')) {
+                    localStorage.removeItem('currentUser');
+                    hideUserProfile();
+                    if (userDropdown) userDropdown.classList.remove('show');
+                }
+            });
+        }
+    }
+
+    // === СКРЫТИЕ ПРОФИЛЯ ===
+    function hideUserProfile() {
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        if (userProfileWrapper) userProfileWrapper.style.display = 'none';
+        if (openModalBtn) {
+            openModalBtn.style.display = 'block';
+            openModalBtn.textContent = 'Войти';
+            openModalBtn.style.backgroundColor = '';
+        }
+    }
+
+    // === ПРОВЕРКА СЕССИИ ПРИ ЗАГРУЗКЕ ===
+    document.addEventListener('DOMContentLoaded', () => {
+        const saved = localStorage.getItem('currentUser');
+        if (saved) {
+            const user = JSON.parse(saved);
+            showUserProfile(user);
+        }
+    });
+        });
+    </script>
+</body>
+</html>

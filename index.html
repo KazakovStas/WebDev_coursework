@@ -42,13 +42,13 @@
         
         <!-- Выпадающее меню -->
         <div class="user-dropdown" id="userDropdown">
-            <a href="profile.html" class="dropdown-item" id="profileLink">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                Мой профиль
-            </a>
+            <a href="dashboard.html" class="dropdown-item" id="profileLink">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+    Мой профиль
+</a>
             <button class="dropdown-item logout-btn" id="logoutBtn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -528,9 +528,10 @@
             userAvatar.textContent = firstName.charAt(0).toUpperCase();
             
             // Устанавливаем ссылку на профиль с candidateId
-            if (profileLink && user.candidateId) {
-                profileLink.href = `profile.html?id=${user.candidateId}`;
-            }
+            // Ссылка на дашборд (статичная)
+if (profileLink) {
+    profileLink.href = 'dashboard.html';
+}
         }
         
         // Открытие/закрытие меню
