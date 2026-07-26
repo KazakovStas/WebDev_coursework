@@ -176,134 +176,225 @@
 
     <!-- SCRIPTS -->
     <script>
-    // === 1. РАБОЧАЯ АВТОРИЗАЦИЯ (из index.html) ===
+    // === TOGGLE NAV (если нужно) ===
+    function toggleNav() {
+        const hidden = document.querySelectorAll('.nav-hidden');
+        const more = document.querySelector('.more-li');
+        const hide = document.querySelector('.hide-li');
+        const arrow = document.querySelector('.more-btn .arrow');
+        const isVisible = document.querySelector('.nav-hidden.show');
+        if (!isVisible) {
+            hidden.forEach(i => i.classList.add('show'));
+            more.style.display = 'none';
+            hide.style.display = 'flex';
+        } else {
+            hidden.forEach(i => i.classList.remove('show'));
+            more.style.display = 'flex';
+            hide.style.display = 'none';
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
+        }
+    }
+
+    // === ЭЛЕМЕНТЫ ===
     const openModalBtn = document.getElementById('openModalBtn');
     const modal = document.getElementById('loginModal');
     const closeBtn = document.getElementById('closeModalBtn');
     const loginForm = document.getElementById('loginForm');
 
-    openModalBtn?.addEventListener('click', () => { modal.classList.add('active'); document.body.style.overflow = 'hidden'; });
-    closeBtn?.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow = ''; });
-    modal?.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } });
+    // === ФУНКЦИИ ПРОФИЛЯ (из index.html) ===
+    function showUserProfile(user) {
+        if (openModalBtn) openModalBtn.style.display = 'none';
+        
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const userDropdown = document.getElementById('userDropdown');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        if (userProfileWrapper && userName && userAvatar) {
+            userProfileWrapper.style.display = 'flex';
+            const firstName = user.name.split(' ')[0];
+            userName.textContent = firstName;
+            userAvatar.textContent = firstName.charAt(0).toUpperCase();
+        }
+        
+        // Меню
+        const userProfile = document.getElementById('userProfile');
+        if (userProfile && userDropdown) {
+            userProfile.onclick = (e) => {
+                e.stopPropagation();
+                userDropdown.classList.toggle('show');
+            };
+        }
+        
+        document.addEventListener('click', (e) => {
+            if (userDropdown && !e.target.closest('.user-profile-wrapper')) {
+                userDropdown.classList.remove('show');
+            }
+        });
+        
+        // Выход
+        if (logoutBtn) {
+            logoutBtn.onclick = (e) => {
+                e.preventDefault();
+                if (confirm('Выйти из аккаунта?')) {
+                    localStorage.removeItem('currentUser');
+                    hideUserProfile();
+                    if (userDropdown) userDropdown.classList.remove('show');
+                    loadProjects(); // Обновляем кнопки после выхода
+                }
+            };
+        }
+    }
 
+    function hideUserProfile() {
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        if (userProfileWrapper) userProfileWrapper.style.display = 'none';
+        if (openModalBtn) {
+            openModalBtn.style.display = 'block';
+            openModalBtn.textContent = 'Войти';
+            openModalBtn.style.backgroundColor = '';
+        }
+    }
+
+    // === МОДАЛКА ===
+    openModalBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    closeBtn?.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    modal?.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // === АВТОРИЗАЦИЯ ===
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('authEmail').value.trim();
             const password = document.getElementById('authPassword').value.trim();
+            
             let errorEl = document.querySelector('.auth-error');
-            if (!errorEl) { errorEl = document.createElement('span'); errorEl.className = 'auth-error'; errorEl.style.cssText = 'color: #d32f2f; font-size: 13px; text-align: center; display: block; margin-top: 8px;'; loginForm.appendChild(errorEl); }
+            if (!errorEl) {
+                errorEl = document.createElement('span');
+                errorEl.className = 'auth-error';
+                errorEl.style.cssText = 'color: #d32f2f; font-size: 13px; text-align: center; display: block; margin-top: 8px;';
+                loginForm.appendChild(errorEl);
+            }
 
             try {
                 const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
                 const users = await res.json();
+                
                 if (users.length > 0 && users[0].password === password) {
                     const user = users[0];
                     localStorage.setItem('currentUser', JSON.stringify(user));
-                    modal.classList.remove('active'); document.body.style.overflow = ''; loginForm.reset(); errorEl.style.display = 'none';
+                    
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    loginForm.reset();
+                    errorEl.style.display = 'none';
+                    
                     showUserProfile(user);
-                    loadProjects(); // Перезагружаем проекты, чтобы обновить кнопки
-                } else { errorEl.textContent = 'Неверный email или пароль'; errorEl.style.display = 'block'; }
-            } catch (err) { console.error(err); errorEl.textContent = 'Ошибка сервера'; errorEl.style.display = 'block'; }
+                    loadProjects(); // Обновляем проекты после входа
+                } else {
+                    errorEl.textContent = 'Неверный email или пароль';
+                    errorEl.style.display = 'block';
+                }
+            } catch (err) {
+                console.error('Ошибка входа:', err);
+                errorEl.textContent = 'Ошибка сервера';
+                errorEl.style.display = 'block';
+            }
         });
     }
 
-    function showUserProfile(user) {
-        if (openModalBtn) openModalBtn.style.display = 'none';
-        const wrap = document.getElementById('userProfileWrapper');
-        const nameEl = document.getElementById('userName');
-        const avatarEl = document.getElementById('userAvatar');
-        if (wrap && nameEl && avatarEl) { wrap.style.display = 'flex'; nameEl.textContent = user.name.split(' ')[0]; avatarEl.textContent = user.name.charAt(0).toUpperCase(); }
-        
-        const dropdown = document.getElementById('userDropdown');
-        document.getElementById('userProfile')?.addEventListener('click', (e) => { e.stopPropagation(); dropdown?.classList.toggle('show'); });
-        document.addEventListener('click', (e) => { if (dropdown && !e.target.closest('.user-profile-wrapper')) dropdown.classList.remove('show'); });
-        
-        document.getElementById('logoutBtn')?.addEventListener('click', () => { if (confirm('Выйти?')) { localStorage.removeItem('currentUser'); hideUserProfile(); dropdown?.classList.remove('show'); } });
-    }
-
-    function hideUserProfile() {
-        const wrap = document.getElementById('userProfileWrapper');
-        if (wrap) wrap.style.display = 'none';
-        if (openModalBtn) { openModalBtn.style.display = 'block'; openModalBtn.textContent = 'Войти'; openModalBtn.style.backgroundColor = ''; }
-    }
-
-    // === 2. ПРОЕКТЫ И ФИЛЬТРЫ ===
+    // === ПРОЕКТЫ ===
     let allJobs = [];
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     async function loadProjects() {
-    try {
-        const res = await fetch('http://localhost:3000/jobs');
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        // Убеждаемся, что данные — массив
-        allJobs = Array.isArray(data) ? data : [];
-        applyFilters();
-    } catch (err) { 
-        console.error('❌ Ошибка загрузки проектов:', err); 
-        allJobs = [];
-        renderProjects([]);
+        // 🔥 Читаем currentUser ЗДЕСЬ, внутри функции, чтобы было актуально
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        try {
+            const res = await fetch('http://localhost:3000/jobs');
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            allJobs = Array.isArray(data) ? data : [];
+            applyFilters(); // Перерисовываем с актуальным currentUser
+        } catch (err) { 
+            console.error('❌ Ошибка загрузки проектов:', err); 
+            allJobs = [];
+            renderProjects([]);
+        }
     }
-}
 
-   function renderProjects(jobs) {
-    // 🔧 ЗАЩИТА: если jobs не массив — показываем пустое состояние
-    if (!jobs || !Array.isArray(jobs)) {
-        console.warn('⚠️ Данные не загрузились:', jobs);
+    function renderProjects(jobs) {
+        // 🔥 Читаем currentUser ЗДЕСЬ для кнопок
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        if (!jobs || !Array.isArray(jobs)) {
+            const list = document.getElementById('projectsList');
+            const empty = document.getElementById('emptyState');
+            const count = document.getElementById('projectsCount');
+            if (list) list.innerHTML = '';
+            if (empty) empty.style.display = 'block';
+            if (count) count.textContent = '0';
+            return;
+        }
+
         const list = document.getElementById('projectsList');
         const empty = document.getElementById('emptyState');
         const count = document.getElementById('projectsCount');
-        if (list) list.innerHTML = '';
-        if (empty) empty.style.display = 'block';
-        if (count) count.textContent = '0';
-        return;
-    }
-
-    const list = document.getElementById('projectsList');
-    const empty = document.getElementById('emptyState');
-    const count = document.getElementById('projectsCount');
-    
-    if (jobs.length === 0) { 
-        list.style.display = 'none'; 
-        empty.style.display = 'block'; 
-        count.textContent = '0'; 
-        return; 
-    }
-    
-    list.style.display = 'flex'; 
-    empty.style.display = 'none'; 
-    count.textContent = jobs.length;
-    
-    list.innerHTML = jobs.map(job => {
-        const statusMap = {'open': 'Открыт', 'in-progress': 'В работе', 'completed': 'Завершён'};
-        const formatMap = {'remote': 'Удалённо', 'fulltime': 'Full-time', 'parttime': 'Part-time'};
-        const catMap = {'development': 'Разработка', 'marketing': 'Маркетинг', 'design': 'Дизайн', 'analytics': 'Аналитика'};
         
-        return `
-            <div class="project-card-lg">
-                <div class="project-header-lg">
-                    <div class="project-meta-left">
-                        <span class="project-status status-${job.status}">${statusMap[job.status] || job.status}</span>
-                        <span class="project-category">${catMap[job.category] || job.category}</span>
+        if (jobs.length === 0) { 
+            list.style.display = 'none'; 
+            empty.style.display = 'block'; 
+            count.textContent = '0'; 
+            return; 
+        }
+        
+        list.style.display = 'flex'; 
+        empty.style.display = 'none'; 
+        count.textContent = jobs.length;
+        
+        list.innerHTML = jobs.map(job => {
+            const statusMap = {'open': 'Открыт', 'in-progress': 'В работе', 'completed': 'Завершён'};
+            const formatMap = {'remote': 'Удалённо', 'fulltime': 'Full-time', 'parttime': 'Part-time'};
+            const catMap = {'development': 'Разработка', 'marketing': 'Маркетинг', 'design': 'Дизайн', 'analytics': 'Аналитика'};
+            
+            return `
+                <div class="project-card-lg">
+                    <div class="project-header-lg">
+                        <div class="project-meta-left">
+                            <span class="project-status status-${job.status}">${statusMap[job.status] || job.status}</span>
+                            <span class="project-category">${catMap[job.category] || job.category}</span>
+                        </div>
+                        <span class="project-budget">${job.budget?.toLocaleString() || '0'} ₽</span>
                     </div>
-                    <span class="project-budget">${job.budget?.toLocaleString() || '0'} ₽</span>
+                    <h3 class="project-title-lg">${job.title || 'Без названия'}</h3>
+                    <p class="project-desc-lg">${(job.description || '').length > 180 ? (job.description || '').substring(0, 180) + '...' : (job.description || '')}</p>
+                    <div class="project-tags">
+                        ${(job.skills || []).map(s => `<span class="tag">${s}</span>`).join('')}
+                        <span class="tag tag-format">${formatMap[job.workFormat] || ''}</span>
+                    </div>
+                    <div class="project-footer">
+                        <span class="project-date">Срок: ${job.deadline ? new Date(job.deadline).toLocaleDateString('ru-RU') : '—'}</span>
+                        ${currentUser ? `<a href="project-details.html?id=${job.id}" class="btn-sm btn-primary">Откликнуться</a>` : `<span class="login-hint">Войдите, чтобы откликнуться</span>`}
+                    </div>
                 </div>
-                <h3 class="project-title-lg">${job.title || 'Без названия'}</h3>
-                <p class="project-desc-lg">${(job.description || '').length > 180 ? (job.description || '').substring(0, 180) + '...' : (job.description || '')}</p>
-                <div class="project-tags">
-                    ${(job.skills || []).map(s => `<span class="tag">${s}</span>`).join('')}
-                    <span class="tag tag-format">${formatMap[job.workFormat] || ''}</span>
-                </div>
-                <div class="project-footer">
-                    <span class="project-date">Срок: ${job.deadline ? new Date(job.deadline).toLocaleDateString('ru-RU') : '—'}</span>
-                    ${currentUser ? `<a href="project-details.html?id=${job.id}" class="btn-sm btn-primary">Откликнуться</a>` : `<span class="login-hint">Войдите, чтобы откликнуться</span>`}
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-    
+            `;
+        }).join('');
+    }
 
     function applyFilters() {
         const cats = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(i => i.value);
@@ -327,11 +418,20 @@
         renderProjects(allJobs);
     }
 
-    // === 3. ИНИЦИАЛИЗАЦИЯ ===
+    // === ИНИЦИАЛИЗАЦИЯ ===
     document.addEventListener('DOMContentLoaded', () => {
-        if (currentUser) showUserProfile(currentUser);
+        // 🔥 Проверяем сессию при загрузке
+        const saved = localStorage.getItem('currentUser');
+        if (saved) {
+            try {
+                const user = JSON.parse(saved);
+                showUserProfile(user);
+            } catch(e) { console.error('Ошибка сессии:', e); }
+        }
+        
+        // Загружаем проекты
         loadProjects();
     });
-    </script>
+</script>
 </body>
 </html>

@@ -183,139 +183,107 @@
 
     <!-- SCRIPTS -->
     <script>
-        // === TOGGLE NAV (как везде) ===
-        function toggleNav() { /* ...твой код... */ }
-
-        // === МОДАЛКА И АВТОРИЗАЦИЯ (копируй из index.html) ===
-        // (для краткости не дублирую, вставь свой рабочий код из index.html)
-
-        // === ЗАГРУЗКА ДАННЫХ ДАШБОРДА ===
-        async function loadDashboard() {
-            // 1. Проверяем сессию
-            const saved = localStorage.getItem('currentUser');
-            if (!saved) {
-                window.location.href = 'index.html';
-                return;
-            }
-            const user = JSON.parse(saved);
-
-            // 2. Заполняем профиль
-            document.getElementById('dashName').textContent = user.name;
-            document.getElementById('dashEmail').textContent = user.email;
-            document.getElementById('dashAvatar').textContent = user.name.charAt(0).toUpperCase();
-            document.getElementById('userName').textContent = user.name.split(' ')[0];
-            document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
-
-            // 3. Загружаем проекты
-            try {
-                const res = await fetch('http://localhost:3000/jobs');
-                const jobs = await res.json();
-                
-                // Фильтруем: проекты, где пользователь — создатель ИЛИ исполнитель
-                const userJobs = jobs.filter(job => 
-                    job.creatorId == user.candidateId || job.applicantId == user.candidateId
-                );
-
-                renderProjects(userJobs);
-                updateStats(userJobs);
-                
-            } catch (err) {
-                console.error('Ошибка загрузки проектов:', err);
-                document.getElementById('projectsList').innerHTML = '<p>Не удалось загрузить проекты</p>';
-            }
+    // === TOGGLE NAV ===
+    function toggleNav() {
+        const hidden = document.querySelectorAll('.nav-hidden');
+        const more = document.querySelector('.more-li');
+        const hide = document.querySelector('.hide-li');
+        const arrow = document.querySelector('.more-btn .arrow');
+        const isVisible = document.querySelector('.nav-hidden.show');
+        if (!isVisible) {
+            hidden.forEach(i => i.classList.add('show'));
+            more.style.display = 'none';
+            hide.style.display = 'flex';
+        } else {
+            hidden.forEach(i => i.classList.remove('show'));
+            more.style.display = 'flex';
+            hide.style.display = 'none';
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
         }
+    }
 
-        // Отрисовка карточек проектов
-        function renderProjects(jobs, filter = 'all') {
-            const list = document.getElementById('projectsList');
-            const empty = document.getElementById('emptyState');
-            
-            const filtered = filter === 'all' ? jobs : jobs.filter(j => j.status === filter);
-            
-            if (filtered.length === 0) {
-                list.style.display = 'none';
-                empty.style.display = 'block';
-                return;
+    // === ЭЛЕМЕНТЫ (в самом верху!) ===
+    const openModalBtn = document.getElementById('openModalBtn');
+    const modal = document.getElementById('loginModal');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const loginForm = document.getElementById('loginForm');
+
+    // === ФУНКЦИИ ПРОФИЛЯ ===
+    function showUserProfile(user) {
+        if (openModalBtn) openModalBtn.style.display = 'none';
+        
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const userDropdown = document.getElementById('userDropdown');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        if (userProfileWrapper && userName && userAvatar) {
+            userProfileWrapper.style.display = 'flex';
+            const firstName = user.name.split(' ')[0];
+            userName.textContent = firstName;
+            userAvatar.textContent = firstName.charAt(0).toUpperCase();
+        }
+        
+        const userProfile = document.getElementById('userProfile');
+        if (userProfile && userDropdown) {
+            userProfile.onclick = (e) => {
+                e.stopPropagation();
+                userDropdown.classList.toggle('show');
+            };
+        }
+        
+        document.addEventListener('click', (e) => {
+            if (userDropdown && !e.target.closest('.user-profile-wrapper')) {
+                userDropdown.classList.remove('show');
             }
-            
-            list.style.display = 'grid';
-            empty.style.display = 'none';
-            
-            list.innerHTML = filtered.map(job => {
-                const isCreator = job.creatorId == JSON.parse(localStorage.getItem('currentUser'))?.candidateId;
-                const statusText = {
-                    'open': 'Открыт',
-                    'in-progress': 'В работе',
-                    'completed': 'Завершён'
-                }[job.status] || job.status;
-                
-                const statusClass = {
-                    'open': 'status-open',
-                    'in-progress': 'status-progress',
-                    'completed': 'status-completed'
-                }[job.status] || '';
-                
-                return `
-                    <div class="project-card">
-                        <div class="project-header">
-                            <span class="project-status ${statusClass}">${statusText}</span>
-                            <span class="project-date">${new Date(job.createdAt).toLocaleDateString('ru-RU')}</span>
-                        </div>
-                        <h3 class="project-title">${job.title}</h3>
-                        <p class="project-desc">${job.description}</p>
-                        <div class="project-meta">
-                            <span>Бюджет: <strong>${job.budget.toLocaleString()} ₽</strong></span>
-                            <span>Срок: ${new Date(job.deadline).toLocaleDateString('ru-RU')}</span>
-                        </div>
-                        <div class="project-actions">
-                            ${isCreator 
-                                ? `<button class="btn-sm">Редактировать</button>` 
-                                : `<button class="btn-sm">Связаться с заказчиком</button>`
-                            }
-                            <button class="btn-sm btn-outline">Детали</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+        });
+        
+        if (logoutBtn) {
+            logoutBtn.onclick = (e) => {
+                e.preventDefault();
+                if (confirm('Выйти из аккаунта?')) {
+                    localStorage.removeItem('currentUser');
+                    hideUserProfile();
+                    if (userDropdown) userDropdown.classList.remove('show');
+                }
+            };
         }
+    }
 
-        // Обновление статистики
-        function updateStats(jobs) {
-            const active = jobs.filter(j => j.status === 'in-progress').length;
-            const completed = jobs.filter(j => j.status === 'completed').length;
-            const earned = jobs
-                .filter(j => j.status === 'completed' && j.applicantId == JSON.parse(localStorage.getItem('currentUser'))?.candidateId)
-                .reduce((sum, j) => sum + j.budget, 0);
-            
-            document.getElementById('statActive').textContent = active;
-            document.getElementById('statCompleted').textContent = completed;
-            document.getElementById('statEarned').textContent = `${earned.toLocaleString()} ₽`;
+    function hideUserProfile() {
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        if (userProfileWrapper) userProfileWrapper.style.display = 'none';
+        if (openModalBtn) {
+            openModalBtn.style.display = 'block';
+            openModalBtn.textContent = 'Войти';
+            openModalBtn.style.backgroundColor = '';
         }
+    }
 
-        // Переключение табов
-        document.addEventListener('DOMContentLoaded', () => {
-            loadDashboard();
-            
-            // Табы
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    e.target.classList.add('active');
-                    
-                    const filter = e.target.dataset.tab;
-                    // Перезагружаем с фильтром (в реальном проекте — оптимизировать)
-                    loadDashboard().then(() => {
-                        const jobs = JSON.parse(localStorage.getItem('dashboardJobs') || '[]');
-                        renderProjects(jobs, filter);
-                    });
-                });
-            });
-            
-           const loginForm = document.getElementById('loginForm');
+    // === МОДАЛКА ===
+    openModalBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    closeBtn?.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    modal?.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // === АВТОРИЗАЦИЯ ===
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const email = document.getElementById('authEmail').value.trim();
             const password = document.getElementById('authPassword').value.trim();
             
@@ -340,8 +308,8 @@
                     loginForm.reset();
                     errorEl.style.display = 'none';
                     
-                    // Показываем профиль
                     showUserProfile(user);
+                    loadDashboard(); // 🔥 Перезагружаем дашборд после входа
                 } else {
                     errorEl.textContent = 'Неверный email или пароль';
                     errorEl.style.display = 'block';
@@ -354,84 +322,133 @@
         });
     }
 
-    // === ПОКАЗ ПРОФИЛЯ ===
-    function showUserProfile(user) {
-        // Скрываем кнопку "Войти"
-        if (openModalBtn) openModalBtn.style.display = 'none';
-        
-        // Показываем блок профиля
-        const userProfileWrapper = document.getElementById('userProfileWrapper');
-        const userName = document.getElementById('userName');
-        const userAvatar = document.getElementById('userAvatar');
-        const userDropdown = document.getElementById('userDropdown');
-        const profileLink = document.getElementById('profileLink');
-        const logoutBtn = document.getElementById('logoutBtn');
-        
-        if (userProfileWrapper && userName && userAvatar) {
-            userProfileWrapper.style.display = 'flex';
-            
-            // Берём только ИМЯ (первое слово)
-            const firstName = user.name.split(' ')[0];
-            userName.textContent = firstName;
-            userAvatar.textContent = firstName.charAt(0).toUpperCase();
-            
-            // Устанавливаем ссылку на профиль с candidateId
-            if (profileLink && user.candidateId) {
-                profileLink.href = `profile.html?id=${user.candidateId}`;
-            }
+    // === ДАШБОРД: ЗАГРУЗКА ПРОЕКТОВ ===
+    let allJobs = [];
+
+    async function loadDashboard() {
+        // 🔥 Проверяем сессию
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'index.html';
+            return;
         }
-        
-        // Открытие/закрытие меню
-        const userProfile = document.getElementById('userProfile');
-        if (userProfile) {
-            userProfile.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (userDropdown) {
-                    userDropdown.classList.toggle('show');
-                }
-            });
-        }
-        
-        // Закрытие меню при клике вне его
-        document.addEventListener('click', (e) => {
-            if (userDropdown && !e.target.closest('.user-profile-wrapper')) {
-                userDropdown.classList.remove('show');
-            }
-        });
-        
-        // Выход
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (confirm('Выйти из аккаунта?')) {
-                    localStorage.removeItem('currentUser');
-                    hideUserProfile();
-                    if (userDropdown) userDropdown.classList.remove('show');
-                }
-            });
+
+        // Заполняем профиль в сайдбаре
+        document.getElementById('dashName').textContent = currentUser.name;
+        document.getElementById('dashEmail').textContent = currentUser.email;
+        document.getElementById('dashAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+
+        // Загружаем проекты
+        try {
+            const res = await fetch('http://localhost:3000/jobs');
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            allJobs = await res.json();
+            
+            // Фильтруем проекты пользователя
+            const userJobs = allJobs.filter(job => 
+                job.creatorId == currentUser.candidateId || job.applicantId == currentUser.candidateId
+            );
+            
+            renderProjects(userJobs, 'all');
+            updateStats(userJobs, currentUser.candidateId);
+            
+        } catch (err) {
+            console.error('Ошибка загрузки проектов:', err);
+            document.getElementById('projectsList').innerHTML = '<p>Не удалось загрузить проекты</p>';
         }
     }
 
-    // === СКРЫТИЕ ПРОФИЛЯ ===
-    function hideUserProfile() {
-        const userProfileWrapper = document.getElementById('userProfileWrapper');
-        if (userProfileWrapper) userProfileWrapper.style.display = 'none';
-        if (openModalBtn) {
-            openModalBtn.style.display = 'block';
-            openModalBtn.textContent = 'Войти';
-            openModalBtn.style.backgroundColor = '';
+    // Отрисовка карточек
+    function renderProjects(jobs, filter = 'all') {
+        const list = document.getElementById('projectsList');
+        const empty = document.getElementById('emptyState');
+        
+        const filtered = filter === 'all' ? jobs : jobs.filter(j => j.status === filter);
+        
+        if (filtered.length === 0) {
+            list.style.display = 'none';
+            empty.style.display = 'block';
+            return;
         }
+        
+        list.style.display = 'grid';
+        empty.style.display = 'none';
+        
+        // 🔥 Читаем currentUser здесь для кнопок
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        list.innerHTML = filtered.map(job => {
+            const isCreator = job.creatorId == currentUser?.candidateId;
+            const statusText = {'open':'Открыт','in-progress':'В работе','completed':'Завершён'}[job.status] || job.status;
+            const statusClass = {'open':'status-open','in-progress':'status-progress','completed':'status-completed'}[job.status] || '';
+            
+            return `
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-status ${statusClass}">${statusText}</span>
+                        <span class="project-date">${new Date(job.createdAt).toLocaleDateString('ru-RU')}</span>
+                    </div>
+                    <h3 class="project-title">${job.title}</h3>
+                    <p class="project-desc">${job.description}</p>
+                    <div class="project-meta">
+                        <span>Бюджет: <strong>${job.budget.toLocaleString()} ₽</strong></span>
+                        <span>Срок: ${new Date(job.deadline).toLocaleDateString('ru-RU')}</span>
+                    </div>
+                    <div class="project-actions">
+                        ${isCreator 
+                            ? `<button class="btn-sm">Редактировать</button>` 
+                            : `<button class="btn-sm">Связаться с заказчиком</button>`
+                        }
+                        <a href="project-details.html?id=${job.id}" class="btn-sm btn-outline">Детали</a>
+                    </div>
+                </div>
+            `;
+        }).join('');
     }
 
-    // === ПРОВЕРКА СЕССИИ ПРИ ЗАГРУЗКЕ ===
+    // Статистика
+    function updateStats(jobs, candidateId) {
+        const active = jobs.filter(j => j.status === 'in-progress').length;
+        const completed = jobs.filter(j => j.status === 'completed').length;
+        const earned = jobs
+            .filter(j => j.status === 'completed' && j.applicantId == candidateId)
+            .reduce((sum, j) => sum + j.budget, 0);
+        
+        document.getElementById('statActive').textContent = active;
+        document.getElementById('statCompleted').textContent = completed;
+        document.getElementById('statEarned').textContent = `${earned.toLocaleString()} ₽`;
+    }
+
+    // === ИНИЦИАЛИЗАЦИЯ (ОДИН РАЗ!) ===
     document.addEventListener('DOMContentLoaded', () => {
+        // 1. Проверяем сессию и показываем профиль
         const saved = localStorage.getItem('currentUser');
         if (saved) {
-            const user = JSON.parse(saved);
-            showUserProfile(user);
+            try {
+                const user = JSON.parse(saved);
+                showUserProfile(user);
+            } catch(e) { console.error('Ошибка сессии:', e); }
         }
-    });
+        
+        // 2. Загружаем дашборд
+        loadDashboard();
+        
+        // 3. Табы
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                const filter = e.target.dataset.tab;
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser) {
+                    const userJobs = allJobs.filter(job => 
+                        job.creatorId == currentUser.candidateId || job.applicantId == currentUser.candidateId
+                    );
+                    renderProjects(userJobs, filter);
+                }
+            });
         });
-    </script>
+    });
+</script>
 </body>
 </html>

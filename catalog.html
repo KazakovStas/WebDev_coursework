@@ -26,12 +26,32 @@
                 </nav>
             </div>
             <div class="search-auth">
-                <div class="search-box">
-                    <img src="img/Search.png" alt="Поиск" class="search-icon">
-                    <input type="text" class="search-input" placeholder="Поиск">
-                </div>
-                <button class="login-btn" id="openModalBtn">Войти</button>
-            </div>
+    <div class="search-box">
+        <img src="img/Search.png" alt="Поиск" class="search-icon">
+        <input type="text" class="search-input" placeholder="Поиск">
+    </div>
+    
+    <!-- 🔥 Кнопка входа -->
+    <button class="login-btn" id="openModalBtn">Войти</button>
+    
+    <!-- 🔥 Профиль пользователя (скрыт до входа) -->
+    <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
+        <div class="user-profile" id="userProfile">
+            <span class="user-name" id="userName">Имя</span>
+            <div class="user-avatar" id="userAvatar">И</div>
+        </div>
+        <div class="user-dropdown" id="userDropdown">
+            <a href="dashboard.html" class="dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Мой профиль
+            </a>
+            <button class="dropdown-item logout-btn" id="logoutBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                Выйти
+            </button>
+        </div>
+    </div>
+</div>
         </div>
         
         <div class="header-bottom">
@@ -190,8 +210,8 @@
             </div>
             <h2 class="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
             <form class="modal-form" id="loginForm">
-                <input type="email" class="modal-input" placeholder="Email" required>
-                <input type="password" class="modal-input" placeholder="Пароль" required>
+    <input type="email" id="authEmail" class="modal-input" placeholder="Email" required>
+    <input type="password" id="authPassword" class="modal-input" placeholder="Пароль" required>
                 <a href="#" class="forgot-pass">Забыли пароль?</a>
                 <div class="modal-actions">
                     <button type="submit" class="btn-modal-login">Войти</button>
@@ -203,100 +223,226 @@
 
     <!-- === СКРИПТЫ === -->
     <script>
-        // Функция toggleNav (как в index.html)
-        function toggleNav() {
-            const hiddenItems = document.querySelectorAll('.nav-hidden');
-            const moreLi = document.querySelector('.more-li');
-            const hideLi = document.querySelector('.hide-li');
-            const arrow = document.querySelector('.more-btn .arrow');
-            const isVisible = document.querySelector('.nav-hidden.show');
-            
-            if (!isVisible) {
-                hiddenItems.forEach(item => item.classList.add('show'));
-                moreLi.style.display = 'none';
-                hideLi.style.display = 'flex';
-            } else {
-                hiddenItems.forEach(item => item.classList.remove('show'));
-                moreLi.style.display = 'flex';
-                hideLi.style.display = 'none';
-                if (arrow) arrow.style.transform = 'rotate(0deg)';
-            }
+    // === TOGGLE NAV ===
+    function toggleNav() {
+        const hidden = document.querySelectorAll('.nav-hidden');
+        const more = document.querySelector('.more-li');
+        const hide = document.querySelector('.hide-li');
+        const arrow = document.querySelector('.more-btn .arrow');
+        const isVisible = document.querySelector('.nav-hidden.show');
+        if (!isVisible) {
+            hidden.forEach(i => i.classList.add('show'));
+            more.style.display = 'none';
+            hide.style.display = 'flex';
+        } else {
+            hidden.forEach(i => i.classList.remove('show'));
+            more.style.display = 'flex';
+            hide.style.display = 'none';
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
         }
+    }
 
-        // Логика модального окна
-        const openBtn = document.getElementById('openModalBtn');
-        const modal = document.getElementById('loginModal');
-        const closeBtn = document.getElementById('closeModalBtn');
+    // === ЭЛЕМЕНТЫ ===
+    const openModalBtn = document.getElementById('openModalBtn');
+    const modal = document.getElementById('loginModal');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const loginForm = document.getElementById('loginForm');
 
-        openBtn?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+    // === ФУНКЦИИ ПРОФИЛЯ ===
+    function showUserProfile(user) {
+        if (openModalBtn) openModalBtn.style.display = 'none';
+        
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const userDropdown = document.getElementById('userDropdown');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        if (userProfileWrapper && userName && userAvatar) {
+            userProfileWrapper.style.display = 'flex';
+            const firstName = user.name.split(' ')[0];
+            userName.textContent = firstName;
+            userAvatar.textContent = firstName.charAt(0).toUpperCase();
+        }
+        
+        const userProfile = document.getElementById('userProfile');
+        if (userProfile && userDropdown) {
+            userProfile.onclick = (e) => {
+                e.stopPropagation();
+                userDropdown.classList.toggle('show');
+            };
+        }
+        
+        document.addEventListener('click', (e) => {
+            if (userDropdown && !e.target.closest('.user-profile-wrapper')) {
+                userDropdown.classList.remove('show');
+            }
         });
+        
+        if (logoutBtn) {
+            logoutBtn.onclick = (e) => {
+                e.preventDefault();
+                if (confirm('Выйти из аккаунта?')) {
+                    localStorage.removeItem('currentUser');
+                    hideUserProfile();
+                    if (userDropdown) userDropdown.classList.remove('show');
+                }
+            };
+        }
+    }
 
-        closeBtn?.addEventListener('click', () => {
+    function hideUserProfile() {
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        if (userProfileWrapper) userProfileWrapper.style.display = 'none';
+        if (openModalBtn) {
+            openModalBtn.style.display = 'block';
+            openModalBtn.textContent = 'Войти';
+            openModalBtn.style.backgroundColor = '';
+        }
+    }
+
+    // === МОДАЛКА ===
+    openModalBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    closeBtn?.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    modal?.addEventListener('click', (e) => {
+        if (e.target === modal) {
             modal.classList.remove('active');
             document.body.style.overflow = '';
-        });
-
-        modal?.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-
-        // Загрузка кандидатов из JSON Server
-        async function loadCandidates(filters = {}) {
-            try {
-                const params = new URLSearchParams(filters);
-                const res = await fetch(`http://localhost:3000/candidates?${params}`);
-                const candidates = await res.json();
-                renderCandidates(candidates);
-            } catch (err) {
-                console.error('Ошибка загрузки:', err);
-            }
         }
+    });
 
-        // Отрисовка карточек
-        function renderCandidates(candidates) {
-    const grid = document.getElementById('candidatesGrid');
-    if (!grid) return;
-    
-    grid.innerHTML = candidates.map(c => `
-        <div class="candidate-card">
-            <div class="candidate-badges">
-                ${c.tags?.map(t => `<span class="badge badge-${t}">${t}</span>`).join('') || ''}
-            </div>
-            <div class="candidate-avatar">
-                <img src="${c.avatar || 'img/default-avatar.png'}" alt="${c.name}">
-            </div>
-            <h3 class="candidate-name">${c.name}</h3>
-            <p class="candidate-position">${c.position}</p>
-            <div class="candidate-info">
-                <p class="info-item">Опыт: ${c.experience}</p>
-                <p class="info-item">Зарплата: от ${c.salary} ₽</p>
-            </div>
-            <a href="profile.html?id=${c.id}" class="btn-candidate" style="text-decoration: none;">Посмотреть справку</a>
-        </div>
-    `).join('');
-}
-
-        // Загрузка при старте
-        document.addEventListener('DOMContentLoaded', () => {
-            loadCandidates();
+    // === АВТОРИЗАЦИЯ ===
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
             
-            // Обработка фильтров (базовая)
-            document.querySelector('.apply-filters')?.addEventListener('click', () => {
-                const salaryMin = document.getElementById('salaryMin')?.value;
-                const salaryMax = document.getElementById('salaryMax')?.value;
+            let errorEl = document.querySelector('.auth-error');
+            if (!errorEl) {
+                errorEl = document.createElement('span');
+                errorEl.className = 'auth-error';
+                errorEl.style.cssText = 'color: #d32f2f; font-size: 13px; text-align: center; display: block; margin-top: 8px;';
+                loginForm.appendChild(errorEl);
+            }
+
+            try {
+                const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
+                const users = await res.json();
                 
-                loadCandidates({
-                    'salary_gte': salaryMin,
-                    'salary_lte': salaryMax
-                });
-            });
+                if (users.length > 0 && users[0].password === password) {
+                    const user = users[0];
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    loginForm.reset();
+                    errorEl.style.display = 'none';
+                    
+                    showUserProfile(user);
+                    loadCandidates(); // 🔥 Перезагружаем кандидатов после входа
+                } else {
+                    errorEl.textContent = 'Неверный email или пароль';
+                    errorEl.style.display = 'block';
+                }
+            } catch (err) {
+                console.error('Ошибка входа:', err);
+                errorEl.textContent = 'Ошибка сервера';
+                errorEl.style.display = 'block';
+            }
         });
-    </script>
+    }
+
+    // === КАТАЛОГ: ЗАГРУЗКА КАНДИДАТОВ ===
+    async function loadCandidates(filters = {}) {
+        try {
+            const params = new URLSearchParams(filters);
+            const res = await fetch(`http://localhost:3000/candidates?${params}`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const candidates = await res.json();
+            renderCandidates(candidates);
+        } catch (err) {
+            console.error('Ошибка загрузки:', err);
+            document.getElementById('candidatesGrid').innerHTML = '<p>Не удалось загрузить кандидатов</p>';
+        }
+    }
+
+    function renderCandidates(candidates) {
+        const grid = document.getElementById('candidatesGrid');
+        if (!grid) return;
+        
+        if (candidates.length === 0) {
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">Кандидаты не найдены</p>';
+            return;
+        }
+        
+        grid.innerHTML = candidates.map(c => `
+            <div class="candidate-card">
+                <div class="candidate-badges">
+                    ${c.tags?.map(t => `<span class="badge badge-${t}">${t}</span>`).join('') || ''}
+                </div>
+                <div class="candidate-avatar">
+                    <img src="${c.avatar || 'img/default-avatar.png'}" alt="${c.name}">
+                </div>
+                <h3 class="candidate-name">${c.name}</h3>
+                <p class="candidate-position">${c.position}</p>
+                <div class="candidate-info">
+                    <p class="info-item">Опыт: ${c.experience}</p>
+                    <p class="info-item">Зарплата: от ${c.salary?.toLocaleString() || '0'} ₽</p>
+                </div>
+                <a href="profile.html?id=${c.id}" class="btn-candidate" style="text-decoration: none;">Посмотреть справку</a>
+            </div>
+        `).join('');
+    }
+
+    // === ФИЛЬТРЫ ===
+    function applyFilters() {
+        const salaryMin = document.getElementById('salaryMin')?.value;
+        const salaryMax = document.getElementById('salaryMax')?.value;
+        const expChecks = Array.from(document.querySelectorAll('input[name="exp"]:checked')).map(i => i.value);
+        const formatChecks = Array.from(document.querySelectorAll('input[name="format"]:checked')).map(i => i.value);
+        
+        const filters = {};
+        if (salaryMin) filters['salary_gte'] = salaryMin;
+        if (salaryMax) filters['salary_lte'] = salaryMax;
+        // Можно добавить фильтрацию по опыту/формату через JS, если нужно
+        
+        loadCandidates(filters);
+    }
+
+    function clearFilters() {
+        document.querySelectorAll('input[type="number"]').forEach(i => i.value = '');
+        document.querySelectorAll('input[type="checkbox"]').forEach(i => i.checked = false);
+        loadCandidates();
+    }
+
+    // === ИНИЦИАЛИЗАЦИЯ ===
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Проверяем сессию
+        const saved = localStorage.getItem('currentUser');
+        if (saved) {
+            try {
+                const user = JSON.parse(saved);
+                showUserProfile(user);
+            } catch(e) { console.error('Ошибка сессии:', e); }
+        }
+        
+        // 2. Загружаем кандидатов
+        loadCandidates();
+        
+        // 3. Фильтры
+        document.querySelector('.apply-filters')?.addEventListener('click', applyFilters);
+        document.querySelector('.clear-filters')?.addEventListener('click', clearFilters);
+    });
+</script>
 </body>
 </html>

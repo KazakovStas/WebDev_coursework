@@ -9,55 +9,76 @@
 <body>
     <!-- HEADER -->
     <header class="header">
-        <div class="header-top">
-            <div class="logo-nav">
-                <a href="index.html" class="logo">
-                    <span>ЛИЦА</span>
-                    <div class="logo-icon"></div>
-                </a>
-                <nav>
-                    <ul class="main-nav">
-                        <li><a href="index.html">Кандидаты</a></li>
-                        <li><a href="catalog.html">Найти кандидата</a></li>
-                        <li><a href="#">Попасть в базу</a></li>
-                        <li><a href="#">О сервисе</a></li>
-                        <li><a href="#">Портал</a></li>
-                    </ul>
-                </nav>
+    <div class="header-top">
+        <div class="logo-nav">
+            <a href="index.html" class="logo">
+                <span>ЛИЦА</span>
+                <div class="logo-icon"></div>
+            </a>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="index.html">Кандидаты</a></li>
+                    <li><a href="catalog.html">Найти кандидата</a></li>
+                    <li><a href="projects.html">Биржа проектов</a></li>
+                    <li><a href="#">О сервисе</a></li>
+                    <li><a href="#">Портал</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="search-auth">
+            <div class="search-box">
+                <img src="img/Search.png" alt="Поиск" class="search-icon">
+                <input type="text" class="search-input" placeholder="Поиск">
             </div>
-            <div class="search-auth">
-                <div class="search-box">
-                    <img src="img/Search.png" alt="Поиск" class="search-icon">
-                    <input type="text" class="search-input" placeholder="Поиск">
+            
+            <!-- 🔥 Кнопка входа -->
+            <button class="login-btn" id="openModalBtn">Войти</button>
+            
+            <!-- 🔥 Профиль пользователя (ЭТОГО БЛОКА НЕ ХВАТАЕТ!) -->
+            <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
+                <div class="user-profile" id="userProfile">
+                    <span class="user-name" id="userName">Имя</span>
+                    <div class="user-avatar" id="userAvatar">И</div>
                 </div>
-                <button class="login-btn" id="openModalBtn">Войти</button>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="dashboard.html" class="dropdown-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        Мой профиль
+                    </a>
+                    <button class="dropdown-item logout-btn" id="logoutBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                        Выйти
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="header-bottom">
-            <ul class="secondary-nav">
-                <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
-                <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
-                <li><a href="catalog.html?category=design">Дизайнеры</a></li>
-                <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
-                <li class="more-li">
-                    <button class="more-btn" onclick="toggleNav()">
-                        <span>Ещё</span>
-                        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </button>
-                </li>
-                <li class="hide-li" style="display: none;">
-                    <button class="hide-btn" onclick="toggleNav()">
-                        <span>Скрыть</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 15l-6-6-6 6"/>
-                        </svg>
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </header>
+    </div>
+    
+    <div class="header-bottom">
+        <ul class="secondary-nav">
+            <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
+            <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
+            <li><a href="catalog.html?category=design">Дизайнеры</a></li>
+            <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
+            <li class="more-li">
+                <button class="more-btn" onclick="toggleNav()">
+                    <span>Ещё</span>
+                    <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </button>
+            </li>
+            <li class="hide-li" style="display: none;">
+                <button class="hide-btn" onclick="toggleNav()">
+                    <span>Скрыть</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 15l-6-6-6 6"/>
+                    </svg>
+                </button>
+            </li>
+        </ul>
+    </div>
+</header>
 
     <!-- MAIN PROFILE CONTENT -->
     <main class="profile-main">
@@ -208,8 +229,8 @@
             </div>
             <h2 class="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
             <form class="modal-form" id="loginForm">
-                <input type="email" class="modal-input" placeholder="Email" required>
-                <input type="password" class="modal-input" placeholder="Пароль" required>
+                <input type="email" id="authEmail" class="modal-input" placeholder="Email" required>
+                <input type="password" id="authPassword" class="modal-input" placeholder="Пароль" required>
                 <a href="#" class="forgot-pass">Забыли пароль?</a>
                 <div class="modal-actions">
                     <button type="submit" class="btn-modal-login">Войти</button>
@@ -240,78 +261,192 @@
         }
     }
 
-    // === MODAL LOGIC ===
-    const openBtn = document.getElementById('openModalBtn');
+    // === ЭЛЕМЕНТЫ ===
+    const openModalBtn = document.getElementById('openModalBtn');
     const modal = document.getElementById('loginModal');
     const closeBtn = document.getElementById('closeModalBtn');
+    const loginForm = document.getElementById('loginForm');
 
-    openBtn?.addEventListener('click', e => { 
-        e.stopPropagation(); 
-        modal.classList.add('active'); 
-        document.body.style.overflow = 'hidden'; 
-    });
-    closeBtn?.addEventListener('click', () => { 
-        modal.classList.remove('active'); 
-        document.body.style.overflow = ''; 
-    });
-    modal?.addEventListener('click', e => { 
-        if (e.target === modal) { 
-            modal.classList.remove('active'); 
-            document.body.style.overflow = ''; 
-        } 
-    });
-
-    // === ЗАГРУЗКА ПРОФИЛЯ ===
-    async function loadProfile() {
-    const params = new URLSearchParams(window.location.search);
-    let targetId = params.get('id');
-    
-    if (!targetId) {
-        try {
-            const session = JSON.parse(localStorage.getItem('currentUser'));
-            if (session?.candidateId) targetId = String(session.candidateId);
-        } catch(e) {}
-    }
-    
-    targetId = targetId || "1"; // Строка по умолчанию
-
-    try {
-        // Получаем ВСЕХ кандидатов и ищем нужного
-        const res = await fetch('http://localhost:3000/candidates');
-        const candidates = await res.json();
+    // === ФУНКЦИИ ПРОФИЛЯ (из index.html) ===
+    function showUserProfile(user) {
+        if (openModalBtn) openModalBtn.style.display = 'none';
         
-        // Ищем кандидата по id (сравнение строк)
-        const c = candidates.find(candidate => String(candidate.id) === String(targetId));
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const userDropdown = document.getElementById('userDropdown');
+        const logoutBtn = document.getElementById('logoutBtn');
         
-        if (!c) {
-            document.getElementById('profileName').textContent = 'Кандидат не найден';
-            return;
+        if (userProfileWrapper && userName && userAvatar) {
+            userProfileWrapper.style.display = 'flex';
+            const firstName = user.name.split(' ')[0];
+            userName.textContent = firstName;
+            userAvatar.textContent = firstName.charAt(0).toUpperCase();
         }
-
-        // Заполняем данные
-        document.getElementById('profileAvatar').src = c.avatar || 'img/default-avatar.png';
-        document.getElementById('profileName').textContent = c.name || '—';
-        document.getElementById('profileAge').textContent = c.age || '—';
-        document.getElementById('profileSpecialty').textContent = c.position || '—';
-        document.getElementById('profileLocation').textContent = `📍 ${c.location || '—'}`;
-        document.getElementById('profileSalary').textContent = `${Number(c.salary).toLocaleString()} ₽`;
-        document.getElementById('profileStatus').textContent = c.tags?.[0] || 'full-time';
-        document.title = `ЛИЦА - ${c.name}`;
-
-        document.getElementById('reasonBlock').innerHTML = `<p>${c.reason || '—'}</p>`;
-        document.getElementById('generalBlock').innerHTML = `<p>${c.general_info || '—'}</p>`;
-        document.getElementById('testExpBlock').innerHTML = `<p>${c.test_exp || '—'}</p>`;
-        document.getElementById('apiBlock').innerHTML = `<p>${c.api_exp || '—'}</p>`;
         
-    } catch (err) {
-        console.error('Ошибка загрузки профиля:', err);
-        document.getElementById('profileName').textContent = 'Ошибка загрузки';
+        // Меню
+        const userProfile = document.getElementById('userProfile');
+        if (userProfile && userDropdown) {
+            userProfile.onclick = (e) => {
+                e.stopPropagation();
+                userDropdown.classList.toggle('show');
+            };
+        }
+        
+        document.addEventListener('click', (e) => {
+            if (userDropdown && !e.target.closest('.user-profile-wrapper')) {
+                userDropdown.classList.remove('show');
+            }
+        });
+        
+        // Выход
+        if (logoutBtn) {
+            logoutBtn.onclick = (e) => {
+                e.preventDefault();
+                if (confirm('Выйти из аккаунта?')) {
+                    localStorage.removeItem('currentUser');
+                    hideUserProfile();
+                    if (userDropdown) userDropdown.classList.remove('show');
+                }
+            };
+        }
     }
-}
-    
 
-    // === ВЫЗОВ ПРИ ЗАГРУЗКЕ ===
-    document.addEventListener('DOMContentLoaded', loadProfile);
+    function hideUserProfile() {
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        if (userProfileWrapper) userProfileWrapper.style.display = 'none';
+        if (openModalBtn) {
+            openModalBtn.style.display = 'block';
+            openModalBtn.textContent = 'Войти';
+            openModalBtn.style.backgroundColor = '';
+        }
+    }
+
+    // === МОДАЛКА ===
+    openModalBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    closeBtn?.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    modal?.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // === АВТОРИЗАЦИЯ ===
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
+            
+            let errorEl = document.querySelector('.auth-error');
+            if (!errorEl) {
+                errorEl = document.createElement('span');
+                errorEl.className = 'auth-error';
+                errorEl.style.cssText = 'color: #d32f2f; font-size: 13px; text-align: center; display: block; margin-top: 8px;';
+                loginForm.appendChild(errorEl);
+            }
+
+            try {
+                const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
+                const users = await res.json();
+                
+                if (users.length > 0 && users[0].password === password) {
+                    const user = users[0];
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    loginForm.reset();
+                    errorEl.style.display = 'none';
+                    
+                    showUserProfile(user);
+                } else {
+                    errorEl.textContent = 'Неверный email или пароль';
+                    errorEl.style.display = 'block';
+                }
+            } catch (err) {
+                console.error('Ошибка входа:', err);
+                errorEl.textContent = 'Ошибка сервера';
+                errorEl.style.display = 'block';
+            }
+        });
+    }
+
+    // === ЗАГРУЗКА ПРОФИЛЯ КАНДИДАТА ===
+    async function loadProfile() {
+        const params = new URLSearchParams(window.location.search);
+        let targetId = params.get('id');
+        
+        // Если нет ID в URL, пробуем взять из сессии
+        if (!targetId) {
+            try {
+                const session = JSON.parse(localStorage.getItem('currentUser'));
+                if (session?.candidateId) targetId = String(session.candidateId);
+            } catch(e) {}
+        }
+        
+        targetId = targetId || "1";
+
+        try {
+            const res = await fetch('http://localhost:3000/candidates');
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const candidates = await res.json();
+            
+            const c = Array.isArray(candidates) 
+                ? candidates.find(candidate => String(candidate.id) === String(targetId)) 
+                : null;
+            
+            if (!c) {
+                document.getElementById('profileName').textContent = 'Кандидат не найден';
+                return;
+            }
+
+            // Заполняем шапку
+            document.getElementById('profileAvatar').src = c.avatar || 'img/default-avatar.png';
+            document.getElementById('profileName').textContent = c.name || '—';
+            document.getElementById('profileAge').textContent = c.age || '—';
+            document.getElementById('profileSpecialty').textContent = c.position || '—';
+            document.getElementById('profileLocation').textContent = `📍 ${c.location || '—'}`;
+            document.getElementById('profileSalary').textContent = `${Number(c.salary || 0).toLocaleString()} ₽`;
+            document.getElementById('profileStatus').textContent = c.tags?.[0] || 'full-time';
+            document.title = `ЛИЦА - ${c.name}`;
+
+            // Заполняем текстовые блоки
+            document.getElementById('reasonBlock').innerHTML = `<p>${c.reason || '—'}</p>`;
+            document.getElementById('generalBlock').innerHTML = `<p>${c.general_info || '—'}</p>`;
+            document.getElementById('testExpBlock').innerHTML = `<p>${c.test_exp || '—'}</p>`;
+            document.getElementById('apiBlock').innerHTML = `<p>${c.api_exp || '—'}</p>`;
+            
+        } catch (err) {
+            console.error('Ошибка загрузки профиля:', err);
+            document.getElementById('profileName').textContent = 'Ошибка загрузки';
+        }
+    }
+
+    // === ИНИЦИАЛИЗАЦИЯ ===
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Проверяем сессию
+        const saved = localStorage.getItem('currentUser');
+        if (saved) {
+            try {
+                const user = JSON.parse(saved);
+                showUserProfile(user);
+            } catch(e) { console.error('Ошибка сессии:', e); }
+        }
+        
+        // 2. Загружаем профиль кандидата
+        loadProfile();
+    });
 </script>
 </body>
 </html>
