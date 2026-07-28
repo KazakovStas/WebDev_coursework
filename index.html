@@ -315,17 +315,20 @@
                     <h2 class="subscribe-title">Подписаться на обновления базы</h2>
                     <p class="subscribe-description">Мы будет присылать вам информацию каждую неделю, по каким сферам у нас появились кандидаты.</p>
                     
-                    <form class="subscribe-form" action="#" method="POST">
-                        <input type="text" class="form-input" placeholder="Ваше имя" required>
-                        <input type="email" class="form-input" placeholder="Email" required>
-                        <input type="tel" class="form-input" placeholder="Номер телефона" required>
-                        
-                        <button type="submit" class="btn-subscribe">Подписаться</button>
-                        
-                        <p class="form-agreement">Отправка данной формы означает согласие с <a href="#" class="agreement-link">Пользовательским соглашением</a> и <a href="#" class="agreement-link">Политикой конфиденциальности</a></p>
-                    </form>
-                </div>
-            </div>
+                    <form class="subscribe-form" id="subscribeForm">
+    <input type="text" class="form-input" placeholder="Ваше имя" required>
+    <input type="email" id="subscribeEmail" class="form-input" placeholder="Email" required>
+    <input type="tel" class="form-input" placeholder="Номер телефона" required>
+    
+    <button type="submit" class="btn-subscribe" id="subscribeBtn">Подписаться</button>
+    
+    <p class="form-agreement">Отправка данной формы означает согласие с <a href="#" class="agreement-link">Пользовательским соглашением</a> и <a href="#" class="agreement-link">Политикой конфиденциальности</a></p>
+</form>
+
+<div id="subscribeSuccess" class="success-message" style="display: none;">
+    <h3>Вы успешно подписались!</h3>
+    <p>Теперь вы будете получать обновления базы кандидатов каждую неделю.</p>
+</div>
         </section>
     </main>
 
@@ -584,6 +587,53 @@ if (profileLink) {
             showUserProfile(user);
         }
     });
+
+    // === ОБРАБОТКА ПОДПИСКИ ===
+const subscribeForm = document.getElementById('subscribeForm');
+if (subscribeForm) {
+    subscribeForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('subscribeEmail').value.trim();
+        const btn = document.getElementById('subscribeBtn');
+        const successMsg = document.getElementById('subscribeSuccess');
+        
+        btn.disabled = true;
+        btn.textContent = 'Проверка...';
+        
+        try {
+            // Ищем пользователя с таким email
+            const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
+            const users = await res.json();
+            
+            if (users.length > 0) {
+                // Пользователь найден — обновляем статус подписки
+                const user = users[0];
+                await fetch(`http://localhost:3000/users/${user.id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ subscribed: true })
+                });
+                
+                // Показываем успех
+                subscribeForm.style.display = 'none';
+                successMsg.style.display = 'block';
+                
+            } else {
+                alert('Email не найден в базе. Пожалуйста, зарегистрируйтесь сначала.');
+                btn.disabled = false;
+                btn.textContent = 'Подписаться';
+            }
+        } catch (err) {
+            console.error('Ошибка подписки:', err);
+            alert('Произошла ошибка. Попробуйте позже.');
+            btn.disabled = false;
+            btn.textContent = 'Подписаться';
+        }
+    });
+}
+
+
 </script>
     
 </body>

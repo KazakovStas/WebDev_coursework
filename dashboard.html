@@ -77,20 +77,32 @@
                 </div>
 
                 <div class="stats-card">
-                    <h3>Статистика</h3>
-                    <div class="stat-row">
-                        <span>Активных проектов:</span>
-                        <strong id="statActive">0</strong>
-                    </div>
-                    <div class="stat-row">
-                        <span>Завершённых:</span>
-                        <strong id="statCompleted">0</strong>
-                    </div>
-                    <div class="stat-row">
-                        <span>Заработано:</span>
-                        <strong id="statEarned">0 ₽</strong>
-                    </div>
-                </div>
+    <h3>Статистика</h3>
+    <div class="stat-row">
+        <span>Активных проектов:</span>
+        <strong id="statActive">0</strong>
+    </div>
+    <div class="stat-row">
+        <span>Завершённых:</span>
+        <strong id="statCompleted">0</strong>
+    </div>
+    <div class="stat-row">
+        <span>Заработано:</span>
+        <strong id="statEarned">0 ₽</strong>
+    </div>
+</div>
+
+<!-- Статус подписки -->
+<div class="subscription-status-card">
+    <h3> Рассылка</h3>
+    <div class="status-row">
+        <span>Статус:</span>
+        <strong id="subscribedStatus">—</strong>
+    </div>
+    <button id="toggleSubscribeBtn" class="btn-action">
+        <!-- Текст изменится через JS -->
+    </button>
+</div>
 
                 <div class="quick-actions">
                     <h3>Быстрые действия</h3>
@@ -183,7 +195,7 @@
 
     <!-- SCRIPTS -->
     <script>
-    // === TOGGLE NAV ===
+    // === TOGGLE NAV (Меню "Ещё/Скрыть") ===
     function toggleNav() {
         const hidden = document.querySelectorAll('.nav-hidden');
         const more = document.querySelector('.more-li');
@@ -202,167 +214,172 @@
         }
     }
 
-    // === ЭЛЕМЕНТЫ (в самом верху!) ===
+    // === ГЛОБАЛЬНЫЕ ЭЛЕМЕНТЫ ===
     const openModalBtn = document.getElementById('openModalBtn');
     const modal = document.getElementById('loginModal');
     const closeBtn = document.getElementById('closeModalBtn');
     const loginForm = document.getElementById('loginForm');
+    
+    // Глобальная переменная для хранения списка проектов
+    let allJobs = [];
 
-    // === ФУНКЦИИ ПРОФИЛЯ ===
+    // === ФУНКЦИИ ПРОФИЛЯ В ШАПКЕ ===
     function showUserProfile(user) {
         if (openModalBtn) openModalBtn.style.display = 'none';
-        
-        const userProfileWrapper = document.getElementById('userProfileWrapper');
-        const userName = document.getElementById('userName');
-        const userAvatar = document.getElementById('userAvatar');
-        const userDropdown = document.getElementById('userDropdown');
-        const logoutBtn = document.getElementById('logoutBtn');
-        
-        if (userProfileWrapper && userName && userAvatar) {
-            userProfileWrapper.style.display = 'flex';
-            const firstName = user.name.split(' ')[0];
-            userName.textContent = firstName;
-            userAvatar.textContent = firstName.charAt(0).toUpperCase();
+        const wrap = document.getElementById('userProfileWrapper');
+        const nameEl = document.getElementById('userName');
+        const avatarEl = document.getElementById('userAvatar');
+        if (wrap && nameEl && avatarEl) { 
+            wrap.style.display = 'flex'; 
+            nameEl.textContent = user.name.split(' ')[0]; 
+            avatarEl.textContent = user.name.charAt(0).toUpperCase(); 
         }
-        
-        const userProfile = document.getElementById('userProfile');
-        if (userProfile && userDropdown) {
-            userProfile.onclick = (e) => {
-                e.stopPropagation();
-                userDropdown.classList.toggle('show');
-            };
-        }
-        
-        document.addEventListener('click', (e) => {
-            if (userDropdown && !e.target.closest('.user-profile-wrapper')) {
-                userDropdown.classList.remove('show');
-            }
+        const dropdown = document.getElementById('userDropdown');
+        document.getElementById('userProfile')?.addEventListener('click', (e) => { 
+            e.stopPropagation(); 
+            dropdown?.classList.toggle('show'); 
         });
-        
-        if (logoutBtn) {
-            logoutBtn.onclick = (e) => {
-                e.preventDefault();
-                if (confirm('Выйти из аккаунта?')) {
-                    localStorage.removeItem('currentUser');
-                    hideUserProfile();
-                    if (userDropdown) userDropdown.classList.remove('show');
-                }
-            };
-        }
+        document.addEventListener('click', (e) => { 
+            if (dropdown && !e.target.closest('.user-profile-wrapper')) dropdown.classList.remove('show'); 
+        });
+        document.getElementById('logoutBtn')?.addEventListener('click', () => { 
+            if (confirm('Выйти?')) { 
+                localStorage.removeItem('currentUser'); 
+                hideUserProfile(); 
+                dropdown?.classList.remove('show'); 
+            } 
+        });
     }
 
     function hideUserProfile() {
-        const userProfileWrapper = document.getElementById('userProfileWrapper');
-        if (userProfileWrapper) userProfileWrapper.style.display = 'none';
-        if (openModalBtn) {
-            openModalBtn.style.display = 'block';
-            openModalBtn.textContent = 'Войти';
-            openModalBtn.style.backgroundColor = '';
+        const wrap = document.getElementById('userProfileWrapper');
+        if (wrap) wrap.style.display = 'none';
+        if (openModalBtn) { 
+            openModalBtn.style.display = 'block'; 
+            openModalBtn.textContent = 'Войти'; 
+            openModalBtn.style.backgroundColor = ''; 
         }
     }
 
-    // === МОДАЛКА ===
-    openModalBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
+    // === МОДАЛКА И АВТОРИЗАЦИЯ ===
+    openModalBtn?.addEventListener('click', () => { modal.classList.add('active'); document.body.style.overflow = 'hidden'; });
+    closeBtn?.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow = ''; });
+    modal?.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } });
 
-    closeBtn?.addEventListener('click', () => {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-
-    modal?.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
-
-    // === АВТОРИЗАЦИЯ ===
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('authEmail').value.trim();
             const password = document.getElementById('authPassword').value.trim();
-            
             let errorEl = document.querySelector('.auth-error');
-            if (!errorEl) {
-                errorEl = document.createElement('span');
-                errorEl.className = 'auth-error';
-                errorEl.style.cssText = 'color: #d32f2f; font-size: 13px; text-align: center; display: block; margin-top: 8px;';
-                loginForm.appendChild(errorEl);
-            }
-
+            if (!errorEl) { errorEl = document.createElement('span'); errorEl.className = 'auth-error'; errorEl.style.cssText = 'color: #d32f2f; font-size: 13px; text-align: center; display: block; margin-top: 8px;'; loginForm.appendChild(errorEl); }
             try {
                 const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
                 const users = await res.json();
-                
                 if (users.length > 0 && users[0].password === password) {
                     const user = users[0];
                     localStorage.setItem('currentUser', JSON.stringify(user));
-                    
-                    modal.classList.remove('active');
-                    document.body.style.overflow = '';
-                    loginForm.reset();
-                    errorEl.style.display = 'none';
-                    
+                    modal.classList.remove('active'); document.body.style.overflow = ''; loginForm.reset(); errorEl.style.display = 'none';
                     showUserProfile(user);
-                    loadDashboard(); // 🔥 Перезагружаем дашборд после входа
-                } else {
-                    errorEl.textContent = 'Неверный email или пароль';
-                    errorEl.style.display = 'block';
-                }
-            } catch (err) {
-                console.error('Ошибка входа:', err);
-                errorEl.textContent = 'Ошибка сервера';
-                errorEl.style.display = 'block';
-            }
+                    loadDashboard(); // Перезагрузка дашборда после входа
+                } else { errorEl.textContent = 'Неверный email или пароль'; errorEl.style.display = 'block'; }
+            } catch (err) { console.error(err); errorEl.textContent = 'Ошибка сервера'; errorEl.style.display = 'block'; }
         });
     }
 
-    // === ДАШБОРД: ЗАГРУЗКА ПРОЕКТОВ ===
-    let allJobs = [];
-
+    // === ЗАГРУЗКА ДАШБОРДА (СИНХРОНИЗАЦИЯ С СЕРВЕРОМ) ===
     async function loadDashboard() {
-        // 🔥 Проверяем сессию
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (!currentUser) {
+        const session = JSON.parse(localStorage.getItem('currentUser'));
+        if (!session) {
             window.location.href = 'index.html';
             return;
         }
 
-        // Заполняем профиль в сайдбаре
-        document.getElementById('dashName').textContent = currentUser.name;
-        document.getElementById('dashEmail').textContent = currentUser.email;
-        document.getElementById('dashAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
-
-        // Загружаем проекты
         try {
-            const res = await fetch('http://localhost:3000/jobs');
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            allJobs = await res.json();
-            
-            // Фильтруем проекты пользователя
+            // 🔥 ВАЖНО: Получаем свежие данные с сервера, чтобы знать актуальный статус подписки
+            const res = await fetch(`http://localhost:3000/users/${session.id}`);
+            if (!res.ok) throw new Error('Ошибка загрузки пользователя');
+            const freshUser = await res.json();
+
+            // Обновляем localStorage свежими данными (чтобы не устаревало)
+            localStorage.setItem('currentUser', JSON.stringify(freshUser));
+
+            // 1. Заполняем профиль в сайдбаре
+            document.getElementById('dashName').textContent = freshUser.name;
+            document.getElementById('dashEmail').textContent = freshUser.email;
+            document.getElementById('dashAvatar').textContent = freshUser.name.charAt(0).toUpperCase();
+
+            // 2. 🔥 Обновляем статус подписки (Рассылка)
+            const statusEl = document.getElementById('subscribedStatus');
+            const toggleBtn = document.getElementById('toggleSubscribeBtn');
+
+            if (statusEl && toggleBtn) {
+                // Теперь берем данные из freshUser, а не из старого localStorage
+                const isSubscribed = freshUser.subscribed === true;
+
+                if (isSubscribed) {
+                    statusEl.textContent = 'Подписан';
+                    statusEl.className = 'subscribed'; // Зеленый цвет
+                    toggleBtn.textContent = '🔕 Отписаться от рассылки';
+                    // При клике ставим false
+                    toggleBtn.onclick = () => toggleSubscription(false);
+                } else {
+                    statusEl.textContent = 'Не подписан';
+                    statusEl.className = 'not-subscribed'; // Оранжевый цвет
+                    toggleBtn.textContent = '📧 Подписаться на рассылку';
+                    // При клике ставим true
+                    toggleBtn.onclick = () => toggleSubscription(true);
+                }
+                toggleBtn.style.display = 'block'; // Показываем кнопку
+            }
+
+            // 3. Загрузка проектов
+            const jobsRes = await fetch('http://localhost:3000/jobs');
+            if (!jobsRes.ok) throw new Error('Ошибка загрузки проектов');
+            allJobs = await jobsRes.json();
+
+            // Фильтруем проекты текущего пользователя
             const userJobs = allJobs.filter(job => 
-                job.creatorId == currentUser.candidateId || job.applicantId == currentUser.candidateId
+                job.creatorId == freshUser.candidateId || job.applicantId == freshUser.candidateId
             );
-            
+
             renderProjects(userJobs, 'all');
-            updateStats(userJobs, currentUser.candidateId);
-            
+            updateStats(userJobs, freshUser.candidateId);
+
         } catch (err) {
-            console.error('Ошибка загрузки проектов:', err);
-            document.getElementById('projectsList').innerHTML = '<p>Не удалось загрузить проекты</p>';
+            console.error('Ошибка инициализации дашборда:', err);
+            alert('Не удалось загрузить данные. Проверьте, запущен ли сервер.');
         }
     }
 
-    // Отрисовка карточек
+    // === ПЕРЕКЛЮЧЕНИЕ ПОДПИСКИ ===
+    async function toggleSubscription(subscribe) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) return;
+
+        try {
+            // Отправляем PATCH запрос на сервер
+            await fetch(`http://localhost:3000/users/${currentUser.id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ subscribed: subscribe })
+            });
+            
+            // После успешного сохранения снова загружаем дашборд (он подтянет новые данные)
+            loadDashboard();
+            
+        } catch (err) {
+            console.error(err);
+            alert('Ошибка при обновлении статуса подписки');
+        }
+    }
+
+    // === ОТРИСОВКА ПРОЕКТОВ ===
     function renderProjects(jobs, filter = 'all') {
         const list = document.getElementById('projectsList');
         const empty = document.getElementById('emptyState');
-        
+        if (!list || !empty) return;
+
         const filtered = filter === 'all' ? jobs : jobs.filter(j => j.status === filter);
         
         if (filtered.length === 0) {
@@ -374,18 +391,18 @@
         list.style.display = 'grid';
         empty.style.display = 'none';
         
-        // 🔥 Читаем currentUser здесь для кнопок
+        // Считываем currentUser здесь, чтобы не было ошибок null
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         
         list.innerHTML = filtered.map(job => {
             const isCreator = job.creatorId == currentUser?.candidateId;
-            const statusText = {'open':'Открыт','in-progress':'В работе','completed':'Завершён'}[job.status] || job.status;
-            const statusClass = {'open':'status-open','in-progress':'status-progress','completed':'status-completed'}[job.status] || '';
+            const statusMap = {'open':'Открыт', 'in-progress':'В работе', 'completed':'Завершён'};
+            const statusClass = {'open':'status-open', 'in-progress':'status-progress', 'completed':'status-completed'};
             
             return `
                 <div class="project-card">
                     <div class="project-header">
-                        <span class="project-status ${statusClass}">${statusText}</span>
+                        <span class="project-status ${statusClass[job.status]}">${statusMap[job.status] || job.status}</span>
                         <span class="project-date">${new Date(job.createdAt).toLocaleDateString('ru-RU')}</span>
                     </div>
                     <h3 class="project-title">${job.title}</h3>
@@ -395,10 +412,7 @@
                         <span>Срок: ${new Date(job.deadline).toLocaleDateString('ru-RU')}</span>
                     </div>
                     <div class="project-actions">
-                        ${isCreator 
-                            ? `<button class="btn-sm">Редактировать</button>` 
-                            : `<button class="btn-sm">Связаться с заказчиком</button>`
-                        }
+                        ${isCreator ? `<button class="btn-sm">Редактировать</button>` : `<button class="btn-sm">Связаться</button>`}
                         <a href="project-details.html?id=${job.id}" class="btn-sm btn-outline">Детали</a>
                     </div>
                 </div>
@@ -406,7 +420,7 @@
         }).join('');
     }
 
-    // Статистика
+    // === СТАТИСТИКА ===
     function updateStats(jobs, candidateId) {
         const active = jobs.filter(j => j.status === 'in-progress').length;
         const completed = jobs.filter(j => j.status === 'completed').length;
@@ -414,33 +428,36 @@
             .filter(j => j.status === 'completed' && j.applicantId == candidateId)
             .reduce((sum, j) => sum + j.budget, 0);
         
-        document.getElementById('statActive').textContent = active;
-        document.getElementById('statCompleted').textContent = completed;
-        document.getElementById('statEarned').textContent = `${earned.toLocaleString()} ₽`;
+        const elActive = document.getElementById('statActive');
+        const elCompleted = document.getElementById('statCompleted');
+        const elEarned = document.getElementById('statEarned');
+        
+        if (elActive) elActive.textContent = active;
+        if (elCompleted) elCompleted.textContent = completed;
+        if (elEarned) elEarned.textContent = `${earned.toLocaleString()} ₽`;
     }
 
-    // === ИНИЦИАЛИЗАЦИЯ (ОДИН РАЗ!) ===
+    // === ЗАПУСК ПРИ ЗАГРУЗКЕ ===
     document.addEventListener('DOMContentLoaded', () => {
-        // 1. Проверяем сессию и показываем профиль
+        // 1. Проверяем, есть ли сессия
         const saved = localStorage.getItem('currentUser');
         if (saved) {
             try {
-                const user = JSON.parse(saved);
-                showUserProfile(user);
-            } catch(e) { console.error('Ошибка сессии:', e); }
+                showUserProfile(JSON.parse(saved));
+            } catch(e) { console.error('Ошибка сессии', e); }
         }
         
-        // 2. Загружаем дашборд
+        // 2. Загружаем дашборд (включая синхронизацию подписки)
         loadDashboard();
         
-        // 3. Табы
+        // 3. Обработчики табов (фильтрация проектов)
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
                 const filter = e.target.dataset.tab;
                 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                if (currentUser) {
+                if (currentUser && allJobs.length > 0) {
                     const userJobs = allJobs.filter(job => 
                         job.creatorId == currentUser.candidateId || job.applicantId == currentUser.candidateId
                     );

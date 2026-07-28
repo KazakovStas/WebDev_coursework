@@ -5,28 +5,32 @@
       "name": "Анциферов Владимир",
       "email": "vladimir@lica.ru",
       "password": "123",
-      "candidateId": 1
+      "candidateId": 1,
+      "subscribed": false
     },
     {
       "id": "2",
       "name": "Сикорская Анна",
       "email": "anna@lica.ru",
       "password": "123",
-      "candidateId": 2
+      "candidateId": 2,
+      "subscribed": false
     },
     {
       "id": "3",
       "name": "Демидова Дарья",
       "email": "daria@lica.ru",
       "password": "123456",
-      "candidateId": 3
+      "candidateId": 3,
+      "subscribed": true
     },
     {
       "id": "4",
       "name": "Харисов Евгений",
       "email": "evgeny@lica.ru",
       "password": "123",
-      "candidateId": 4
+      "candidateId": 4,
+      "subscribed": false
     }
   ],
   "candidates": [
