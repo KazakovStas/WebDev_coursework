@@ -338,10 +338,12 @@
             if (!jobsRes.ok) throw new Error('Ошибка загрузки проектов');
             allJobs = await jobsRes.json();
 
-            // Фильтруем проекты текущего пользователя
-            const userJobs = allJobs.filter(job => 
-                job.creatorId == freshUser.candidateId || job.applicantId == freshUser.candidateId
-            );
+const userId = freshUser.candidateId;
+const userJobs = userId !== null && userId !== undefined 
+    ? allJobs.filter(job => 
+        job.creatorId == userId || job.applicantId == userId
+      )
+    : []; 
 
             renderProjects(userJobs, 'all');
             updateStats(userJobs, freshUser.candidateId);
@@ -451,20 +453,30 @@
         loadDashboard();
         
         // 3. Обработчики табов (фильтрация проектов)
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                const filter = e.target.dataset.tab;
-                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                if (currentUser && allJobs.length > 0) {
-                    const userJobs = allJobs.filter(job => 
-                        job.creatorId == currentUser.candidateId || job.applicantId == currentUser.candidateId
-                    );
-                    renderProjects(userJobs, filter);
-                }
-            });
-        });
+       // Обработчики табов (фильтрация проектов)
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        
+        const filter = e.target.dataset.tab;
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        // ПРОВЕРКА: если нет candidateId, показываем пустой список
+        if (!currentUser || currentUser.candidateId === null || currentUser.candidateId === undefined) {
+            renderProjects([], filter); // Пустой массив
+            return;
+        }
+        
+        // Фильтруем проекты только для текущего пользователя
+        if (currentUser && allJobs.length > 0) {
+            const userJobs = allJobs.filter(job => 
+                job.creatorId == currentUser.candidateId || job.applicantId == currentUser.candidateId
+            );
+            renderProjects(userJobs, filter);
+        }
+    });
+});
     });
 </script>
 </body>

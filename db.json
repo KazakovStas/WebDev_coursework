@@ -31,6 +31,14 @@
       "password": "123",
       "candidateId": 4,
       "subscribed": false
+    },
+    {
+      "name": "Крабов Краб Крабович",
+      "email": "crab@crab.ru",
+      "password": "1234",
+      "candidateId": null,
+      "subscribed": false,
+      "id": "s93IOrcGYUQ"
     }
   ],
   "candidates": [

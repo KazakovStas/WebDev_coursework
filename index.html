@@ -397,39 +397,55 @@
     </script>
         <!-- Модальное окно входа -->
     <div class="modal-overlay" id="loginModal">
-        <div class="modal-window">
-            <button class="modal-close" id="closeModalBtn">&times;</button>
-            
-            <div class="modal-header">
-                <span class="modal-logo-text">ЛИЦА</span>
-                <span class="modal-logo-dot"></span>
-                <span class="modal-logo-text">Кандидаты</span>
-            </div>
+    <div class="modal-window">
+        <button class="modal-close" id="closeModalBtn">&times;</button>
+        
+        <div class="modal-header">
+            <span class="modal-logo-text">ЛИЦА</span>
+            <span class="modal-logo-dot"></span>
+            <span class="modal-logo-text">Кандидаты</span>
+        </div>
 
+        <!-- === ЭКРАН ВХОДА === -->
+        <div id="loginView">
             <h2 class="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
-
             <form class="modal-form" id="loginForm">
-                <input type="email" id="authEmail" class="modal-input" placeholder="Email" required autocomplete="email">
-<input type="password" id="authPassword" class="modal-input" placeholder="Пароль" required autocomplete="current-password">
-                
+                <input type="email" id="authEmail" class="modal-input" placeholder="Email" required>
+                <input type="password" id="authPassword" class="modal-input" placeholder="Пароль" required>
                 <a href="#" class="forgot-pass">Забыли пароль?</a>
-
                 <div class="modal-actions">
                     <button type="submit" class="btn-modal-login">Войти</button>
-                    <button type="button" class="btn-modal-reg">Зарегистрироваться</button>
+                    <!-- 🔥 Важно: type="button", чтобы не отправляла форму входа -->
+                    <button type="button" class="btn-modal-reg" id="toRegisterBtn">Зарегистрироваться</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- === ЭКРАН РЕГИСТРАЦИИ (скрыт) === -->
+        <div id="registerView" style="display: none;">
+            <h2 class="modal-title">Создать аккаунт</h2>
+            <form class="modal-form" id="registerForm">
+                <input type="text" id="regName" class="modal-input" placeholder="ФИО" required>
+                <input type="email" id="regEmail" class="modal-input" placeholder="Email" required>
+                <input type="password" id="regPassword" class="modal-input" placeholder="Пароль" required>
+                <div class="modal-actions" style="flex-direction: column; gap: 10px;">
+                    <button type="submit" class="btn-modal-login">Зарегистрироваться</button>
+                    <button type="button" class="btn-modal-reg" id="backToLoginBtn">← Вернуться ко входу</button>
                 </div>
             </form>
         </div>
     </div>
+</div>
 
     <script>
-    // === TOGGLE NAV ===
+    // === 1. TOGGLE NAV (Меню "Ещё") ===
     function toggleNav() {
         const hidden = document.querySelectorAll('.nav-hidden');
         const more = document.querySelector('.more-li');
         const hide = document.querySelector('.hide-li');
         const arrow = document.querySelector('.more-btn .arrow');
         const isVisible = document.querySelector('.nav-hidden.show');
+        
         if (!isVisible) {
             hidden.forEach(i => i.classList.add('show'));
             more.style.display = 'none';
@@ -442,11 +458,78 @@
         }
     }
 
-    // === МОДАЛЬНОЕ ОКНО ===
+    // === 2. ГЛОБАЛЬНЫЕ ЭЛЕМЕНТЫ ===
     const openModalBtn = document.getElementById('openModalBtn');
     const modal = document.getElementById('loginModal');
     const closeBtn = document.getElementById('closeModalBtn');
+    const loginForm = document.getElementById('loginForm');
+    
+    // Элементы переключения Вход/Регистрация
+    const loginView = document.getElementById('loginView');
+    const registerView = document.getElementById('registerView');
+    const toRegisterBtn = document.getElementById('toRegisterBtn');
+    const backToLoginBtn = document.getElementById('backToLoginBtn');
+    const registerForm = document.getElementById('registerForm');
 
+    // === 3. ФУНКЦИИ ПРОФИЛЯ ===
+    function showUserProfile(user) {
+        if (openModalBtn) openModalBtn.style.display = 'none';
+        
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const userDropdown = document.getElementById('userDropdown');
+        const profileLink = document.getElementById('profileLink');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        if (userProfileWrapper && userName && userAvatar) {
+            userProfileWrapper.style.display = 'flex';
+            const firstName = user.name.split(' ')[0];
+            userName.textContent = firstName;
+            userAvatar.textContent = firstName.charAt(0).toUpperCase();
+        }
+        
+        if (profileLink) {
+            profileLink.href = 'dashboard.html';
+        }
+        
+        const userProfile = document.getElementById('userProfile');
+        if (userProfile && userDropdown) {
+            userProfile.onclick = (e) => {
+                e.stopPropagation();
+                userDropdown.classList.toggle('show');
+            };
+        }
+        
+        document.addEventListener('click', (e) => {
+            if (userDropdown && !e.target.closest('.user-profile-wrapper')) {
+                userDropdown.classList.remove('show');
+            }
+        });
+        
+        if (logoutBtn) {
+            logoutBtn.onclick = (e) => {
+                e.preventDefault();
+                if (confirm('Выйти из аккаунта?')) {
+                    localStorage.removeItem('currentUser');
+                    hideUserProfile();
+                    if (userDropdown) userDropdown.classList.remove('show');
+                }
+            };
+        }
+    }
+
+    function hideUserProfile() {
+        const userProfileWrapper = document.getElementById('userProfileWrapper');
+        if (userProfileWrapper) userProfileWrapper.style.display = 'none';
+        if (openModalBtn) {
+            openModalBtn.style.display = 'block';
+            openModalBtn.textContent = 'Войти';
+            openModalBtn.style.backgroundColor = '';
+        }
+    }
+
+    // === 4. МОДАЛКА: ОТКРЫТИЕ/ЗАКРЫТИЕ ===
     openModalBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
         modal.classList.add('active');
@@ -465,12 +548,29 @@
         }
     });
 
-    // === АВТОРИЗАЦИЯ ===
-    const loginForm = document.getElementById('loginForm');
+    // === 5. ПЕРЕКЛЮЧЕНИЕ ВХОД / РЕГИСТРАЦИЯ ===
+    if (toRegisterBtn) {
+        toRegisterBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginView.style.display = 'none';
+            registerView.style.display = 'block';
+            document.querySelector('.modal-title').textContent = 'Создать аккаунт';
+        });
+    }
+
+    if (backToLoginBtn) {
+        backToLoginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerView.style.display = 'none';
+            loginView.style.display = 'block';
+            document.querySelector('.modal-title').innerHTML = 'Получить доступ к базе<br>проверенных кандидатов';
+        });
+    }
+
+    // === 6. ОБРАБОТКА ВХОДА ===
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const email = document.getElementById('authEmail').value.trim();
             const password = document.getElementById('authPassword').value.trim();
             
@@ -495,7 +595,6 @@
                     loginForm.reset();
                     errorEl.style.display = 'none';
                     
-                    // Показываем профиль
                     showUserProfile(user);
                 } else {
                     errorEl.textContent = 'Неверный email или пароль';
@@ -509,131 +608,121 @@
         });
     }
 
-    // === ПОКАЗ ПРОФИЛЯ ===
-    function showUserProfile(user) {
-        // Скрываем кнопку "Войти"
-        if (openModalBtn) openModalBtn.style.display = 'none';
-        
-        // Показываем блок профиля
-        const userProfileWrapper = document.getElementById('userProfileWrapper');
-        const userName = document.getElementById('userName');
-        const userAvatar = document.getElementById('userAvatar');
-        const userDropdown = document.getElementById('userDropdown');
-        const profileLink = document.getElementById('profileLink');
-        const logoutBtn = document.getElementById('logoutBtn');
-        
-        if (userProfileWrapper && userName && userAvatar) {
-            userProfileWrapper.style.display = 'flex';
+    // === 7. ОБРАБОТКА РЕГИСТРАЦИИ ===
+    if (registerForm) {
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
             
-            // Берём только ИМЯ (первое слово)
-            const firstName = user.name.split(' ')[0];
-            userName.textContent = firstName;
-            userAvatar.textContent = firstName.charAt(0).toUpperCase();
-            
-            // Устанавливаем ссылку на профиль с candidateId
-            // Ссылка на дашборд (статичная)
-if (profileLink) {
-    profileLink.href = 'dashboard.html';
-}
-        }
-        
-        // Открытие/закрытие меню
-        const userProfile = document.getElementById('userProfile');
-        if (userProfile) {
-            userProfile.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (userDropdown) {
-                    userDropdown.classList.toggle('show');
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+
+            if (password.length < 4) {
+                alert('Пароль должен быть не менее 4 символов');
+                return;
+            }
+
+            try {
+                // Проверка уникальности email
+                const checkRes = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
+                const existing = await checkRes.json();
+                if (existing.length > 0) {
+                    alert('Этот email уже зарегистрирован. Попробуйте войти.');
+                    return;
                 }
-            });
-        }
-        
-        // Закрытие меню при клике вне его
-        document.addEventListener('click', (e) => {
-            if (userDropdown && !e.target.closest('.user-profile-wrapper')) {
-                userDropdown.classList.remove('show');
+
+                // Создание пользователя
+                const res = await fetch('http://localhost:3000/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        password: password,
+                        candidateId: null,
+                        subscribed: false
+                    })
+                });
+
+                if (res.ok) {
+                    const newUser = await res.json();
+                    localStorage.setItem('currentUser', JSON.stringify(newUser));
+                    
+                    // Сброс формы и закрытие модалки
+                    registerForm.reset();
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    
+                    // Возврат экрана входа для следующего раза
+                    loginView.style.display = 'block';
+                    registerView.style.display = 'none';
+                    document.querySelector('.modal-title').innerHTML = 'Получить доступ к базе<br>проверенных кандидатов';
+                    
+                    // Обновление шапки
+                    showUserProfile(newUser);
+                    
+                    alert(`Добро пожаловать, ${name.split(' ')[0]}!`);
+                } else {
+                    alert('Ошибка при создании аккаунта');
+                }
+            } catch (err) {
+                console.error('Ошибка регистрации:', err);
+                alert('Не удалось подключиться к серверу. Убедитесь, что json-server запущен.');
             }
         });
-        
-        // Выход
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (confirm('Выйти из аккаунта?')) {
-                    localStorage.removeItem('currentUser');
-                    hideUserProfile();
-                    if (userDropdown) userDropdown.classList.remove('show');
-                }
-            });
-        }
     }
 
-    // === СКРЫТИЕ ПРОФИЛЯ ===
-    function hideUserProfile() {
-        const userProfileWrapper = document.getElementById('userProfileWrapper');
-        if (userProfileWrapper) userProfileWrapper.style.display = 'none';
-        if (openModalBtn) {
-            openModalBtn.style.display = 'block';
-            openModalBtn.textContent = 'Войти';
-            openModalBtn.style.backgroundColor = '';
-        }
-    }
-
-    // === ПРОВЕРКА СЕССИИ ПРИ ЗАГРУЗКЕ ===
-    document.addEventListener('DOMContentLoaded', () => {
-        const saved = localStorage.getItem('currentUser');
-        if (saved) {
-            const user = JSON.parse(saved);
-            showUserProfile(user);
-        }
-    });
-
-    // === ОБРАБОТКА ПОДПИСКИ ===
-const subscribeForm = document.getElementById('subscribeForm');
-if (subscribeForm) {
-    subscribeForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const email = document.getElementById('subscribeEmail').value.trim();
-        const btn = document.getElementById('subscribeBtn');
-        const successMsg = document.getElementById('subscribeSuccess');
-        
-        btn.disabled = true;
-        btn.textContent = 'Проверка...';
-        
-        try {
-            // Ищем пользователя с таким email
-            const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
-            const users = await res.json();
+    // === 8. ОБРАБОТКА ПОДПИСКИ НА РАССЫЛКУ ===
+    const subscribeForm = document.getElementById('subscribeForm');
+    if (subscribeForm) {
+        subscribeForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
             
-            if (users.length > 0) {
-                // Пользователь найден — обновляем статус подписки
-                const user = users[0];
-                await fetch(`http://localhost:3000/users/${user.id}`, {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ subscribed: true })
-                });
+            const email = document.getElementById('subscribeEmail').value.trim();
+            const btn = document.getElementById('subscribeBtn');
+            const successMsg = document.getElementById('subscribeSuccess');
+            
+            btn.disabled = true;
+            btn.textContent = 'Проверка...';
+            
+            try {
+                const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
+                const users = await res.json();
                 
-                // Показываем успех
-                subscribeForm.style.display = 'none';
-                successMsg.style.display = 'block';
-                
-            } else {
-                alert('Email не найден в базе. Пожалуйста, зарегистрируйтесь сначала.');
+                if (users.length > 0) {
+                    const user = users[0];
+                    await fetch(`http://localhost:3000/users/${user.id}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ subscribed: true })
+                    });
+                    
+                    subscribeForm.style.display = 'none';
+                    successMsg.style.display = 'block';
+                } else {
+                    alert('Email не найден в базе. Пожалуйста, зарегистрируйтесь сначала.');
+                    btn.disabled = false;
+                    btn.textContent = 'Подписаться';
+                }
+            } catch (err) {
+                console.error('Ошибка подписки:', err);
+                alert('Произошла ошибка. Попробуйте позже.');
                 btn.disabled = false;
                 btn.textContent = 'Подписаться';
             }
-        } catch (err) {
-            console.error('Ошибка подписки:', err);
-            alert('Произошла ошибка. Попробуйте позже.');
-            btn.disabled = false;
-            btn.textContent = 'Подписаться';
+        });
+    }
+
+    // === 9. ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ ===
+    document.addEventListener('DOMContentLoaded', () => {
+        const saved = localStorage.getItem('currentUser');
+        if (saved) {
+            try {
+                const user = JSON.parse(saved);
+                showUserProfile(user);
+            } catch(e) { console.error('Ошибка сессии:', e); }
         }
     });
-}
-
-
 </script>
     
 </body>
