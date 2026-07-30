@@ -2039,3 +2039,37 @@ body {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* Выбор цветного аватара */
+.avatar-option input[type="radio"]:checked + .avatar-preview {
+    border-color: var(--accent) !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.avatar-option .avatar-preview {
+    transition: all 0.3s ease;
+}
+
+.avatar-option:hover .avatar-preview {
+    transform: scale(1.05);
+}
+
+/* Стиль для тега remote */
+.badge-remote {
+    background-color: #E6F4FF; /* Светло-голубой */
+    color: #1976D2;            /* Тёмно-синий текст */
+}
+
+/* Стиль для fulltime (фиолетовый) */
+.badge-fulltime {
+    background-color: #F0E6FF;
+    color: #6B46C1;
+}
+
+/* Стиль для parttime (желтый) */
+.badge-parttime {
+    background-color: #FFF4CC;
+    color: #8B6914;
+}
+

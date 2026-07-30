@@ -723,6 +723,57 @@
             } catch(e) { console.error('Ошибка сессии:', e); }
         }
     });
+
+    // === ОБРАБОТКА КНОПКИ "ПОПАСТЬ В БАЗУ" ===
+// === ОБРАБОТКА КНОПКИ "ПОПАСТЬ В БАЗУ" ===
+document.querySelectorAll('a[href="#"], .btn-secondary[href="#"]').forEach(link => {
+    link.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        if (!currentUser) {
+            // Не авторизован → открываем модалку входа
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        } else if (currentUser.candidateId === null || currentUser.candidateId === undefined) {
+            // Авторизован, но нет candidateId → переходим на форму
+            window.location.href = 'create-profile.html';
+        } else {
+            // 🔥 Проверяем, существует ли кандидат
+            try {
+                const res = await fetch(`http://localhost:3000/candidates/${currentUser.candidateId}`);
+                
+                if (!res.ok || res.status === 404) {
+                    // 🔥 Кандидат не найден → очищаем candidateId и показываем форму
+                    console.log('Кандидат не найден, создаём новый профиль');
+                    
+                    // Очищаем candidateId у пользователя
+                    await fetch(`http://localhost:3000/users/${currentUser.id}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ candidateId: null })
+                    });
+                    
+                    // Обновляем localStorage
+                    const updatedUser = { ...currentUser, candidateId: null };
+                    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+                    
+                    // Переходим на форму
+                    window.location.href = 'create-profile.html';
+                    return;
+                }
+                
+                // Кандидат существует → переходим на его страницу
+                window.location.href = `profile.html?id=${currentUser.candidateId}`;
+                
+            } catch (err) {
+                console.error('Ошибка проверки кандидата:', err);
+                // При ошибке тоже показываем форму
+                window.location.href = 'create-profile.html';
+            }
+        }
+    });
+});
 </script>
     
 </body>

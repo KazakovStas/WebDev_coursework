@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЛИЦА - Создать профиль кандидата</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- HEADER (как в index.html) -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-nav">
+                <a href="index.html" class="logo"><span>ЛИЦА</span><div class="logo-icon"></div></a>
+                <nav>
+                    <ul class="main-nav">
+                        <li><a href="index.html">Кандидаты</a></li>
+                        <li><a href="catalog.html">Найти кандидата</a></li>
+                        <li><a href="#">Попасть в базу</a></li>
+                        <li><a href="#">О сервисе</a></li>
+                        <li><a href="#">Портал</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="search-auth">
+                <div class="search-box">
+                    <img src="img/Search.png" alt="Поиск" class="search-icon">
+                    <input type="text" class="search-input" placeholder="Поиск">
+                </div>
+                <button class="login-btn" id="openModalBtn">Войти</button>
+                <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
+                    <div class="user-profile" id="userProfile">
+                        <span class="user-name" id="userName">Имя</span>
+                        <div class="user-avatar" id="userAvatar">И</div>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="dashboard.html" class="dropdown-item">Мой профиль</a>
+                        <button class="dropdown-item logout-btn" id="logoutBtn">Выйти</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN: ФОРМА СОЗДАНИЯ ПРОФИЛЯ -->
+    <main class="edit-profile-main">
+        <div class="container edit-profile-container">
+            <div class="edit-profile-card">
+                <div class="edit-header">
+                    <h1>Заполните профиль кандидата</h1>
+                    <p class="edit-subtitle">Эта информация будет видна работодателям</p>
+                </div>
+
+                <form id="createProfileForm" class="edit-form">
+                    <!-- 🔥 ФИО (отдельное поле) -->
+                    <div class="form-group">
+                        <label for="fullName">ФИО *</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Например: Анциферов Владимир">
+                    </div>
+
+                                        <!-- 🔥 Выбор цветного аватара -->
+                    <div class="form-group">
+                        <label>Выберите цвет профиля</label>
+                        <div class="avatar-options" style="display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap;">
+                            <label class="avatar-option" style="cursor: pointer; position: relative;">
+                                <input type="radio" name="avatar" value="gradient-purple" checked style="display: none;">
+                                <div class="avatar-preview" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; font-weight: 700; border: 3px solid var(--accent);">
+                                    К
+                                </div>
+                            </label>
+                            <label class="avatar-option" style="cursor: pointer; position: relative;">
+                                <input type="radio" name="avatar" value="gradient-blue" style="display: none;">
+                                <div class="avatar-preview" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; font-weight: 700; border: 3px solid transparent;">
+                                    А
+                                </div>
+                            </label>
+                            <label class="avatar-option" style="cursor: pointer; position: relative;">
+                                <input type="radio" name="avatar" value="gradient-green" style="display: none;">
+                                <div class="avatar-preview" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; font-weight: 700; border: 3px solid transparent;">
+                                    Д
+                                </div>
+                            </label>
+                            <label class="avatar-option" style="cursor: pointer; position: relative;">
+                                <input type="radio" name="avatar" value="gradient-orange" style="display: none;">
+                                <div class="avatar-preview" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; font-weight: 700; border: 3px solid transparent;">
+                                    Е
+                                </div>
+                            </label>
+                            <label class="avatar-option" style="cursor: pointer; position: relative;">
+                                <input type="radio" name="avatar" value="gradient-red" style="display: none;">
+                                <div class="avatar-preview" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; font-weight: 700; border: 3px solid transparent;">
+                                    М
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Должность -->
+                    <div class="form-group">
+                        <label for="position">Должность / Позиция *</label>
+                        <input type="text" id="position" name="position" required placeholder="Например: Директор по маркетингу">
+                    </div>
+
+                    <!-- Категория -->
+                    <div class="form-group">
+                        <label for="category">Категория *</label>
+                        <select id="category" name="category" required>
+                            <option value="">Выберите категорию</option>
+                            <option value="marketing">Маркетинг</option>
+                            <option value="development">Разработка</option>
+                            <option value="analytics">Аналитика</option>
+                            <option value="sales">Продажи</option>
+                            <option value="design">Дизайн</option>
+                            <option value="content">Контент</option>
+                            <option value="management">Топ-менеджмент</option>
+                        </select>
+                    </div>
+
+                    <!-- Опыт и зарплата -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="experience">Опыт работы *</label>
+                            <input type="text" id="experience" name="experience" required placeholder="Например: 3 года, 10+ лет">
+                        </div>
+                        <div class="form-group">
+                            <label for="salary">Зарплатные ожидания, ₽ *</label>
+                            <input type="number" id="salary" name="salary" required placeholder="200000">
+                        </div>
+                    </div>
+
+                    <!-- Теги -->
+                    <div class="form-group">
+                        <label>Формат работы</label>
+                        <label class="checkbox-label"><input type="checkbox" name="tags" value="fulltime"> <span>Full-time</span></label>
+                        <label class="checkbox-label"><input type="checkbox" name="tags" value="parttime"> <span>Part-time</span></label>
+                        <label class="checkbox-label"><input type="checkbox" name="tags" value="remote"> <span>Удалённо</span></label>
+                    </div>
+
+                    <!-- Возраст и город -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="age">Возраст</label>
+                            <input type="text" id="age" name="age" placeholder="Например: 34 года">
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Город</label>
+                            <input type="text" id="location" name="location" placeholder="Например: Москва">
+                        </div>
+                    </div>
+
+                    <!-- Текстовые поля -->
+                    <div class="form-group">
+                        <label for="reason">Причина поиска работы</label>
+                        <textarea id="reason" name="reason" rows="3" placeholder="Расскажите, почему вы ищете новую работу..." class="form-input"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="general_info">Общая информация</label>
+                        <textarea id="general_info" name="general_info" rows="4" placeholder="Ключевые достижения, экспертиза..." class="form-input"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="test_exp">Опыт в тестировании / аналитике</label>
+                        <textarea id="test_exp" name="test_exp" rows="3" placeholder="Инструменты, методики, проекты..." class="form-input"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="api_exp">Опыт работы с API / интеграциями</label>
+                        <textarea id="api_exp" name="api_exp" rows="3" placeholder="REST, GraphQL, вебхуки..." class="form-input"></textarea>
+                    </div>
+
+                    <!-- Кнопки -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="saveProfileBtn">💾 Сохранить профиль</button>
+                        <a href="dashboard.html" class="btn-secondary">↩ Отмена</a>
+                    </div>
+                </form>
+
+                <div id="successMessage" class="success-box" style="display: none;">
+                    <div class="success-icon">✅</div>
+                    <h3>Профиль успешно создан!</h3>
+                    <p>Теперь вы есть в базе кандидатов. Работодатели могут с вами связаться.</p>
+                    <a href="dashboard.html" class="btn-primary">Вернуться в кабинет</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column"><h3>ЛИЦА.КАНДИДАТЫ</h3><ul class="footer-list"><li><a href="#">Найти кандидата</a></li><li><a href="#">Попасть в базу</a></li><li><a href="#">О сервисе</a></li></ul></div>
+                <div class="footer-column"><h3>ЛИЦА.РАБОТА</h3><ul class="footer-list"><li><a href="#">Рекрутинг</a></li><li><a href="#">Конструктор подбора</a></li><li><a href="#">Аналитика подбора</a></li></ul></div>
+                <div class="footer-column"><h3>О ПОРТАЛЕ</h3><ul class="footer-list"><li><a href="#">Поддержка</a></li><li><a href="#">Обновления</a></li><li><a href="#">Контакты</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><span>ООО «ЛИЦА»</span><div class="footer-legal"><a href="#">Реквизиты</a><span class="divider">|</span><a href="#">Правовая информация</a></div></div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT -->
+    <script>
+        // === ПРОВЕРКА АВТОРИЗАЦИИ ===
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                window.location.href = 'index.html';
+                return;
+            }
+            if (currentUser.candidateId !== null && currentUser.candidateId !== undefined) {
+                window.location.href = `profile.html?id=${currentUser.candidateId}`;
+                return;
+            }
+
+            // 🔥 Заполняем ФИО из аккаунта
+            document.getElementById('fullName').value = currentUser.name;
+        });
+
+        // === ОТПРАВКА ФОРМЫ ===
+        const form = document.getElementById('createProfileForm');
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('saveProfileBtn');
+                btn.disabled = true;
+                btn.textContent = 'Сохранение...';
+
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                
+                // 🔥 Собираем выбранный аватар
+              const selectedAvatar = document.querySelector('input[name="avatar"]:checked').value;
+                
+                // 🔥 Собираем теги
+                const tags = Array.from(document.querySelectorAll('input[name="tags"]:checked')).map(cb => cb.value);
+
+                const candidateData = {
+                    // 🔥 Теперь name = ФИО, position = должность
+                    name: document.getElementById('fullName').value.trim(),
+                    position: document.getElementById('position').value.trim(),
+                    avatar: selectedAvatar,
+                    experience: document.getElementById('experience').value.trim(),
+                    salary: Number(document.getElementById('salary').value) || 0,
+                    category: document.getElementById('category').value,
+                    tags: tags,
+                    age: document.getElementById('age').value.trim(),
+                    location: document.getElementById('location').value.trim(),
+                    reason: document.getElementById('reason').value.trim(),
+                    general_info: document.getElementById('general_info').value.trim(),
+                    test_exp: document.getElementById('test_exp').value.trim(),
+                    api_exp: document.getElementById('api_exp').value.trim()
+                };
+
+                try {
+                    // 1. Создаём кандидата
+                    const res = await fetch('http://localhost:3000/candidates', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(candidateData)
+                    });
+                    
+                    if (!res.ok) throw new Error('Failed to create candidate');
+                    const newCandidate = await res.json();
+
+                    // 2. Обновляем пользователя: привязываем candidateId
+                    await fetch(`http://localhost:3000/users/${currentUser.id}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ candidateId: newCandidate.id })
+                    });
+
+                    // 3. Обновляем сессию
+                    const updatedUser = { ...currentUser, candidateId: newCandidate.id };
+                    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+                    // 4. Показываем успех
+                    form.style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'flex';
+
+                } catch (err) {
+                    console.error('Ошибка:', err);
+                    alert('Не удалось сохранить профиль. Проверьте подключение к серверу.');
+                    btn.disabled = false;
+                    btn.textContent = '💾 Сохранить профиль';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
