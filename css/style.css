@@ -2073,3 +2073,28 @@ body {
     color: #8B6914;
 }
 
+/* Управление профилем кандидата */
+.candidate-management-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #ffebee;
+}
+
+.candidate-management-card h3 {
+    font-size: 16px;
+    margin: 0 0 12px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.candidate-management-card p {
+    margin: 0 0 16px;
+    line-height: 1.5;
+}
+
+#deleteCandidateBtn:hover {
+    background: #ffebee !important;
+    border-color: #b71c1c !important;
+}
