@@ -94,7 +94,7 @@
 
                 <!-- Статус подписки -->
                 <div class="subscription-status-card">
-                    <h3> Рассылка</h3>
+                    <h3>📧 Рассылка</h3>
                     <div class="status-row">
                         <span>Статус:</span>
                         <strong id="subscribedStatus">—</strong>
@@ -118,9 +118,9 @@
 
                 <div class="quick-actions">
                     <h3>Быстрые действия</h3>
-                    <button class="btn-action">+ Создать проект</button>
-                    <button class="btn-action">Найти кандидата</button>
-                    <button class="btn-action">Мои отклики</button>
+                    <button class="btn-action" id="createProjectBtn">+ Создать проект</button>
+                    <a href="catalog.html" class="btn-action" style="text-decoration: none; display: block;">🔍 Найти кандидата</a>
+                    <!-- Кнопку "Мои отклики" убрали -->
                 </div>
             </aside>
 
@@ -142,7 +142,7 @@
 
                 <div id="emptyState" class="empty-state" style="display: none;">
                     <p>У вас пока нет проектов</p>
-                    <button class="btn-primary">Создать первый проект</button>
+                    <button class="btn-primary" id="createFirstProjectBtn">Создать первый проект</button>
                 </div>
             </section>
 
@@ -187,7 +187,7 @@
         </div>
     </footer>
 
-    <!-- MODAL (как в index.html) -->
+    <!-- MODAL ВХОДА -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-window">
             <button class="modal-close" id="closeModalBtn">&times;</button>
@@ -210,7 +210,7 @@
         <div class="modal-window" style="max-width: 420px; text-align: center;">
             <button class="modal-close" id="closeDeleteModal">&times;</button>
             
-            <div style="font-size: 48px; margin-bottom: 16px;">️</div>
+            <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
             <h3 style="margin: 0 0 12px; font-size: 20px; font-weight: 600;">Удалить профиль кандидата?</h3>
             <p style="color: var(--text-muted); margin: 0 0 24px; line-height: 1.5;">
                 Ваш профиль будет полностью удалён из базы кандидатов. 
@@ -225,6 +225,33 @@
                     Удалить профиль
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- 🔥 МОДАЛКА СОЗДАНИЯ ПРОЕКТА -->
+    <div class="modal-overlay" id="createProjectModal">
+        <div class="modal-window" style="max-width: 500px;">
+            <button class="modal-close" id="closeCreateProjectModal">&times;</button>
+            
+            <div class="modal-header">
+                <span class="modal-logo-text">ЛИЦА</span>
+                <span class="modal-logo-dot"></span>
+                <span class="modal-logo-text">Проекты</span>
+            </div>
+            
+            <h2 class="modal-title" style="margin-bottom: 20px;">Создать новый проект</h2>
+            
+            <form id="createProjectForm" class="modal-form">
+                <input type="text" id="projectTitle" class="modal-input" placeholder="Название проекта *" required>
+                <textarea id="projectDescription" class="modal-input" placeholder="Описание проекта *" required style="min-height: 100px; resize: vertical;"></textarea>
+                <input type="number" id="projectBudget" class="modal-input" placeholder="Бюджет, ₽ *" required>
+                <input type="date" id="projectDeadline" class="modal-input" required>
+                
+                <div class="modal-actions" style="margin-top: 20px;">
+                    <button type="submit" class="btn-modal-login" style="flex: 1;">💾 Создать проект</button>
+                    <button type="button" class="btn-modal-reg" id="cancelCreateProjectBtn" style="flex: 1;">Отмена</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -339,7 +366,6 @@
             }
             
             if (deleteBtn) {
-                // Открываем модалку подтверждения
                 deleteBtn.onclick = () => {
                     document.getElementById('deleteConfirmModal').classList.add('active');
                     document.body.style.overflow = 'hidden';
@@ -355,7 +381,6 @@
         const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
         const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
 
-        // Закрытие модалки
         function closeDeleteModal() {
             deleteModal.classList.remove('active');
             document.body.style.overflow = '';
@@ -368,42 +393,110 @@
             if (e.target === deleteModal) closeDeleteModal();
         });
 
-        // Подтверждение удаления
-                // Подтверждение удаления
         confirmDeleteBtn?.addEventListener('click', async () => {
             try {
                 confirmDeleteBtn.disabled = true;
                 confirmDeleteBtn.textContent = 'Удаление...';
                 
-                // 1. Удаляем кандидата
                 const deleteRes = await fetch(`http://localhost:3000/candidates/${currentUser.candidateId}`, {
                     method: 'DELETE'
                 });
                 if (!deleteRes.ok) throw new Error('Failed to delete candidate');
                 
-                // 2. Очищаем candidateId у пользователя
                 await fetch(`http://localhost:3000/users/${currentUser.id}`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ candidateId: null })
                 });
                 
-                // 3. Обновляем localStorage
                 localStorage.setItem('currentUser', JSON.stringify({ ...currentUser, candidateId: null }));
                 
-                // 4. Закрываем модалку и перезагружаем дашборд
                 closeDeleteModal();
                 loadDashboard();
                 
-                // ✅ alert() убран. Интерфейс обновится сам, блок исчезнет плавно.
-                
             } catch (err) {
                 console.error('Ошибка удаления:', err);
-                // Оставляем alert только для критических ошибок сети
-                alert('❌ Не удалось удалить профиль. Проверьте подключение к серверу.');
             } finally {
                 confirmDeleteBtn.disabled = false;
                 confirmDeleteBtn.textContent = 'Удалить профиль';
+            }
+        });
+    }
+
+    // === СОЗДАНИЕ ПРОЕКТА ===
+    function initCreateProject() {
+        const createProjectBtn = document.getElementById('createProjectBtn');
+        const createFirstProjectBtn = document.getElementById('createFirstProjectBtn');
+        const createProjectModal = document.getElementById('createProjectModal');
+        const closeCreateProjectModal = document.getElementById('closeCreateProjectModal');
+        const cancelCreateProjectBtn = document.getElementById('cancelCreateProjectBtn');
+        const createProjectForm = document.getElementById('createProjectForm');
+
+        // Открытие модалки
+        function openCreateModal() {
+            createProjectModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        createProjectBtn?.addEventListener('click', openCreateModal);
+        createFirstProjectBtn?.addEventListener('click', openCreateModal);
+
+        // Закрытие модалки
+        function closeCreateModal() {
+            createProjectModal.classList.remove('active');
+            document.body.style.overflow = '';
+            createProjectForm.reset();
+        }
+
+        closeCreateProjectModal?.addEventListener('click', closeCreateModal);
+        cancelCreateProjectBtn?.addEventListener('click', closeCreateModal);
+        
+        createProjectModal?.addEventListener('click', (e) => {
+            if (e.target === createProjectModal) closeCreateModal();
+        });
+
+        // Создание проекта
+        createProjectForm?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                alert('❌ Сначала войдите в аккаунт');
+                return;
+            }
+
+            const projectData = {
+                title: document.getElementById('projectTitle').value.trim(),
+                description: document.getElementById('projectDescription').value.trim(),
+                budget: Number(document.getElementById('projectBudget').value) || 0,
+                deadline: document.getElementById('projectDeadline').value,
+                status: 'open',
+                creatorId: currentUser.candidateId || null,
+                applicantId: null,
+                createdAt: new Date().toISOString().split('T')[0]
+            };
+
+            try {
+                const res = await fetch('http://localhost:3000/jobs', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(projectData)
+                });
+
+                if (!res.ok) throw new Error('Failed to create project');
+
+                const newProject = await res.json();
+                
+                closeCreateModal();
+                
+                // Перезагружаем проекты
+                await loadDashboard();
+                
+                alert(`✅ Проект "${projectData.title}" успешно создан!`);
+                
+            } catch (err) {
+                console.error('Ошибка создания проекта:', err);
+                alert('❌ Не удалось создать проект. Проверьте подключение к серверу.');
             }
         });
     }
@@ -441,7 +534,7 @@
                 } else {
                     statusEl.textContent = 'Не подписан';
                     statusEl.className = 'not-subscribed';
-                    toggleBtn.textContent = '📧 Подписаться на рассылку';
+                    toggleBtn.textContent = ' Подписаться на рассылку';
                     toggleBtn.onclick = () => toggleSubscription(true);
                 }
                 toggleBtn.style.display = 'block';
@@ -459,7 +552,6 @@
             renderProjects(userJobs, 'all');
             updateStats(userJobs, freshUser.candidateId);
             
-            // Инициализируем управление профилем после загрузки
             initCandidateManagement();
 
         } catch (err) {
@@ -558,6 +650,7 @@
         }
         
         loadDashboard();
+        initCreateProject(); // Инициализация создания проекта
         
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {

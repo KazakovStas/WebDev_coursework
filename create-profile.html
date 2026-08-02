@@ -216,74 +216,90 @@
             document.getElementById('fullName').value = currentUser.name;
         });
 
-        // === ОТПРАВКА ФОРМЫ ===
-        const form = document.getElementById('createProfileForm');
-        if (form) {
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const btn = document.getElementById('saveProfileBtn');
-                btn.disabled = true;
-                btn.textContent = 'Сохранение...';
+            // === ОТПРАВКА ФОРМЫ ===
+    const form = document.getElementById('createProfileForm');
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('saveProfileBtn');
+            btn.disabled = true;
+            btn.textContent = 'Сохранение...';
 
-                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            console.log('📝 Текущий пользователь:', currentUser);
+            
+            // 🔥 Собираем выбранный аватар
+            const selectedAvatar = document.querySelector('input[name="avatar"]:checked').value;
+            
+            // 🔥 Собираем теги
+            const tags = Array.from(document.querySelectorAll('input[name="tags"]:checked')).map(cb => cb.value);
+
+            const candidateData = {
+                name: document.getElementById('fullName').value.trim(),
+                position: document.getElementById('position').value.trim(),
+                avatar: selectedAvatar,
+                experience: document.getElementById('experience').value.trim(),
+                salary: Number(document.getElementById('salary').value) || 0,
+                category: document.getElementById('category').value,
+                tags: tags,
+                age: document.getElementById('age').value.trim(),
+                location: document.getElementById('location').value.trim(),
+                reason: document.getElementById('reason').value.trim(),
+                general_info: document.getElementById('general_info').value.trim(),
+                test_exp: document.getElementById('test_exp').value.trim(),
+                api_exp: document.getElementById('api_exp').value.trim()
+            };
+
+            console.log('📦 Данные кандидата:', candidateData);
+
+            try {
+                // 1. Создаём кандидата
+                const res = await fetch('http://localhost:3000/candidates', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(candidateData)
+                });
                 
-                // 🔥 Собираем выбранный аватар
-              const selectedAvatar = document.querySelector('input[name="avatar"]:checked').value;
-                
-                // 🔥 Собираем теги
-                const tags = Array.from(document.querySelectorAll('input[name="tags"]:checked')).map(cb => cb.value);
-
-                const candidateData = {
-                    // 🔥 Теперь name = ФИО, position = должность
-                    name: document.getElementById('fullName').value.trim(),
-                    position: document.getElementById('position').value.trim(),
-                    avatar: selectedAvatar,
-                    experience: document.getElementById('experience').value.trim(),
-                    salary: Number(document.getElementById('salary').value) || 0,
-                    category: document.getElementById('category').value,
-                    tags: tags,
-                    age: document.getElementById('age').value.trim(),
-                    location: document.getElementById('location').value.trim(),
-                    reason: document.getElementById('reason').value.trim(),
-                    general_info: document.getElementById('general_info').value.trim(),
-                    test_exp: document.getElementById('test_exp').value.trim(),
-                    api_exp: document.getElementById('api_exp').value.trim()
-                };
-
-                try {
-                    // 1. Создаём кандидата
-                    const res = await fetch('http://localhost:3000/candidates', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(candidateData)
-                    });
-                    
-                    if (!res.ok) throw new Error('Failed to create candidate');
-                    const newCandidate = await res.json();
-
-                    // 2. Обновляем пользователя: привязываем candidateId
-                    await fetch(`http://localhost:3000/users/${currentUser.id}`, {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ candidateId: newCandidate.id })
-                    });
-
-                    // 3. Обновляем сессию
-                    const updatedUser = { ...currentUser, candidateId: newCandidate.id };
-                    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-
-                    // 4. Показываем успех
-                    form.style.display = 'none';
-                    document.getElementById('successMessage').style.display = 'flex';
-
-                } catch (err) {
-                    console.error('Ошибка:', err);
-                    alert('Не удалось сохранить профиль. Проверьте подключение к серверу.');
-                    btn.disabled = false;
-                    btn.textContent = '💾 Сохранить профиль';
+                if (!res.ok) {
+                    const errorText = await res.text();
+                    throw new Error(`HTTP ${res.status}: ${errorText}`);
                 }
-            });
-        }
+                
+                const newCandidate = await res.json();
+                console.log('✅ Кандидат создан:', newCandidate);
+
+                // 2. 🔥 Обновляем пользователя: привязываем candidateId
+                console.log(`🔄 Обновляем пользователя ${currentUser.id}...`);
+                const updateRes = await fetch(`http://localhost:3000/users/${currentUser.id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ candidateId: newCandidate.id })
+                });
+                
+                if (!updateRes.ok) {
+                    const errorText = await updateRes.text();
+                    throw new Error(`Не удалось обновить пользователя: HTTP ${updateRes.status}: ${errorText}`);
+                }
+                
+                const updatedUser = await updateRes.json();
+                console.log('✅ Пользователь обновлён:', updatedUser);
+
+                // 3. Обновляем localStorage
+                localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+                // 4. Показываем успех
+                form.style.display = 'none';
+                document.getElementById('successMessage').style.display = 'flex';
+
+            } catch (err) {
+                console.error('❌ Ошибка:', err);
+                alert(`Не удалось сохранить профиль: ${err.message}`);
+                btn.disabled = false;
+                btn.textContent = '💾 Сохранить профиль';
+            }
+        });
+    }
     </script>
 </body>
 </html>

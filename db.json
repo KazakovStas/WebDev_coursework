@@ -34,11 +34,11 @@
     },
     {
       "name": "Крабов Краб Крабович",
-      "email": "crab@crab.ru",
-      "password": "1234",
-      "candidateId": null,
+      "email": "stalker@mail.ru",
+      "password": "123456",
+      "candidateId": "SRpeX3UTX94",
       "subscribed": false,
-      "id": "s93IOrcGYUQ"
+      "id": "2W8SwnOv4_M"
     }
   ],
   "candidates": [
@@ -114,6 +114,24 @@
       "general_info": "Вывел 3 компании на прибыль...",
       "test_exp": "Unit-экономика, гипотезы...",
       "api_exp": "Платёжные шлюзы, ERP..."
+    },
+    {
+      "name": "Крабов Краб Крабович",
+      "position": "111",
+      "avatar": "gradient-purple",
+      "experience": "1",
+      "salary": 1,
+      "category": "marketing",
+      "tags": [
+        "fulltime"
+      ],
+      "age": "1",
+      "location": "1",
+      "reason": "1",
+      "general_info": "1",
+      "test_exp": "1",
+      "api_exp": "1",
+      "id": "SRpeX3UTX94"
     }
   ],
   "jobs": [
@@ -160,6 +178,17 @@
       "applicantId": 1,
       "createdAt": "2024-01-18",
       "deadline": "2024-02-20"
+    },
+    {
+      "title": "1",
+      "description": "1",
+      "budget": 1,
+      "deadline": "1111-11-11",
+      "status": "open",
+      "creatorId": "SRpeX3UTX94",
+      "applicantId": null,
+      "createdAt": "2026-08-02",
+      "id": "L2TDFuX-KI8"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
