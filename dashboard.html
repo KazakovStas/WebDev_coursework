@@ -254,6 +254,40 @@
             </form>
         </div>
     </div>
+    
+    <!-- 🔥 МОДАЛКА РЕДАКТИРОВАНИЯ ПРОЕКТА -->
+    <div class="modal-overlay" id="editProjectModal">
+        <div class="modal-window" style="max-width: 500px;">
+            <button class="modal-close" id="closeEditProjectModal">&times;</button>
+            
+            <div class="modal-header">
+                <span class="modal-logo-text">ЛИЦА</span>
+                <span class="modal-logo-dot"></span>
+                <span class="modal-logo-text">Проекты</span>
+            </div>
+            
+            <h2 class="modal-title" style="margin-bottom: 20px;">Редактировать проект</h2>
+            
+            <form id="editProjectForm" class="modal-form">
+                <input type="hidden" id="editProjectId">
+                <input type="text" id="editProjectTitle" class="modal-input" placeholder="Название проекта *" required>
+                <textarea id="editProjectDescription" class="modal-input" placeholder="Описание проекта *" required style="min-height: 100px; resize: vertical;"></textarea>
+                <input type="number" id="editProjectBudget" class="modal-input" placeholder="Бюджет, ₽ *" required>
+                <input type="date" id="editProjectDeadline" class="modal-input" required>
+                
+                <select id="editProjectStatus" class="modal-input" required>
+                    <option value="open">Открыт</option>
+                    <option value="in-progress">В работе</option>
+                    <option value="completed">Завершён</option>
+                </select>
+                
+                <div class="modal-actions" style="margin-top: 20px;">
+                    <button type="submit" class="btn-modal-login" style="flex: 1;">💾 Сохранить</button>
+                    <button type="button" class="btn-modal-reg" id="cancelEditProjectBtn" style="flex: 1;">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- SCRIPTS -->
     <script>
@@ -500,7 +534,8 @@
             }
         });
     }
-
+    
+    
     // === ЗАГРУЗКА ДАШБОРДА ===
     async function loadDashboard() {
         const session = JSON.parse(localStorage.getItem('currentUser'));
@@ -615,7 +650,7 @@
                         <span>Срок: ${new Date(job.deadline).toLocaleDateString('ru-RU')}</span>
                     </div>
                     <div class="project-actions">
-                        ${isCreator ? `<button class="btn-sm">Редактировать</button>` : `<button class="btn-sm">Связаться</button>`}
+                       ${isCreator ? `<button class="btn-sm" onclick="openEditModal('${job.id}')">Редактировать</button>` : `<button class="btn-sm">Связаться</button>`}
                         <a href="project-details.html?id=${job.id}" class="btn-sm btn-outline">Детали</a>
                     </div>
                 </div>
@@ -640,6 +675,85 @@
         if (elEarned) elEarned.textContent = `${earned.toLocaleString()} ₽`;
     }
 
+    // === РЕДАКТИРОВАНИЕ ПРОЕКТА ===
+    function initEditProject() {
+        const editModal = document.getElementById('editProjectModal');
+        const closeEditBtn = document.getElementById('closeEditProjectModal');
+        const cancelEditBtn = document.getElementById('cancelEditProjectBtn');
+        const editForm = document.getElementById('editProjectForm');
+
+        // Глобальная функция для открытия модалки
+        window.openEditModal = async (projectId) => {
+            try {
+                const res = await fetch(`http://localhost:3000/jobs/${projectId}`);
+                if (!res.ok) throw new Error('Проект не найден');
+                const project = await res.json();
+
+                document.getElementById('editProjectId').value = project.id;
+                document.getElementById('editProjectTitle').value = project.title;
+                document.getElementById('editProjectDescription').value = project.description;
+                document.getElementById('editProjectBudget').value = project.budget;
+                document.getElementById('editProjectDeadline').value = project.deadline;
+                document.getElementById('editProjectStatus').value = project.status || 'open';
+
+                editModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } catch (err) {
+                console.error(err);
+                alert('❌ Не удалось загрузить данные проекта');
+            }
+        };
+
+        // Закрытие модалки
+        function closeEditModal() {
+            editModal.classList.remove('active');
+            document.body.style.overflow = '';
+            editForm.reset();
+        }
+
+        closeEditBtn?.addEventListener('click', closeEditModal);
+        cancelEditBtn?.addEventListener('click', closeEditModal);
+        editModal?.addEventListener('click', (e) => {
+            if (e.target === editModal) closeEditModal();
+        });
+
+        // Сохранение изменений
+        editForm?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = editForm.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Сохранение...';
+
+            const projectId = document.getElementById('editProjectId').value;
+            const updatedData = {
+                title: document.getElementById('editProjectTitle').value.trim(),
+                description: document.getElementById('editProjectDescription').value.trim(),
+                budget: Number(document.getElementById('editProjectBudget').value) || 0,
+                deadline: document.getElementById('editProjectDeadline').value,
+                status: document.getElementById('editProjectStatus').value
+            };
+
+            try {
+                const res = await fetch(`http://localhost:3000/jobs/${projectId}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedData)
+                });
+
+                if (!res.ok) throw new Error('Ошибка сервера');
+
+                closeEditModal();
+                loadDashboard();
+            } catch (err) {
+                console.error(err);
+                alert('❌ Не удалось сохранить изменения');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '💾 Сохранить';
+            }
+        });
+    }
+
     // === ЗАПУСК ПРИ ЗАГРУЗКЕ ===
     document.addEventListener('DOMContentLoaded', () => {
         const saved = localStorage.getItem('currentUser');
@@ -651,6 +765,7 @@
         
         loadDashboard();
         initCreateProject(); // Инициализация создания проекта
+        initEditProject();  
         
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {

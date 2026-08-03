@@ -105,17 +105,18 @@
                     </div>
                     
                     <!-- Информация о заказчике -->
-                    <div class="client-card">
-                        <h3>Заказчик</h3>
-                        <div class="client-info">
-                            <div class="client-avatar" id="clientAvatar">З</div>
-                            <div>
-                                <strong id="clientName">Имя заказчика</strong>
-                                <p class="client-rating">⭐ 4.9 (12 отзывов)</p>
-                            </div>
-                        </div>
-                        <a href="#" class="btn-sm btn-outline" id="clientProfileLink">Посмотреть профиль</a>
-                    </div>
+                    <!-- Информация о заказчике -->
+<div class="client-card" style="background: transparent; border: 1px solid var(--border); padding: 16px; border-radius: 12px;">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <div>
+            <span style="color: var(--text-muted); font-size: 13px; display: block; margin-bottom: 4px;">Заказчик:</span>
+            <a href="#" id="clientProfileLink" style="color: var(--text-main); font-weight: 600; font-size: 16px; text-decoration: none;">
+                <span id="clientName">Загрузка...</span>
+                <span style="margin-left: 6px; opacity: 0.5;">→</span>
+            </a>
+        </div>
+    </div>
+</div>
                 </div>
             </section>
 
@@ -215,7 +216,7 @@
     </div>
 
     <!-- SCRIPTS -->
-   <script>
+i   <script>
     // === TOGGLE NAV ===
     function toggleNav() {
         const hidden = document.querySelectorAll('.nav-hidden');
@@ -319,7 +320,7 @@
         const loading = document.getElementById('projectLoading');
         const notFound = document.getElementById('projectNotFound');
         const content = document.getElementById('projectContent');
-        const sidebar = document.getElementById('projectSidebar'); // 🔥 Сайдбар
+               const sidebar = document.getElementById('projectSidebar'); // 🔥 Сайдбар
         
         // 🔥 Скрываем всё по умолчанию
         loading.style.display = 'block';
@@ -353,12 +354,24 @@
             document.getElementById('projStatus').textContent = {'open':'Открыт','in-progress':'В работе','completed':'Завершён'}[job.status] || job.status;
             document.getElementById('projStatus').className = `project-status-large status-${job.status}`;
             
-            const skillsEl = document.getElementById('projSkills');
+                       const skillsEl = document.getElementById('projSkills');
             skillsEl.innerHTML = (job.skills || []).map(s => `<span class="skill-tag">${s}</span>`).join('');
             
-            const clientNames = {1:'Анциферов Владимир',2:'Сикорская Анна',3:'Демидова Дарья',4:'Харисов Евгений'};
-            document.getElementById('clientName').textContent = clientNames[job.creatorId] || 'Заказчик';
-            document.getElementById('clientAvatar').textContent = (clientNames[job.creatorId] || 'З').charAt(0);
+            //  Загружаем имя заказчика из базы по candidateId
+                        //  Загружаем имя заказчика из базы по candidateId
+            try {
+                const usersRes = await fetch(`http://localhost:3000/users?candidateId=${job.creatorId}`);
+                const users = await usersRes.json();
+                
+                if (users.length > 0) {
+                    document.getElementById('clientName').textContent = users[0].name;
+                } else {
+                    document.getElementById('clientName').textContent = 'Заказчик';
+                }
+            } catch (err) {
+                console.error('Ошибка загрузки заказчика:', err);
+                document.getElementById('clientName').textContent = 'Заказчик';
+            }
             document.getElementById('clientProfileLink').href = `profile.html?id=${job.creatorId}`;
             
             // 🔥 Показываем контент И сайдбар
