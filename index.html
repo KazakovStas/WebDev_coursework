@@ -26,9 +26,10 @@
             </div>
             <div class="search-auth">
     <div class="search-box">
-        <img src="img/Search.png" alt="Поиск" class="search-icon">
-        <input type="text" class="search-input" placeholder="Поиск">
-    </div>
+    <img src="img/Search.png" alt="Поиск" class="search-icon">
+    <input type="text" class="search-input" id="liveSearchInput" placeholder="Поиск по навыкам...">
+    <div id="searchResults" class="search-results-dropdown" style="display: none;"></div>
+</div>
     
     <!-- Кнопка входа (изначально видна) -->
     <button class="login-btn" id="openModalBtn">Войти</button>
@@ -637,6 +638,79 @@
         // Загружаем кандидатов (как в catalog.html)
         loadAllCandidates();
     });
+
+// === 🔍 ПОИСК ИСКЛЮЧИТЕЛЬНО ПО НАВЫКАМ ===
+const searchInput = document.getElementById('liveSearchInput');
+const resultsDropdown = document.getElementById('searchResults');
+let allCandidatesCache = [];
+let isCacheReady = false;
+
+// 1. Загрузка базы
+fetch('http://localhost:3000/candidates')
+    .then(res => res.json())
+    .then(data => {
+        allCandidatesCache = data;
+        isCacheReady = true;
+        console.log('✅ База готова. Кандидатов:', data.length);
+    })
+    .catch(err => console.error(' Ошибка:', err));
+
+// 2. Обработка ввода
+if (searchInput && resultsDropdown) {
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim().toLowerCase();
+        
+        // Если база не готова или ввели меньше 3 букв
+        if (!isCacheReady || query.length < 3) {
+            resultsDropdown.style.display = 'none';
+            return;
+        }
+
+        // 🔍 Ищем ТОЛЬКО в технических данных
+        const filtered = allCandidatesCache.filter(c => {
+            // Собираем строку из всех навыков и опыта
+            const tags = (c.tags || []).join(' ').toLowerCase();
+            const testExp = (c.test_exp || '').toLowerCase();
+            const apiExp = (c.api_exp || '').toLowerCase();
+            const generalInfo = (c.general_info || '').toLowerCase();
+            
+            // Проверяем совпадение
+            return tags.includes(query) || 
+                   testExp.includes(query) || 
+                   apiExp.includes(query) || 
+                   generalInfo.includes(query);
+        });
+
+        console.log(` "${query}" → найдено: ${filtered.length}`);
+
+        // 3. Отрисовка
+        if (filtered.length === 0) {
+            resultsDropdown.innerHTML = '<div class="search-empty">Навыки не найдены</div>';
+        } else {
+            resultsDropdown.innerHTML = filtered.slice(0, 5).map(c => {
+                // Показываем первые 2 тега для наглядности
+                const topTags = (c.tags || []).slice(0, 3).join(', ');
+                
+                return `
+                <a href="profile.html?id=${c.id}" class="search-result-item">
+                    <div class="search-result-avatar">${c.name.charAt(0)}</div>
+                    <div class="search-result-info">
+                        <h4>${c.position || 'Специалист'}</h4>
+                        <p>${c.name} • ${topTags || 'Опыт в описании'}</p>
+                    </div>
+                </a>`;
+            }).join('');
+        }
+        resultsDropdown.style.display = 'block';
+    });
+
+    // Скрытие при клике вне
+    document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !resultsDropdown.contains(e.target)) {
+            resultsDropdown.style.display = 'none';
+        }
+    });
+}
 </script>
     
 </body>
