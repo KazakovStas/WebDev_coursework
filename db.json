@@ -191,5 +191,6 @@
       "id": "L2TDFuX-KI8"
     }
   ],
+  "applications": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

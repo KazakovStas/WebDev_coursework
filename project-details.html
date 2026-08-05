@@ -412,35 +412,38 @@ i   <script>
         }
     }
 
-    // === ОТПРАВКА ОТКЛИКА ===
-    const applyForm = document.getElementById('applyForm');
+        const applyForm = document.getElementById('applyForm');
     if (applyForm) {
         applyForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            if (!currentUser) { alert('Пожалуйста, войдите'); return; }
-            
             const message = document.getElementById('applyMessage').value.trim();
             const projectId = new URLSearchParams(window.location.search).get('id');
-            
+
+            if (!currentUser) { alert('Сначала войдите!'); return; }
+
             try {
+                // 1. Отправляем отклик в базу
                 await fetch('http://localhost:3000/applications', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         jobId: projectId,
-                        applicantId: currentUser.candidateId,
+                        candidateId: currentUser.candidateId,
                         applicantName: currentUser.name,
-                        message: message,
                         status: 'pending',
+                        message: message,
                         createdAt: new Date().toISOString()
                     })
                 });
+
+                // 2. Показываем успех
                 document.getElementById('applySection').style.display = 'none';
                 document.getElementById('appliedSection').style.display = 'block';
+
             } catch (err) {
+                alert('Ошибка отправки отклика');
                 console.error(err);
-                alert('Не удалось отправить отклик');
             }
         });
     }

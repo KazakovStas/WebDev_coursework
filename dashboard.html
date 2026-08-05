@@ -289,6 +289,18 @@
         </div>
     </div>
 
+
+    <!-- МОДАЛКА ОТКЛИКОВ -->
+<div class="modal-overlay" id="applicationsModal">
+    <div class="modal-window" style="max-width: 600px;">
+        <button class="modal-close" id="closeAppsModal">&times;</button>
+        <h3 style="margin-bottom: 20px;">Отклики на проект</h3>
+        <div id="applicationsList" style="max-height: 400px; overflow-y: auto;">
+            <!-- Сюда загрузятся отклики -->
+        </div>
+    </div>
+</div>
+
     <!-- SCRIPTS -->
     <script>
     // === TOGGLE NAV (Меню "Ещё/Скрыть") ===
@@ -650,9 +662,14 @@
                         <span>Срок: ${new Date(job.deadline).toLocaleDateString('ru-RU')}</span>
                     </div>
                     <div class="project-actions">
-                       ${isCreator ? `<button class="btn-sm" onclick="openEditModal('${job.id}')">Редактировать</button>` : `<button class="btn-sm">Связаться</button>`}
-                        <a href="project-details.html?id=${job.id}" class="btn-sm btn-outline">Детали</a>
-                    </div>
+    ${isCreator ? `
+        <button class="btn-sm btn-outline" onclick="viewApplications('${job.id}')">
+            👥 Отклики
+        </button>
+        <button class="btn-sm" onclick="openEditModal('${job.id}')">✏️ Изменить</button>
+    ` : `<button class="btn-sm">Связаться</button>`}
+    <a href="project-details.html?id=${job.id}" class="btn-sm btn-outline">Детали</a>
+</div>
                 </div>
             `;
         }).join('');
@@ -789,6 +806,155 @@
             });
         });
     });
+
+        // === ПРОСМОТР ОТКЛИКОВ (Заказчик) — ИСПРАВЛЕНО ===
+window.viewApplications = async (jobId) => {
+    console.log('🔍 Запрос откликов для jobId:', jobId);
+    
+    const modal = document.getElementById('applicationsModal');
+    const list = document.getElementById('applicationsList');
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    list.innerHTML = '<p>Загрузка...</p>';
+
+    try {
+        const res = await fetch('http://localhost:3000/applications');
+        const allApps = await res.json();
+        const apps = allApps.filter(app => String(app.jobId) === String(jobId));
+        
+        console.log('Найдено откликов:', apps.length);
+
+        if (apps.length === 0) {
+            list.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">Пока нет откликов</p>';
+            return;
+        }
+
+        list.innerHTML = apps.map(app => `
+            <div class="app-card" style="border:1px solid #eee; padding:16px; margin-bottom:12px; border-radius:12px; background:#fff;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <div>
+                        <strong style="font-size:15px;">${app.applicantName || 'Кандидат'}</strong>
+                        <span style="font-size:12px; padding:3px 8px; border-radius:12px; background:${app.status==='pending'?'#FFF4CC':'#E8F5E9'}; margin-left:8px;">
+                            ${app.status === 'pending' ? 'Ожидает' : 'Принят'}
+                        </span>
+                    </div>
+                    <small style="color:#999;">${new Date(app.createdAt).toLocaleDateString('ru-RU')}</small>
+                </div>
+                
+                ${app.message ? `<p style="margin:0 0 12px; font-size:14px; color:#555; background:#f9f9f9; padding:10px; border-radius:8px;"> ${app.message}</p>` : ''}
+                
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <a href="profile.html?id=${app.candidateId}" class="btn-sm btn-outline" target="_blank" style="text-decoration:none;">👁 Профиль кандидата</a>
+                    
+                    ${app.status === 'pending' ? `
+                        <button class="btn-sm" style="background:#4CAF50; color:#fff; border:none; cursor:pointer;" 
+                            onclick="window.acceptApplicant('${app.id}', '${jobId}', '${app.candidateId}', this)">
+                            Принять
+                        </button>
+                        <button class="btn-sm" style="background:#f44336; color:#fff; border:none; cursor:pointer;" 
+                            onclick="window.rejectApplicant('${app.id}', this)">
+                            Отказать
+                        </button>
+                    ` : '<span style="color:#4CAF50; font-weight:600; padding:8px;">✓ Проект назначен</span>'}
+                </div>
+            </div>
+        `).join('');
+
+    } catch (err) {
+        console.error('❌ Ошибка:', err);
+        list.innerHTML = '<p style="color:#f44336; text-align:center;">Ошибка загрузки откликов</p>';
+    }
+};
+
+// === ПРИНЯТИЕ ОТКЛИКА ===
+window.acceptApplicant = async (appId, jobId, candidateId, btnElement) => {
+  
+
+    try {
+        // 1. Обновляем проект (статус + исполнитель)
+        await fetch(`http://localhost:3000/jobs/${jobId}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ 
+                status: 'in-progress', 
+                applicantId: candidateId 
+            })
+        });
+
+        // 2. Обновляем этот отклик
+        await fetch(`http://localhost:3000/applications/${appId}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ status: 'accepted' })
+        });
+
+        // 3. Удаляем остальные отклики на этот проект (они больше не нужны)
+        const res = await fetch('http://localhost:3000/applications');
+        const allApps = await res.json();
+        const otherApps = allApps.filter(app => String(app.jobId) === String(jobId) && app.id !== appId);
+        
+        for (const otherApp of otherApps) {
+            await fetch(`http://localhost:3000/applications/${otherApp.id}`, {
+                method: 'DELETE'
+            });
+        }
+
+        alert('✅ Кандидат принят! Проект перешёл в статус "В работе".');
+        
+        // Перезагружаем модалку и дашборд
+        window.viewApplications(jobId);
+        loadDashboard();
+
+    } catch (err) {
+        console.error('Ошибка принятия:', err);
+        alert(' Не удалось принять кандидата');
+    }
+};
+
+// === ОТКАЗ ОТКЛИКУ (удаление) ===
+window.rejectApplicant = async (appId, btnElement) => {
+    
+
+    try {
+        await fetch(`http://localhost:3000/applications/${appId}`, {
+            method: 'DELETE'
+        });
+
+        // Удаляем карточку из списка
+        btnElement.closest('.app-card').remove();
+        
+        // Проверяем, остались ли отклики
+        const list = document.getElementById('applicationsList');
+        if (list.children.length === 0) {
+            list.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">Пока нет откликов</p>';
+        }
+
+        alert('✖ Отклик удалён');
+
+    } catch (err) {
+        console.error('Ошибка отказа:', err);
+        alert('❌ Не удалось удалить отклик');
+    }
+};
+
+const closeAppsBtn = document.getElementById('closeAppsModal');
+const appsModalOverlay = document.getElementById('applicationsModal');
+
+if (closeAppsBtn && appsModalOverlay) {
+    // 1. Крестик
+    closeAppsBtn.onclick = () => {
+        appsModalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    appsModalOverlay.onclick = (e) => {
+        if (e.target === appsModalOverlay) {
+            appsModalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+}
 </script>
 </body>
 </html>
