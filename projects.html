@@ -432,6 +432,13 @@
         // Загружаем проекты
         loadProjects();
     });
+
+     document.getElementById('logoutBtn')?.addEventListener('click', () => { 
+    if (confirm('Выйти?')) { 
+        localStorage.removeItem('currentUser'); 
+        window.location.href = 'index.html';
+    } 
+});
 </script>
 </body>
 </html>

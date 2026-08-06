@@ -351,12 +351,11 @@
             if (dropdown && !e.target.closest('.user-profile-wrapper')) dropdown.classList.remove('show'); 
         });
         document.getElementById('logoutBtn')?.addEventListener('click', () => { 
-            if (confirm('Выйти?')) { 
-                localStorage.removeItem('currentUser'); 
-                hideUserProfile(); 
-                dropdown?.classList.remove('show'); 
-            } 
-        });
+    if (confirm('Выйти?')) { 
+        localStorage.removeItem('currentUser'); 
+        window.location.href = 'index.html'; // Перекидывает на главную страницу входа
+    } 
+});
     }
 
     function hideUserProfile() {

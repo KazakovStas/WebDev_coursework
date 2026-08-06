@@ -554,7 +554,13 @@
             console.error('Кнопка .clear-filters не найдена');
         }
         
-        // 🔥 УБРАЛ автоматическое применение при change!
+         document.getElementById('logoutBtn')?.addEventListener('click', () => { 
+    if (confirm('Выйти?')) { 
+        localStorage.removeItem('currentUser'); 
+        window.location.href = 'index.html'; // Перекидывает на главную страницу входа
+    } 
+});
+
     });
 </script>
 </body>
