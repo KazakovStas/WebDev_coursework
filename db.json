@@ -140,7 +140,7 @@
       "title": "Разработка лендинга для стартапа",
       "description": "Нужен современный лендинг с анимациями и формой заявки. Дизайн готов, нужна вёрстка и интеграция с CRM.",
       "budget": 45000,
-      "status": "in-progress",
+      "status": "open",
       "creatorId": 1,
       "applicantId": null,
       "createdAt": "2024-01-15",

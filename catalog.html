@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- === HEADER (точно как в index.html) === -->
     <header class="header">
         <div class="header-top">
             <div class="logo-nav">
@@ -31,10 +30,8 @@
         <input type="text" class="search-input" placeholder="Поиск">
     </div>
     
-    <!-- 🔥 Кнопка входа -->
     <button class="login-btn" id="openModalBtn">Войти</button>
     
-    <!-- 🔥 Профиль пользователя (скрыт до входа) -->
     <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
         <div class="user-profile" id="userProfile">
             <span class="user-name" id="userName">Имя</span>
@@ -85,11 +82,9 @@
         </div>
     </header>
 
-    <!-- === ОСНОВНОЙ КОНТЕНТ КАТАЛОГА === -->
     <main class="catalog-main">
         <div class="container catalog-container">
             
-            <!-- Фильтры (слева) -->
             <aside class="filters-sidebar">
                 <div class="filters-header">
                     <h2>Фильтры</h2>
@@ -139,13 +134,10 @@
                 <button class="apply-filters btn-primary">Применить</button>
             </aside>
 
-            <!-- Сетка кандидатов -->
             <div class="candidates-grid" id="candidatesGrid">
-                <!-- Карточки загрузятся через JS -->
             </div>
         </div>
         
-        <!-- Пагинация -->
         <div class="pagination">
             <button class="page-btn active">1</button>
             <button class="page-btn">2</button>
@@ -156,7 +148,6 @@
         </div>
     </main>
 
-    <!-- === FOOTER (точно как в index.html) === -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -199,7 +190,6 @@
         </div>
     </footer>
 
-    <!-- === МОДАЛЬНОЕ ОКНО (как в index.html) === -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-window">
             <button class="modal-close" id="closeModalBtn">&times;</button>
@@ -221,9 +211,8 @@
         </div>
     </div>
 
-    <!-- === СКРИПТЫ === -->
     <script>
-    // === TOGGLE NAV ===
+
     function toggleNav() {
         const hidden = document.querySelectorAll('.nav-hidden');
         const more = document.querySelector('.more-li');
@@ -242,13 +231,11 @@
         }
     }
 
-    // === ЭЛЕМЕНТЫ ===
     const openModalBtn = document.getElementById('openModalBtn');
     const modal = document.getElementById('loginModal');
     const closeBtn = document.getElementById('closeModalBtn');
     const loginForm = document.getElementById('loginForm');
 
-    // === ФУНКЦИИ ПРОФИЛЯ ===
     function showUserProfile(user) {
         if (openModalBtn) openModalBtn.style.display = 'none';
         const userProfileWrapper = document.getElementById('userProfileWrapper');
@@ -300,7 +287,6 @@
         }
     }
 
-    // === МОДАЛКА ===
     openModalBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
         modal.classList.add('active');
@@ -319,7 +305,6 @@
         }
     });
 
-    // === АВТОРИЗАЦИЯ ===
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -360,27 +345,23 @@
         });
     }
 
-    // === КАТАЛОГ: ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ===
-        // === КАТАЛОГ: ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ===
-    let allCandidates = []; // Все кандидаты из базы
+    let allCandidates = []; 
 
-    // === ЗАГРУЗКА ВСЕХ КАНДИДАТОВ ===
     async function loadAllCandidates() {
         try {
             const res = await fetch('http://localhost:3000/candidates');
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             allCandidates = await res.json();
             console.log('✅ Загружено кандидатов:', allCandidates.length);
-            renderCandidates(allCandidates); // Показываем всех сразу
+            renderCandidates(allCandidates); 
         } catch (err) {
             console.error('Ошибка загрузки:', err);
             document.getElementById('candidatesGrid').innerHTML = '<p>Не удалось загрузить кандидатов</p>';
         }
     }
 
-    // === ПРИМЕНЕНИЕ ФИЛЬТРОВ (по кнопке) ===
     function applyFilters() {
-    console.log('🔘 Кнопка "Применить" нажата');
+    console.log('Кнопка "Применить" нажата');
     
     const salaryMin = document.getElementById('salaryMin')?.value;
     const salaryMax = document.getElementById('salaryMax')?.value;
@@ -391,23 +372,22 @@
     console.log('🔍 Активные фильтры:', { salaryMin, salaryMax, expChecks, formatChecks });
     
     const filtered = allCandidates.filter(candidate => {
-        console.log(`\n👤 Проверка: ${candidate.name}`);
+        console.log(`\n Проверка: ${candidate.name}`);
         
         // 1. Зарплата
         const salary = Number(candidate.salary) || 0;
         if (salaryMin && salary < Number(salaryMin)) {
-            console.log(`  ❌ Отсев по зарплате: ${salary} < ${salaryMin}`);
+            console.log(`   Отсев по зарплате: ${salary} < ${salaryMin}`);
             return false;
         }
         if (salaryMax && salary > Number(salaryMax)) {
-            console.log(`  ❌ Отсев по зарплате: ${salary} > ${salaryMax}`);
+            console.log(`   Отсев по зарплате: ${salary} > ${salaryMax}`);
             return false;
         }
         if (salaryMin || salaryMax) {
-            console.log(`  ✅ Зарплата ${salary} ₽ прошла`);
+            console.log(`  Зарплата ${salary} ₽ прошла`);
         }
         
-        // 2. Формат работы
         if (formatChecks.length > 0) {
             const candidateTags = candidate.tags || [];
             console.log(`  Теги кандидата: [${candidateTags.join(', ')}]`);
@@ -425,13 +405,12 @@
             });
             
             if (!hasMatchingTag) {
-                console.log(`  ❌ Отсев по формату: нет совпадений`);
+                console.log(`   Отсев по формату: нет совпадений`);
                 return false;
             }
-            console.log(`  ✅ Формат прошёл`);
+            console.log(`  Формат прошёл`);
         }
         
-        // 3. Опыт
         if (expChecks.length > 0) {
             const exp = candidate.experience || '';
             const match = exp.match(/(\d+)/);
@@ -445,19 +424,19 @@
                 else if (expFilter === '5+') result = years >= 5;
                 
                 if (result) {
-                    console.log(`    - Фильтр "${expFilter}": ${years} лет попадает ✅`);
+                    console.log(`    - Фильтр "${expFilter}": ${years} лет попадает`);
                 }
                 return result;
             });
             
             if (!hasMatchingExp) {
-                console.log(`  ❌ Отсев по опыту: ${years} лет не попадает в выбранные диапазоны`);
+                console.log(`  Отсев по опыту: ${years} лет не попадает в выбранные диапазоны`);
                 return false;
             }
-            console.log(`  ✅ Опыт прошёл`);
+            console.log(`  Опыт прошёл`);
         }
         
-        console.log(`  🎉 ${candidate.name} ПРОШЁЛ все фильтры!\n`);
+        console.log(`  ${candidate.name} ПРОШЁЛ все фильтры!\n`);
         return true;
     });
     
@@ -465,8 +444,6 @@
     renderCandidates(filtered);
 }
 
-    // === ОТРИСОВКА КАНДИДАТОВ ===
-        // === ОТРИСОВКА КАНДИДАТОВ ===
     function renderCandidates(candidates) {
         const grid = document.getElementById('candidatesGrid');
         if (!grid) return;
@@ -476,7 +453,6 @@
             return;
         }
         
-        //  Функция для получения градиента
         function getGradient(avatarName) {
             const gradients = {
                 'gradient-purple': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
@@ -489,7 +465,7 @@
         }
         
         grid.innerHTML = candidates.map(c => {
-            // 🔥 Проверяем, градиент это или картинка
+
             const avatarHTML = c.avatar?.startsWith('gradient-') 
                 ? `<div class="avatar-gradient" style="width: 104px; height: 104px; border-radius: 50%; background: ${getGradient(c.avatar)}; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 36px; font-weight: 700;">${c.name.charAt(0).toUpperCase()}</div>`
                 : `<img src="${c.avatar || 'img/default-avatar.png'}" alt="${c.name}" style="width: 104px; height: 104px; border-radius: 50%; object-fit: cover;">`;
@@ -514,17 +490,15 @@
         }).join('');
     }
 
-    // === ОЧИСТКА ФИЛЬТРОВ ===
     function clearFilters() {
         console.log('️ Кнопка "Очистить" нажата');
         document.querySelectorAll('input[type="number"]').forEach(i => i.value = '');
         document.querySelectorAll('input[type="checkbox"]').forEach(i => i.checked = false);
-        renderCandidates(allCandidates); // Показываем всех
+        renderCandidates(allCandidates); 
     }
 
-    // === ИНИЦИАЛИЗАЦИЯ ===
     document.addEventListener('DOMContentLoaded', () => {
-        // 1. Проверяем сессию
+
         const saved = localStorage.getItem('currentUser');
         if (saved) {
             try {
@@ -533,10 +507,8 @@
             } catch(e) { console.error('Ошибка сессии:', e); }
         }
         
-        // 2. Загружаем всех кандидатов
         loadAllCandidates();
         
-        // 3. Вешаем обработчики ТОЛЬКО на кнопки
         const applyBtn = document.querySelector('.apply-filters');
         const clearBtn = document.querySelector('.clear-filters');
         
@@ -557,7 +529,7 @@
          document.getElementById('logoutBtn')?.addEventListener('click', () => { 
     if (confirm('Выйти?')) { 
         localStorage.removeItem('currentUser'); 
-        window.location.href = 'index.html'; // Перекидывает на главную страницу входа
+        window.location.href = 'index.html'; 
     } 
 });
 

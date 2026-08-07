@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- HEADER -->
     <header class="header">
         <div class="header-top">
             <div class="logo-nav">
@@ -63,11 +62,9 @@
         </div>
     </header>
 
-    <!-- MAIN -->
     <main class="projects-main">
         <div class="container projects-container">
             
-            <!-- Фильтры -->
             <aside class="projects-sidebar">
                 <div class="filters-header">
                     <h2>Фильтры</h2>
@@ -100,7 +97,6 @@
                 <button class="btn-primary apply-filters" onclick="applyFilters()">Применить</button>
             </aside>
 
-            <!-- Список проектов -->
             <section class="projects-content">
                 <div class="content-header">
                     <h1>Биржа проектов</h1>
@@ -118,7 +114,6 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -156,7 +151,6 @@
         </div>
     </footer>
 
-    <!-- MODAL -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-window">
             <button class="modal-close" id="closeModalBtn">&times;</button>
@@ -174,9 +168,7 @@
         </div>
     </div>
 
-    <!-- SCRIPTS -->
     <script>
-    // === TOGGLE NAV (если нужно) ===
     function toggleNav() {
         const hidden = document.querySelectorAll('.nav-hidden');
         const more = document.querySelector('.more-li');
@@ -195,13 +187,11 @@
         }
     }
 
-    // === ЭЛЕМЕНТЫ ===
     const openModalBtn = document.getElementById('openModalBtn');
     const modal = document.getElementById('loginModal');
     const closeBtn = document.getElementById('closeModalBtn');
     const loginForm = document.getElementById('loginForm');
 
-    // === ФУНКЦИИ ПРОФИЛЯ (из index.html) ===
     function showUserProfile(user) {
         if (openModalBtn) openModalBtn.style.display = 'none';
         
@@ -218,7 +208,6 @@
             userAvatar.textContent = firstName.charAt(0).toUpperCase();
         }
         
-        // Меню
         const userProfile = document.getElementById('userProfile');
         if (userProfile && userDropdown) {
             userProfile.onclick = (e) => {
@@ -233,7 +222,6 @@
             }
         });
         
-        // Выход
         if (logoutBtn) {
             logoutBtn.onclick = (e) => {
                 e.preventDefault();
@@ -241,7 +229,7 @@
                     localStorage.removeItem('currentUser');
                     hideUserProfile();
                     if (userDropdown) userDropdown.classList.remove('show');
-                    loadProjects(); // Обновляем кнопки после выхода
+                    loadProjects();
                 }
             };
         }
@@ -257,7 +245,6 @@
         }
     }
 
-    // === МОДАЛКА ===
     openModalBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
         modal.classList.add('active');
@@ -276,7 +263,6 @@
         }
     });
 
-    // === АВТОРИЗАЦИЯ ===
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -305,7 +291,7 @@
                     errorEl.style.display = 'none';
                     
                     showUserProfile(user);
-                    loadProjects(); // Обновляем проекты после входа
+                    loadProjects();
                 } else {
                     errorEl.textContent = 'Неверный email или пароль';
                     errorEl.style.display = 'block';
@@ -318,11 +304,9 @@
         });
     }
 
-    // === ПРОЕКТЫ ===
     let allJobs = [];
 
     async function loadProjects() {
-        // 🔥 Читаем currentUser ЗДЕСЬ, внутри функции, чтобы было актуально
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         
         try {
@@ -330,16 +314,15 @@
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
             allJobs = Array.isArray(data) ? data : [];
-            applyFilters(); // Перерисовываем с актуальным currentUser
+            applyFilters(); 
         } catch (err) { 
-            console.error('❌ Ошибка загрузки проектов:', err); 
+            console.error(' Ошибка загрузки проектов:', err); 
             allJobs = [];
             renderProjects([]);
         }
     }
 
     function renderProjects(jobs) {
-        // 🔥 Читаем currentUser ЗДЕСЬ для кнопок
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         
         if (!jobs || !Array.isArray(jobs)) {
@@ -418,9 +401,7 @@
         renderProjects(allJobs);
     }
 
-    // === ИНИЦИАЛИЗАЦИЯ ===
     document.addEventListener('DOMContentLoaded', () => {
-        // 🔥 Проверяем сессию при загрузке
         const saved = localStorage.getItem('currentUser');
         if (saved) {
             try {
@@ -429,7 +410,6 @@
             } catch(e) { console.error('Ошибка сессии:', e); }
         }
         
-        // Загружаем проекты
         loadProjects();
     });
 

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- HEADER (как в index.html) -->
+
     <header class="header">
         <div class="header-top">
             <div class="logo-nav">
@@ -42,7 +42,6 @@
         </div>
     </header>
 
-    <!-- MAIN: ФОРМА СОЗДАНИЯ ПРОФИЛЯ -->
     <main class="edit-profile-main">
         <div class="container edit-profile-container">
             <div class="edit-profile-card">
@@ -52,13 +51,12 @@
                 </div>
 
                 <form id="createProfileForm" class="edit-form">
-                    <!-- 🔥 ФИО (отдельное поле) -->
+    
                     <div class="form-group">
                         <label for="fullName">ФИО *</label>
                         <input type="text" id="fullName" name="fullName" required placeholder="Например: Анциферов Владимир">
                     </div>
 
-                                        <!-- 🔥 Выбор цветного аватара -->
                     <div class="form-group">
                         <label>Выберите цвет профиля</label>
                         <div class="avatar-options" style="display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap;">
@@ -95,13 +93,11 @@
                         </div>
                     </div>
 
-                    <!-- Должность -->
                     <div class="form-group">
                         <label for="position">Должность / Позиция *</label>
                         <input type="text" id="position" name="position" required placeholder="Например: Директор по маркетингу">
                     </div>
 
-                    <!-- Категория -->
                     <div class="form-group">
                         <label for="category">Категория *</label>
                         <select id="category" name="category" required>
@@ -116,7 +112,6 @@
                         </select>
                     </div>
 
-                    <!-- Опыт и зарплата -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="experience">Опыт работы *</label>
@@ -128,7 +123,6 @@
                         </div>
                     </div>
 
-                    <!-- Теги -->
                     <div class="form-group">
                         <label>Формат работы</label>
                         <label class="checkbox-label"><input type="checkbox" name="tags" value="fulltime"> <span>Full-time</span></label>
@@ -136,7 +130,6 @@
                         <label class="checkbox-label"><input type="checkbox" name="tags" value="remote"> <span>Удалённо</span></label>
                     </div>
 
-                    <!-- Возраст и город -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="age">Возраст</label>
@@ -186,7 +179,6 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -198,9 +190,8 @@
         </div>
     </footer>
 
-    <!-- SCRIPT -->
     <script>
-        // === ПРОВЕРКА АВТОРИЗАЦИИ ===
+ 
         document.addEventListener('DOMContentLoaded', () => {
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
             if (!currentUser) {
@@ -212,11 +203,9 @@
                 return;
             }
 
-            // 🔥 Заполняем ФИО из аккаунта
             document.getElementById('fullName').value = currentUser.name;
         });
 
-            // === ОТПРАВКА ФОРМЫ ===
     const form = document.getElementById('createProfileForm');
     if (form) {
         form.addEventListener('submit', async (e) => {
@@ -227,12 +216,10 @@
 
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
             
-            console.log('📝 Текущий пользователь:', currentUser);
+            console.log(' Текущий пользователь:', currentUser);
             
-            // 🔥 Собираем выбранный аватар
             const selectedAvatar = document.querySelector('input[name="avatar"]:checked').value;
             
-            // 🔥 Собираем теги
             const tags = Array.from(document.querySelectorAll('input[name="tags"]:checked')).map(cb => cb.value);
 
             const candidateData = {
@@ -251,10 +238,10 @@
                 api_exp: document.getElementById('api_exp').value.trim()
             };
 
-            console.log('📦 Данные кандидата:', candidateData);
+            console.log(' Данные кандидата:', candidateData);
 
             try {
-                // 1. Создаём кандидата
+        
                 const res = await fetch('http://localhost:3000/candidates', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -267,10 +254,9 @@
                 }
                 
                 const newCandidate = await res.json();
-                console.log('✅ Кандидат создан:', newCandidate);
+                console.log(' Кандидат создан:', newCandidate);
 
-                // 2. 🔥 Обновляем пользователя: привязываем candidateId
-                console.log(`🔄 Обновляем пользователя ${currentUser.id}...`);
+                console.log(`Обновляем пользователя ${currentUser.id}...`);
                 const updateRes = await fetch(`http://localhost:3000/users/${currentUser.id}`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
@@ -283,20 +269,18 @@
                 }
                 
                 const updatedUser = await updateRes.json();
-                console.log('✅ Пользователь обновлён:', updatedUser);
+                console.log('Пользователь обновлён:', updatedUser);
 
-                // 3. Обновляем localStorage
                 localStorage.setItem('currentUser', JSON.stringify(updatedUser));
 
-                // 4. Показываем успех
                 form.style.display = 'none';
                 document.getElementById('successMessage').style.display = 'flex';
 
             } catch (err) {
-                console.error('❌ Ошибка:', err);
+                console.error(' Ошибка:', err);
                 alert(`Не удалось сохранить профиль: ${err.message}`);
                 btn.disabled = false;
-                btn.textContent = '💾 Сохранить профиль';
+                btn.textContent = 'Сохранить профиль';
             }
         });
         

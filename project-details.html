@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- HEADER (как везде) -->
     <header class="header">
         <div class="header-top">
             <div class="logo-nav">
@@ -52,11 +51,9 @@
         </div>
     </header>
 
-    <!-- MAIN PROJECT DETAILS -->
     <main class="project-details-main">
         <div class="container project-details-container">
             
-            <!-- Левая колонка: Детали проекта -->
             <section class="project-details-content">
                 <div class="project-breadcrumb">
                     <a href="projects.html">← Биржа проектов</a>
@@ -104,8 +101,6 @@
                         </div>
                     </div>
                     
-                    <!-- Информация о заказчике -->
-                    <!-- Информация о заказчике -->
 <div class="client-card" style="background: transparent; border: 1px solid var(--border); padding: 16px; border-radius: 12px;">
     <div style="display: flex; align-items: center; justify-content: space-between;">
         <div>
@@ -120,7 +115,6 @@
                 </div>
             </section>
 
-            <!-- Правая колонка: Действия -->
             <aside class="project-sidebar">
                 <div class="action-card">
                     <div id="applySection">
@@ -143,23 +137,25 @@
                     </div>
                     
                     <div id="ownProjectSection" style="display: none;">
-                        <div class="info-badge">ℹ Это ваш проект</div>
-                        <button class="btn-primary">Редактировать</button>
-                        <button class="btn-outline">Закрыть проект</button>
-                    </div>
+    <div class="info-badge">Это ваш проект</div>
+    <button class="btn-primary btn-edit-project" id="editProjectBtn" style="width: 100%; margin-bottom: 10px;">Редактировать</button>
+    <button class="btn-outline btn-close-project" id="closeProjectBtn" style="width: 100%;"> Закрыть проект</button>
+    <p style="font-size: 12px; color: var(--text-muted); margin-top: 10px; text-align: center;">
+        Редактирование доступно только для открытых проектов
+    </p>
+</div>
                 </div>
                 
                 <div class="action-card">
-                    <button class="btn-outline btn-full">💾 Сохранить</button>
-                    <button class="btn-outline btn-full">🔔 Уведомить о похожих</button>
-                    <button class="btn-outline btn-full">⚠ Пожаловаться</button>
-                </div>
+    <button class="btn-outline btn-full" id="saveProjectBtn"> Сохранить в избранное</button>
+    <button class="btn-outline btn-full" id="notifySimilarBtn">Уведомить о похожих</button>
+    <button class="btn-outline btn-full" id="reportBtn">Пожаловаться</button>
+</div>
             </aside>
 
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -197,7 +193,6 @@
         </div>
     </footer>
 
-    <!-- MODAL -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-window">
             <button class="modal-close" id="closeModalBtn">&times;</button>
@@ -215,9 +210,7 @@
         </div>
     </div>
 
-    <!-- SCRIPTS -->
 i   <script>
-    // === TOGGLE NAV ===
     function toggleNav() {
         const hidden = document.querySelectorAll('.nav-hidden');
         const more = document.querySelector('.more-li');
@@ -236,13 +229,11 @@ i   <script>
         }
     }
 
-    // === ЭЛЕМЕНТЫ ===
     const openModalBtn = document.getElementById('openModalBtn');
     const modal = document.getElementById('loginModal');
     const closeBtn = document.getElementById('closeModalBtn');
     const loginForm = document.getElementById('loginForm');
 
-    // === ФУНКЦИИ ПРОФИЛЯ ===
     function showUserProfile(user) {
         if (openModalBtn) openModalBtn.style.display = 'none';
         const wrap = document.getElementById('userProfileWrapper');
@@ -264,7 +255,7 @@ i   <script>
        document.getElementById('logoutBtn')?.addEventListener('click', () => { 
     if (confirm('Выйти?')) { 
         localStorage.removeItem('currentUser'); 
-        window.location.href = 'index.html'; // 🔥 Перекидывает на главную страницу входа
+        window.location.href = 'index.html'; 
     } 
 });
     }
@@ -279,12 +270,10 @@ i   <script>
         }
     }
 
-    // === МОДАЛКА ===
     openModalBtn?.addEventListener('click', (e) => { e.stopPropagation(); modal.classList.add('active'); document.body.style.overflow = 'hidden'; });
     closeBtn?.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow = ''; });
     modal?.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } });
 
-    // === АВТОРИЗАЦИЯ ===
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -306,27 +295,25 @@ i   <script>
         });
     }
 
-    // === ЗАГРУЗКА ПРОЕКТА ===
     async function loadProject() {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         const params = new URLSearchParams(window.location.search);
         const projectId = params.get('id');
         
-        console.log('🔍 Загрузка проекта, ID:', projectId);
+        console.log('Загрузка проекта, ID:', projectId);
         
         const loading = document.getElementById('projectLoading');
         const notFound = document.getElementById('projectNotFound');
         const content = document.getElementById('projectContent');
-               const sidebar = document.getElementById('projectSidebar'); // 🔥 Сайдбар
+               const sidebar = document.getElementById('projectSidebar'); 
         
-        // 🔥 Скрываем всё по умолчанию
         loading.style.display = 'block';
         notFound.style.display = 'none';
         content.style.display = 'none';
-        if (sidebar) sidebar.style.display = 'none'; // 🔥 Скрываем сайдбар пока проект не загружен
+        if (sidebar) sidebar.style.display = 'none'; 
         
         if (!projectId) {
-            console.warn('⚠️ Нет ID в URL');
+            console.warn(' Нет ID в URL');
             loading.style.display = 'none';
             notFound.style.display = 'block';
             return;
@@ -334,13 +321,12 @@ i   <script>
         
         try {
             const res = await fetch(`http://localhost:3000/jobs/${projectId}`);
-            console.log('📡 Ответ сервера:', res.status);
+            console.log(' Ответ сервера:', res.status);
             
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const job = await res.json();
-            console.log('✅ Проект загружен:', job.title);
+            console.log(' Проект загружен:', job.title);
             
-            // Заполняем данные
             document.getElementById('projTitle').textContent = job.title;
             document.getElementById('projDescription').textContent = job.description;
             document.getElementById('projBudget').textContent = `${job.budget?.toLocaleString() || '0'} ₽`;
@@ -354,8 +340,6 @@ i   <script>
                        const skillsEl = document.getElementById('projSkills');
             skillsEl.innerHTML = (job.skills || []).map(s => `<span class="skill-tag">${s}</span>`).join('');
             
-            //  Загружаем имя заказчика из базы по candidateId
-                        //  Загружаем имя заказчика из базы по candidateId
             try {
                 const usersRes = await fetch(`http://localhost:3000/users?candidateId=${job.creatorId}`);
                 const users = await usersRes.json();
@@ -371,12 +355,13 @@ i   <script>
             }
             document.getElementById('clientProfileLink').href = `profile.html?id=${job.creatorId}`;
             
-            // 🔥 Показываем контент И сайдбар
             loading.style.display = 'none';
             content.style.display = 'block';
-            if (sidebar) sidebar.style.display = 'block'; // 🔥 Показываем сайдбар только когда проект загружен
+            if (sidebar) sidebar.style.display = 'block';
             
-            // Кнопки в зависимости от роли
+            initProjectActions();
+            updateProjectButtons(job); 
+            
             const applySection = document.getElementById('applySection');
             const appliedSection = document.getElementById('appliedSection');
             const ownProjectSection = document.getElementById('ownProjectSection');
@@ -402,10 +387,10 @@ i   <script>
             }
             
         } catch (err) {
-            console.error('❌ Ошибка загрузки:', err);
+            console.error(' Ошибка загрузки:', err);
             loading.style.display = 'none';
             notFound.style.display = 'block';
-            if (sidebar) sidebar.style.display = 'none'; // 🔥 Скрываем сайдбар при ошибке
+            if (sidebar) sidebar.style.display = 'none'; 
         }
     }
 
@@ -420,7 +405,6 @@ i   <script>
             if (!currentUser) { alert('Сначала войдите!'); return; }
 
             try {
-                // 1. Отправляем отклик в базу
                 await fetch('http://localhost:3000/applications', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -434,7 +418,6 @@ i   <script>
                     })
                 });
 
-                // 2. Показываем успех
                 document.getElementById('applySection').style.display = 'none';
                 document.getElementById('appliedSection').style.display = 'block';
 
@@ -445,7 +428,96 @@ i   <script>
         });
     }
 
-    // === ИНИЦИАЛИЗАЦИЯ ===
+    function initProjectActions() {
+        const editBtn = document.getElementById('editProjectBtn');
+        const closeBtn = document.getElementById('closeProjectBtn');
+        const saveBtn = document.getElementById('saveProjectBtn');
+        const notifyBtn = document.getElementById('notifySimilarBtn');
+        const reportBtn = document.getElementById('reportBtn');
+        
+        editBtn?.addEventListener('click', () => {
+            const currentStatus = document.getElementById('projStatus').textContent;
+            if (currentStatus === 'Завершён') {
+                alert(' Завершённый проект нельзя редактировать с этой страницы.\n\nПерейдите в личный кабинет (dashboard.html), чтобы изменить его.');
+                return;
+            }
+            
+            const projectId = new URLSearchParams(window.location.search).get('id');
+            window.location.href = `dashboard.html?edit=${projectId}`;
+        });
+        
+        closeBtn?.addEventListener('click', async () => {
+            if (!confirm('Закрыть проект?\n\nОн больше не будет отображаться в бирже.')) return;
+            
+            const projectId = new URLSearchParams(window.location.search).get('id');
+            
+            try {
+                await fetch(`http://localhost:3000/jobs/${projectId}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: 'completed' })
+                });
+                
+                alert(' Проект закрыт');
+                loadProject(); 
+            } catch (err) {
+                alert(' Ошибка при закрытии проекта');
+                console.error(err);
+            }
+        });
+        
+        saveBtn?.addEventListener('click', () => {
+            alert(' Проект добавлен в избранное (функция в разработке)');
+        });
+        
+        notifyBtn?.addEventListener('click', () => {
+            alert(' Вы будете получать уведомления о похожих проектах (функция в разработке)');
+        });
+        
+        reportBtn?.addEventListener('click', () => {
+            const reason = prompt('Пожалуйста, укажите причину жалобы:\n(спам, мошенничество, неактуально и т.д.)');
+            if (reason) {
+                const projectId = new URLSearchParams(window.location.search).get('id');
+                console.log('Жалоба на проект:', projectId, 'Причина:', reason);
+                alert(' Жалоба отправлена. Мы проверим проект.');
+            }
+        });
+    }
+
+    function updateProjectButtons(job) {
+        const editBtn = document.getElementById('editProjectBtn');
+        const closeBtn = document.getElementById('closeProjectBtn');
+        
+        if (job.status === 'completed') {
+            if (editBtn) {
+                editBtn.disabled = true;
+                editBtn.style.opacity = '0.5';
+                editBtn.style.cursor = 'not-allowed';
+                editBtn.textContent = ' Редактирование недоступно';
+            }
+            if (closeBtn) {
+                closeBtn.disabled = true;
+                closeBtn.style.opacity = '0.5';
+                closeBtn.style.cursor = 'not-allowed';
+                closeBtn.textContent = 'Проект завершён';
+            }
+        } else {
+            // Проект активен
+            if (editBtn) {
+                editBtn.disabled = false;
+                editBtn.style.opacity = '1';
+                editBtn.style.cursor = 'pointer';
+                editBtn.textContent = ' Редактировать';
+            }
+            if (closeBtn) {
+                closeBtn.disabled = false;
+                closeBtn.style.opacity = '1';
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.textContent = 'Закрыть проект';
+            }
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         const saved = localStorage.getItem('currentUser');
         if (saved) { try { showUserProfile(JSON.parse(saved)); } catch(e) {} }

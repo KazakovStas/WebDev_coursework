@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- HEADER (как в index.html) -->
+  
     <header class="header">
         <div class="header-top">
             <div class="logo-nav">
@@ -63,11 +63,9 @@
         </div>
     </header>
 
-    <!-- MAIN DASHBOARD -->
     <main class="dashboard-main">
         <div class="container dashboard-container">
             
-            <!-- Левая панель: Профиль + Статистика -->
             <aside class="dashboard-sidebar">
                 <div class="profile-card">
                     <div class="profile-avatar-lg" id="dashAvatar">А</div>
@@ -92,19 +90,16 @@
                     </div>
                 </div>
 
-                <!-- Статус подписки -->
                 <div class="subscription-status-card">
-                    <h3>📧 Рассылка</h3>
+                    <h3> Рассылка</h3>
                     <div class="status-row">
                         <span>Статус:</span>
                         <strong id="subscribedStatus">—</strong>
                     </div>
                     <button id="toggleSubscribeBtn" class="btn-action">
-                        <!-- Текст изменится через JS -->
                     </button>
                 </div>
 
-                <!-- 🔥 Управление профилем кандидата -->
                 <div class="candidate-management-card" id="candidateManagementCard" style="display: none;">
                     <h3>👤 Профиль кандидата</h3>
                     <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">
@@ -112,19 +107,17 @@
                     </p>
                     <a href="profile.html" id="viewProfileBtn" class="btn-action" style="margin-bottom: 12px; display: block;">👁 Посмотреть профиль</a>
                     <button id="deleteCandidateBtn" class="btn-action" style="background: #fff5f5; border-color: #d32f2f; color: #d32f2f; margin-top: 8px;">
-                        🗑️ Удалить себя из базы
+                         Удалить себя из базы
                     </button>
                 </div>
 
                 <div class="quick-actions">
                     <h3>Быстрые действия</h3>
                     <button class="btn-action" id="createProjectBtn">+ Создать проект</button>
-                    <a href="catalog.html" class="btn-action" style="text-decoration: none; display: block;">🔍 Найти кандидата</a>
-                    <!-- Кнопку "Мои отклики" убрали -->
+                    <a href="catalog.html" class="btn-action" style="text-decoration: none; display: block;"> Найти кандидата</a>
                 </div>
             </aside>
 
-            <!-- Правая часть: Проекты -->
             <section class="dashboard-content">
                 <div class="content-header">
                     <h1>Мои проекты</h1>
@@ -137,7 +130,6 @@
                 </div>
 
                 <div id="projectsList" class="projects-grid">
-                    <!-- Проекты загрузятся через JS -->
                 </div>
 
                 <div id="emptyState" class="empty-state" style="display: none;">
@@ -149,7 +141,6 @@
         </div>
     </main>
 
-    <!-- FOOTER (как в index.html) -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -187,7 +178,6 @@
         </div>
     </footer>
 
-    <!-- MODAL ВХОДА -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-window">
             <button class="modal-close" id="closeModalBtn">&times;</button>
@@ -205,12 +195,11 @@
         </div>
     </div>
 
-    <!-- 🔥 МОДАЛКА ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ -->
     <div class="modal-overlay" id="deleteConfirmModal">
         <div class="modal-window" style="max-width: 420px; text-align: center;">
             <button class="modal-close" id="closeDeleteModal">&times;</button>
             
-            <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+            <div style="font-size: 48px; margin-bottom: 16px;"></div>
             <h3 style="margin: 0 0 12px; font-size: 20px; font-weight: 600;">Удалить профиль кандидата?</h3>
             <p style="color: var(--text-muted); margin: 0 0 24px; line-height: 1.5;">
                 Ваш профиль будет полностью удалён из базы кандидатов. 
@@ -228,7 +217,6 @@
         </div>
     </div>
 
-    <!-- 🔥 МОДАЛКА СОЗДАНИЯ ПРОЕКТА -->
     <div class="modal-overlay" id="createProjectModal">
         <div class="modal-window" style="max-width: 500px;">
             <button class="modal-close" id="closeCreateProjectModal">&times;</button>
@@ -255,7 +243,6 @@
         </div>
     </div>
     
-    <!-- 🔥 МОДАЛКА РЕДАКТИРОВАНИЯ ПРОЕКТА -->
     <div class="modal-overlay" id="editProjectModal">
         <div class="modal-window" style="max-width: 500px;">
             <button class="modal-close" id="closeEditProjectModal">&times;</button>
@@ -282,7 +269,7 @@
                 </select>
                 
                 <div class="modal-actions" style="margin-top: 20px;">
-                    <button type="submit" class="btn-modal-login" style="flex: 1;">💾 Сохранить</button>
+                    <button type="submit" class="btn-modal-login" style="flex: 1;"> Сохранить</button>
                     <button type="button" class="btn-modal-reg" id="cancelEditProjectBtn" style="flex: 1;">Отмена</button>
                 </div>
             </form>
@@ -290,20 +277,19 @@
     </div>
 
 
-    <!-- МОДАЛКА ОТКЛИКОВ -->
+ 
 <div class="modal-overlay" id="applicationsModal">
     <div class="modal-window" style="max-width: 600px;">
         <button class="modal-close" id="closeAppsModal">&times;</button>
         <h3 style="margin-bottom: 20px;">Отклики на проект</h3>
         <div id="applicationsList" style="max-height: 400px; overflow-y: auto;">
-            <!-- Сюда загрузятся отклики -->
+
         </div>
     </div>
 </div>
 
-    <!-- SCRIPTS -->
     <script>
-    // === TOGGLE NAV (Меню "Ещё/Скрыть") ===
+
     function toggleNav() {
         const hidden = document.querySelectorAll('.nav-hidden');
         const more = document.querySelector('.more-li');
@@ -322,16 +308,13 @@
         }
     }
 
-    // === ГЛОБАЛЬНЫЕ ЭЛЕМЕНТЫ ===
     const openModalBtn = document.getElementById('openModalBtn');
     const modal = document.getElementById('loginModal');
     const closeBtn = document.getElementById('closeModalBtn');
     const loginForm = document.getElementById('loginForm');
     
-    // Глобальная переменная для хранения списка проектов
     let allJobs = [];
 
-    // === ФУНКЦИИ ПРОФИЛЯ В ШАПКЕ ===
     function showUserProfile(user) {
         if (openModalBtn) openModalBtn.style.display = 'none';
         const wrap = document.getElementById('userProfileWrapper');
@@ -353,7 +336,7 @@
         document.getElementById('logoutBtn')?.addEventListener('click', () => { 
     if (confirm('Выйти?')) { 
         localStorage.removeItem('currentUser'); 
-        window.location.href = 'index.html'; // Перекидывает на главную страницу входа
+        window.location.href = 'index.html'; 
     } 
 });
     }
@@ -368,7 +351,6 @@
         }
     }
 
-    // === МОДАЛКА И АВТОРИЗАЦИЯ ===
     openModalBtn?.addEventListener('click', () => { modal.classList.add('active'); document.body.style.overflow = 'hidden'; });
     closeBtn?.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow = ''; });
     modal?.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } });
@@ -394,7 +376,6 @@
         });
     }
 
-    // === УПРАВЛЕНИЕ ПРОФИЛЕМ КАНДИДАТА ===
     async function initCandidateManagement() {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         const managementCard = document.getElementById('candidateManagementCard');
@@ -420,7 +401,6 @@
             managementCard.style.display = 'none';
         }
 
-        // === ЛОГИКА МОДАЛКИ УДАЛЕНИЯ ===
         const deleteModal = document.getElementById('deleteConfirmModal');
         const closeDeleteBtn = document.getElementById('closeDeleteModal');
         const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
@@ -468,7 +448,6 @@
         });
     }
 
-    // === СОЗДАНИЕ ПРОЕКТА ===
     function initCreateProject() {
         const createProjectBtn = document.getElementById('createProjectBtn');
         const createFirstProjectBtn = document.getElementById('createFirstProjectBtn');
@@ -477,7 +456,6 @@
         const cancelCreateProjectBtn = document.getElementById('cancelCreateProjectBtn');
         const createProjectForm = document.getElementById('createProjectForm');
 
-        // Открытие модалки
         function openCreateModal() {
             createProjectModal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -486,7 +464,6 @@
         createProjectBtn?.addEventListener('click', openCreateModal);
         createFirstProjectBtn?.addEventListener('click', openCreateModal);
 
-        // Закрытие модалки
         function closeCreateModal() {
             createProjectModal.classList.remove('active');
             document.body.style.overflow = '';
@@ -500,13 +477,12 @@
             if (e.target === createProjectModal) closeCreateModal();
         });
 
-        // Создание проекта
         createProjectForm?.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
             if (!currentUser) {
-                alert('❌ Сначала войдите в аккаунт');
+                alert(' Сначала войдите в аккаунт');
                 return;
             }
 
@@ -534,20 +510,18 @@
                 
                 closeCreateModal();
                 
-                // Перезагружаем проекты
                 await loadDashboard();
                 
-                alert(`✅ Проект "${projectData.title}" успешно создан!`);
+                alert(` Проект "${projectData.title}" успешно создан!`);
                 
             } catch (err) {
                 console.error('Ошибка создания проекта:', err);
-                alert('❌ Не удалось создать проект. Проверьте подключение к серверу.');
+                alert('Не удалось создать проект. Проверьте подключение к серверу.');
             }
         });
     }
     
     
-    // === ЗАГРУЗКА ДАШБОРДА ===
     async function loadDashboard() {
         const session = JSON.parse(localStorage.getItem('currentUser'));
         if (!session) {
@@ -606,7 +580,6 @@
         }
     }
 
-    // === ПЕРЕКЛЮЧЕНИЕ ПОДПИСКИ ===
     async function toggleSubscription(subscribe) {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (!currentUser) return;
@@ -624,7 +597,6 @@
         }
     }
 
-    // === ОТРИСОВКА ПРОЕКТОВ ===
     function renderProjects(jobs, filter = 'all') {
         const list = document.getElementById('projectsList');
         const empty = document.getElementById('emptyState');
@@ -663,9 +635,9 @@
                     <div class="project-actions">
     ${isCreator ? `
         <button class="btn-sm btn-outline" onclick="viewApplications('${job.id}')">
-            👥 Отклики
+            Отклики
         </button>
-        <button class="btn-sm" onclick="openEditModal('${job.id}')">✏️ Изменить</button>
+        <button class="btn-sm" onclick="openEditModal('${job.id}')">Изменить</button>
     ` : `<button class="btn-sm">Связаться</button>`}
     <a href="project-details.html?id=${job.id}" class="btn-sm btn-outline">Детали</a>
 </div>
@@ -674,7 +646,6 @@
         }).join('');
     }
 
-    // === СТАТИСТИКА ===
     function updateStats(jobs, candidateId) {
         const active = jobs.filter(j => j.status === 'in-progress').length;
         const completed = jobs.filter(j => j.status === 'completed').length;
@@ -691,14 +662,12 @@
         if (elEarned) elEarned.textContent = `${earned.toLocaleString()} ₽`;
     }
 
-    // === РЕДАКТИРОВАНИЕ ПРОЕКТА ===
     function initEditProject() {
         const editModal = document.getElementById('editProjectModal');
         const closeEditBtn = document.getElementById('closeEditProjectModal');
         const cancelEditBtn = document.getElementById('cancelEditProjectBtn');
         const editForm = document.getElementById('editProjectForm');
 
-        // Глобальная функция для открытия модалки
         window.openEditModal = async (projectId) => {
             try {
                 const res = await fetch(`http://localhost:3000/jobs/${projectId}`);
@@ -716,11 +685,10 @@
                 document.body.style.overflow = 'hidden';
             } catch (err) {
                 console.error(err);
-                alert('❌ Не удалось загрузить данные проекта');
+                alert(' Не удалось загрузить данные проекта');
             }
         };
 
-        // Закрытие модалки
         function closeEditModal() {
             editModal.classList.remove('active');
             document.body.style.overflow = '';
@@ -733,7 +701,6 @@
             if (e.target === editModal) closeEditModal();
         });
 
-        // Сохранение изменений
         editForm?.addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = editForm.querySelector('button[type="submit"]');
@@ -762,7 +729,7 @@
                 loadDashboard();
             } catch (err) {
                 console.error(err);
-                alert('❌ Не удалось сохранить изменения');
+                alert('Не удалось сохранить изменения');
             } finally {
                 btn.disabled = false;
                 btn.textContent = '💾 Сохранить';
@@ -770,7 +737,6 @@
         });
     }
 
-    // === ЗАПУСК ПРИ ЗАГРУЗКЕ ===
     document.addEventListener('DOMContentLoaded', () => {
         const saved = localStorage.getItem('currentUser');
         if (saved) {
@@ -780,7 +746,7 @@
         }
         
         loadDashboard();
-        initCreateProject(); // Инициализация создания проекта
+        initCreateProject(); 
         initEditProject();  
         
         document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -806,9 +772,8 @@
         });
     });
 
-        // === ПРОСМОТР ОТКЛИКОВ (Заказчик) — ИСПРАВЛЕНО ===
 window.viewApplications = async (jobId) => {
-    console.log('🔍 Запрос откликов для jobId:', jobId);
+    console.log('Запрос откликов для jobId:', jobId);
     
     const modal = document.getElementById('applicationsModal');
     const list = document.getElementById('applicationsList');
@@ -861,17 +826,16 @@ window.viewApplications = async (jobId) => {
         `).join('');
 
     } catch (err) {
-        console.error('❌ Ошибка:', err);
+        console.error(' Ошибка:', err);
         list.innerHTML = '<p style="color:#f44336; text-align:center;">Ошибка загрузки откликов</p>';
     }
 };
 
-// === ПРИНЯТИЕ ОТКЛИКА ===
 window.acceptApplicant = async (appId, jobId, candidateId, btnElement) => {
   
 
     try {
-        // 1. Обновляем проект (статус + исполнитель)
+
         await fetch(`http://localhost:3000/jobs/${jobId}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
@@ -881,14 +845,12 @@ window.acceptApplicant = async (appId, jobId, candidateId, btnElement) => {
             })
         });
 
-        // 2. Обновляем этот отклик
         await fetch(`http://localhost:3000/applications/${appId}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ status: 'accepted' })
         });
 
-        // 3. Удаляем остальные отклики на этот проект (они больше не нужны)
         const res = await fetch('http://localhost:3000/applications');
         const allApps = await res.json();
         const otherApps = allApps.filter(app => String(app.jobId) === String(jobId) && app.id !== appId);
@@ -899,9 +861,8 @@ window.acceptApplicant = async (appId, jobId, candidateId, btnElement) => {
             });
         }
 
-        alert('✅ Кандидат принят! Проект перешёл в статус "В работе".');
+        alert(' Кандидат принят! Проект перешёл в статус "В работе".');
         
-        // Перезагружаем модалку и дашборд
         window.viewApplications(jobId);
         loadDashboard();
 
@@ -911,7 +872,6 @@ window.acceptApplicant = async (appId, jobId, candidateId, btnElement) => {
     }
 };
 
-// === ОТКАЗ ОТКЛИКУ (удаление) ===
 window.rejectApplicant = async (appId, btnElement) => {
     
 
@@ -920,10 +880,8 @@ window.rejectApplicant = async (appId, btnElement) => {
             method: 'DELETE'
         });
 
-        // Удаляем карточку из списка
         btnElement.closest('.app-card').remove();
         
-        // Проверяем, остались ли отклики
         const list = document.getElementById('applicationsList');
         if (list.children.length === 0) {
             list.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">Пока нет откликов</p>';
@@ -933,7 +891,7 @@ window.rejectApplicant = async (appId, btnElement) => {
 
     } catch (err) {
         console.error('Ошибка отказа:', err);
-        alert('❌ Не удалось удалить отклик');
+        alert(' Не удалось удалить отклик');
     }
 };
 
@@ -941,7 +899,7 @@ const closeAppsBtn = document.getElementById('closeAppsModal');
 const appsModalOverlay = document.getElementById('applicationsModal');
 
 if (closeAppsBtn && appsModalOverlay) {
-    // 1. Крестик
+
     closeAppsBtn.onclick = () => {
         appsModalOverlay.classList.remove('active');
         document.body.style.overflow = '';

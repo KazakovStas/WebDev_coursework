@@ -860,7 +860,6 @@ body {
     user-select: none;
 }
 
-/* === МОДАЛЬНОЕ ОКНО === */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0;
@@ -953,7 +952,7 @@ body {
     outline: none;
     background: #fff;
     transition: border 0.3s;
-    box-sizing: border-box; /* Важно, чтобы padding не ломал ширину */
+    box-sizing: border-box; 
 }
 
 .modal-input:focus {
@@ -1001,8 +1000,6 @@ body {
 }
 .btn-modal-reg:hover { border-color: #999; }
 
-
-/* === СТРАНИЦА КАТАЛОГА === */
 .catalog-main {
     padding: 40px 0;
     background-color: var(--bg-body);
@@ -1017,7 +1014,6 @@ body {
     padding: 0 40px;
 }
 
-/* Фильтры */
 .filters-sidebar {
     flex: 0 0 260px;
     background: #fff;
@@ -1100,7 +1096,6 @@ body {
     font-size: 14px;
 }
 
-/* Сетка кандидатов */
 .candidates-grid {
     flex: 1;
     display: grid;
@@ -1108,7 +1103,6 @@ body {
     gap: 20px;
 }
 
-/* Пагинация */
 .pagination {
     display: flex;
     justify-content: center;
@@ -1150,7 +1144,6 @@ body {
 
 .show-more:hover { border-color: var(--text-main); }
 
-/* Адаптив */
 @media (max-width: 1024px) {
     .candidates-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -1168,7 +1161,6 @@ body {
     .candidates-grid { grid-template-columns: 1fr; }
 }
 
-/* === ПРОФИЛЬ КАНДИДАТА === */
 .profile-main {
     padding: 40px 0;
     background: var(--bg-body);
@@ -1197,7 +1189,6 @@ body {
     gap: 16px;
 }
 
-/* Карточка шапки профиля */
 .profile-header-card {
     background: #fff;
     border-radius: 16px;
@@ -1274,7 +1265,6 @@ body {
     padding: 12px;
 }
 
-/* Блоки информации */
 .info-block {
     background: #fff;
     border-radius: 16px;
@@ -1318,7 +1308,6 @@ body {
 
 .read-more:hover { text-decoration: underline; }
 
-/* Сайдбар */
 .sidebar-actions {
     display: flex;
     flex-direction: column;
@@ -1413,7 +1402,6 @@ body {
     color: var(--text-main);
 }
 
-/* Адаптив профиля */
 @media (max-width: 1024px) {
     .profile-sidebar {
         flex: 0 0 260px;
@@ -1429,7 +1417,7 @@ body {
     .profile-sidebar {
         flex: none;
         width: 100%;
-        order: -1; /* Сайдбар сверху на мобильных */
+        order: -1; 
     }
     
     .profile-header-card {
@@ -1456,7 +1444,6 @@ body {
     .btn-sidebar { padding: 12px; font-size: 14px; }
 }
 
-/* === ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ В ХЕДЕРЕ === */
 .user-profile-wrapper {
     position: relative;
     display: flex;
@@ -1500,7 +1487,6 @@ body {
     text-transform: uppercase;
 }
 
-/* Выпадающее меню */
 .user-dropdown {
     position: absolute;
     top: calc(100% + 10px);
@@ -1552,7 +1538,6 @@ body {
     background-color: #fff5f5;
 }
 
-/* === DASHBOARD === */
 .dashboard-main {
     padding: 40px 0;
     background: var(--bg-body);
@@ -1567,7 +1552,6 @@ body {
     padding: 0 40px;
 }
 
-/* Сайдбар */
 .dashboard-sidebar {
     flex: 0 0 320px;
     display: flex;
@@ -1655,7 +1639,6 @@ body {
 }
 .btn-action:hover { background: #f0f0f0; border-color: var(--text-main); }
 
-/* Контент */
 .dashboard-content {
     flex: 1;
 }
@@ -1697,7 +1680,6 @@ body {
     color: #000;
 }
 
-/* Карточки проектов */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -1798,7 +1780,6 @@ body {
     margin: 0 0 20px;
 }
 
-/* Адаптив */
 @media (max-width: 1024px) {
     .dashboard-container { flex-direction: column; }
     .dashboard-sidebar { flex: none; width: 100%; }
@@ -1809,11 +1790,9 @@ body {
     .projects-grid { grid-template-columns: 1fr; }
 }
 
-/* === БИРЖА ПРОЕКТОВ === */
 .projects-main { padding: 40px 0; background: var(--bg-body); min-height: 100vh; }
 .projects-container { display: flex; gap: 24px; max-width: 1440px; margin: 0 auto; padding: 0 40px; }
 
-/* Сайдбар фильтров */
 .projects-sidebar { flex: 0 0 280px; background: #fff; border-radius: 16px; padding: 24px; height: fit-content; position: sticky; top: 100px; }
 .filters-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
 .filters-header h2 { font-size: 18px; font-weight: 700; margin: 0; }
@@ -1828,13 +1807,11 @@ body {
 .filter-range input { flex: 1; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; }
 .apply-filters { width: 100%; margin-top: 8px; }
 
-/* Контент */
 .projects-content { flex: 1; }
 .content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
 .content-header h1 { font-size: 24px; margin: 0; }
 .projects-count { font-size: 15px; color: var(--text-muted); margin: 0; }
 
-/* Карточка проекта */
 .projects-list { display: flex; flex-direction: column; gap: 20px; }
 .project-card-lg { background: #fff; border-radius: 16px; padding: 24px; border: 2px solid transparent; transition: all 0.3s; }
 .project-card-lg:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
@@ -1855,7 +1832,6 @@ body {
 .project-date { font-size: 13px; color: var(--text-muted); }
 .login-hint { font-size: 13px; color: var(--text-muted); font-style: italic; }
 
-/* Адаптив */
 @media (max-width: 1024px) {
     .projects-container { flex-direction: column; padding: 0 20px; }
     .projects-sidebar { flex: none; width: 100%; position: static; }
@@ -1865,7 +1841,6 @@ body {
     .project-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
 }
 
-/* === ДЕТАЛИ ПРОЕКТА === */
 .project-details-main { padding: 40px 0; background: var(--bg-body); min-height: 100vh; }
 .project-details-container { display: flex; gap: 24px; max-width: 1440px; margin: 0 auto; padding: 0 40px; }
 
@@ -1876,7 +1851,6 @@ body {
 .project-details-content { flex: 1; }
 .project-sidebar { flex: 0 0 340px; }
 
-/* Шапка проекта */
 .project-header-details { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 20px; }
 .project-status-large { display: inline-block; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px; text-transform: uppercase; margin-bottom: 12px; }
 .status-open { background: #FFF4CC; color: #8B6914; }
@@ -1888,7 +1862,6 @@ body {
 .project-category-badge { font-size: 13px; color: var(--text-muted); background: #f5f5f5; padding: 6px 12px; border-radius: 12px; }
 .project-budget-large { font-size: 22px; font-weight: 700; color: var(--text-main); }
 
-/* Описание и требования */
 .project-description, .project-requirements, .project-timeline { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 20px; }
 .project-description h3, .project-requirements h3, .project-timeline h3 { font-size: 18px; font-weight: 600; margin: 0 0 16px; }
 .desc-text { font-size: 15px; line-height: 1.7; color: var(--text-secondary); margin: 0; white-space: pre-wrap; }
@@ -1900,14 +1873,12 @@ body {
 .timeline-item:last-child { border-bottom: none; }
 .timeline-item strong { color: var(--text-main); }
 
-/* Карточка заказчика */
 .client-card { background: #fff; border-radius: 16px; padding: 20px; }
 .client-card h3 { font-size: 16px; margin: 0 0 16px; font-weight: 600; }
 .client-info { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
 .client-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 .client-rating { font-size: 13px; color: var(--text-muted); margin: 0; }
 
-/* Сайдбар действий */
 .action-card { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 20px; }
 .action-card h3 { font-size: 18px; font-weight: 600; margin: 0 0 8px; }
 .action-note { font-size: 14px; color: var(--text-muted); margin: 0 0 20px; }
@@ -1927,11 +1898,9 @@ body {
 .btn-full { width: 100%; margin-bottom: 10px; justify-content: center; }
 .btn-full:last-child { margin-bottom: 0; }
 
-/* Состояния */
 .loading, .not-found { text-align: center; padding: 60px 20px; background: #fff; border-radius: 16px; }
 .not-found h2 { font-size: 20px; margin: 0 0 20px; }
 
-/* Адаптив */
 @media (max-width: 1024px) {
     .project-details-container { flex-direction: column; padding: 0 20px; }
     .project-sidebar { flex: none; width: 100%; }
@@ -1942,7 +1911,6 @@ body {
     .btn-apply { width: 100%; }
 }
 
-/* === РЕДАКТИРОВАНИЕ ПРОФИЛЯ === */
 .edit-profile-main { padding: 60px 0; background: var(--bg-body); min-height: 100vh; display: flex; align-items: center; }
 .edit-profile-container { max-width: 700px; margin: 0 auto; padding: 0 20px; width: 100%; }
 
@@ -1977,7 +1945,6 @@ body {
     .btn-secondary, .btn-primary { width: 100%; }
 }
 
-/* Статус подписки */
 .subscription-status-card {
     background: #fff;
     border-radius: 16px;
@@ -2011,7 +1978,6 @@ body {
     color: #F57C00;
 }
 
-/* === СООБЩЕНИЕ ОБ УСПЕХЕ ПОДПИСКИ === */
 .success-message {
     background-color: #E8F5E9;
     border: 1px solid #4CAF50;
@@ -2040,7 +2006,6 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Выбор цветного аватара */
 .avatar-option input[type="radio"]:checked + .avatar-preview {
     border-color: var(--accent) !important;
     transform: scale(1.1);
@@ -2055,25 +2020,21 @@ body {
     transform: scale(1.05);
 }
 
-/* Стиль для тега remote */
 .badge-remote {
-    background-color: #E6F4FF; /* Светло-голубой */
-    color: #1976D2;            /* Тёмно-синий текст */
+    background-color: #E6F4FF; 
+    color: #1976D2;            
 }
 
-/* Стиль для fulltime (фиолетовый) */
 .badge-fulltime {
     background-color: #F0E6FF;
     color: #6B46C1;
 }
 
-/* Стиль для parttime (желтый) */
 .badge-parttime {
     background-color: #FFF4CC;
     color: #8B6914;
 }
 
-/* Управление профилем кандидата */
 .candidate-management-card {
     background: #fff;
     border-radius: 16px;
@@ -2115,7 +2076,6 @@ body {
     border-color: var(--accent);
 }
 
-/* === ПРОСТОЙ ПОИСК === */
 .search-box {
     width: 100%;
     max-width: 500px;
@@ -2164,7 +2124,6 @@ body {
     overflow-y: auto;
 }
 
-/* Остальные стили для результатов оставь как были */
 .search-result-item {
     display: flex;
     align-items: center;
@@ -2206,3 +2165,128 @@ body {
     color: var(--text-muted);
 }
 
+.btn-edit-project {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white !important;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.btn-edit-project:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-edit-project:disabled {
+    background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%);
+    cursor: not-allowed;
+    opacity: 0.8;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-close-project {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white !important;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.btn-close-project:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+}
+
+.btn-close-project:disabled {
+    background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%);
+    cursor: not-allowed;
+    opacity: 0.8;
+    transform: none;
+    box-shadow: none;
+}
+
+#saveProjectBtn,
+#notifySimilarBtn,
+#reportBtn {
+    background: white;
+    border: 2px solid #e5e7eb;
+    color: #374151;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#saveProjectBtn:hover,
+#notifySimilarBtn:hover {
+    border-color: #667eea;
+    background: #f9fafb;
+    color: #667eea;
+    transform: translateX(4px);
+}
+
+#reportBtn:hover {
+    border-color: #f5576c;
+    color: #f5576c;
+    transform: translateX(4px);
+}
+
+.info-badge {
+    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+    color: #4f46e5;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: inline-block;
+    border-left: 4px solid #667eea;
+}
+
+.action-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f3f4f6;
+}
+
+.action-card p[style*="text-align: center"] {
+    color: #9ca3af;
+    font-size: 12px;
+    margin-top: 12px;
+    padding: 8px;
+    background: #f9fafb;
+    border-radius: 8px;
+}

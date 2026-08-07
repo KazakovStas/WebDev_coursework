@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- HEADER (идентичен index.html) -->
     <header class="header">
         <div class="header-top">
             <div class="logo-nav">
@@ -52,7 +51,6 @@
         </div>
     </header>
 
-    <!-- MAIN EDIT PROFILE -->
     <main class="edit-profile-main">
         <div class="container edit-profile-container">
             <div class="edit-profile-card">
@@ -95,7 +93,6 @@
         </div>
     </main>
 
-    <!-- FOOTER & MODAL (идентичны index.html) -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -121,9 +118,8 @@
         </div>
     </div>
 
-    <!-- SCRIPTS -->
     <script>
-    // === 1. АВТОРИЗАЦИЯ И ХЕДЕР (как в index.html) ===
+
     const openModalBtn = document.getElementById('openModalBtn');
     const modal = document.getElementById('loginModal');
     const closeBtn = document.getElementById('closeModalBtn');
@@ -176,7 +172,6 @@
         if (openModalBtn) { openModalBtn.style.display = 'block'; openModalBtn.textContent = 'Войти'; openModalBtn.style.backgroundColor = ''; }
     }
 
-    // === 2. ЛОГИКА РЕДАКТИРОВАНИЯ ===
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) { window.location.href = 'index.html'; }
 
@@ -221,7 +216,7 @@
         }
 
         try {
-            // PATCH обновляет только указанные поля, не затирая остальные
+
             const res = await fetch(`http://localhost:3000/users/${currentUser.id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
@@ -230,11 +225,9 @@
 
             if (!res.ok) throw new Error('Update failed');
 
-            // Обновляем сессию
             const updatedUser = { ...currentUser, name: payload.name, email: payload.email, password: payload.password };
             localStorage.setItem('currentUser', JSON.stringify(updatedUser));
 
-            // Показываем успех
             form.style.display = 'none';
             successMsg.style.display = 'flex';
             if (document.getElementById('userName')) document.getElementById('userName').textContent = updatedUser.name.split(' ')[0];
@@ -247,7 +240,6 @@
         }
     });
 
-    // === 3. ИНИЦИАЛИЗАЦИЯ ===
     document.addEventListener('DOMContentLoaded', () => {
         if (currentUser) showUserProfile(currentUser);
         loadData();
