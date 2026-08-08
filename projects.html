@@ -26,9 +26,10 @@
             </div>
             <div class="search-auth">
                 <div class="search-box">
-                    <img src="img/Search.png" alt="Поиск" class="search-icon">
-                    <input type="text" class="search-input" placeholder="Поиск">
-                </div>
+    <img src="img/Search.png" alt="Поиск" class="search-icon">
+    <input type="text" class="search-input" id="liveSearchInput" placeholder="Поиск по навыкам...">
+    <div id="searchResults" class="search-results-dropdown" style="display: none;"></div>
+</div>
                 
                 <button class="login-btn" id="openModalBtn">Войти</button>
                 
@@ -419,6 +420,67 @@
         window.location.href = 'index.html';
     } 
 });
+
+const searchInput = document.getElementById('liveSearchInput');
+const resultsDropdown = document.getElementById('searchResults');
+let allCandidatesCache = [];
+let isCacheReady = false;
+
+fetch('http://localhost:3000/candidates')
+    .then(res => res.json())
+    .then(data => {
+        allCandidatesCache = data;
+        isCacheReady = true;
+        console.log('✅ Поиск готов. Кандидатов:', data.length);
+    })
+    .catch(err => console.error(' Ошибка загрузки базы:', err));
+
+if (searchInput && resultsDropdown) {
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim().toLowerCase();
+        
+        if (!isCacheReady || query.length < 3) {
+            resultsDropdown.style.display = 'none';
+            return;
+        }
+
+        const filtered = allCandidatesCache.filter(c => {
+            const tags = (c.tags || []).join(' ').toLowerCase();
+            const testExp = (c.test_exp || '').toLowerCase();
+            const apiExp = (c.api_exp || '').toLowerCase();
+            const generalInfo = (c.general_info || '').toLowerCase();
+            
+            return tags.includes(query) || 
+                   testExp.includes(query) || 
+                   apiExp.includes(query) || 
+                   generalInfo.includes(query);
+        });
+
+        if (filtered.length === 0) {
+            resultsDropdown.innerHTML = '<div style="padding:16px;text-align:center;color:#999">Навыки не найдены</div>';
+        } else {
+            resultsDropdown.innerHTML = filtered.slice(0, 5).map(c => {
+                const topTags = (c.tags || []).slice(0, 3).join(', ');
+                return `
+                <a href="profile.html?id=${c.id}" class="search-result-item">
+                    <div class="search-result-avatar">${c.name.charAt(0)}</div>
+                    <div class="search-result-info">
+                        <h4>${c.position || 'Специалист'}</h4>
+                        <p>${c.name} • ${topTags || 'Опыт в описании'}</p>
+                    </div>
+                </a>`;
+            }).join('');
+        }
+        resultsDropdown.style.display = 'block';
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !resultsDropdown.contains(e.target)) {
+            resultsDropdown.style.display = 'none';
+        }
+    });
+}
+
 </script>
 </body>
 </html>
