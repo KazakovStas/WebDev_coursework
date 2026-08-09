@@ -41,14 +41,38 @@
             </div>
         </div>
         <div class="header-bottom">
-            <ul class="secondary-nav">
-                <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
-                <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
-                <li><a href="catalog.html?category=design">Дизайнеры</a></li>
-                <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
-                <li class="more-li"><button class="more-btn" onclick="toggleNav()"><span>Ещё</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
-                <li class="hide-li" style="display: none;"><button class="hide-btn" onclick="toggleNav()"><span>Скрыть</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></button></li>
-            </ul>
+          <ul class="secondary-nav">
+    <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
+    <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
+    <li><a href="catalog.html?category=design">Дизайнеры</a></li>
+    <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
+    
+    <li class="nav-hidden"><a href="catalog.html?category=analytics">Аналитики</a></li>
+    <li class="nav-hidden"><a href="catalog.html?category=content">Контент-менеджеры</a></li>
+    <li class="nav-hidden"><a href="catalog.html?category=management">Топ-менеджмент</a></li>
+    <li class="nav-hidden"><a href="catalog.html?category=hr">HR-специалисты</a></li>
+    <li class="nav-hidden"><a href="catalog.html?category=finance">Финансисты</a></li>
+    <li class="nav-hidden"><a href="catalog.html?category=legal">Юристы</a></li>
+    <li class="nav-hidden"><a href="catalog.html?category=support">Техподдержка</a></li>
+    
+    <li class="more-li">
+        <button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()">
+            <span>Ещё</span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+    </li>
+    
+    <li class="hide-li" style="display: none;">
+        <button class="hide-btn" type="button" onclick="toggleNav()">
+            <span>Скрыть</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </button>
+    </li>
+</ul>
         </div>
     </header>
 

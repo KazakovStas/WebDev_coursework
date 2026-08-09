@@ -39,6 +39,14 @@
       "candidateId": "SRpeX3UTX94",
       "subscribed": false,
       "id": "2W8SwnOv4_M"
+    },
+    {
+      "name": "ssss",
+      "email": "sss@sss.ss",
+      "password": "123456",
+      "candidateId": "exvOvwG7mOw",
+      "subscribed": false,
+      "id": "ZrUc5EChGII"
     }
   ],
   "candidates": [
@@ -132,6 +140,26 @@
       "test_exp": "1",
       "api_exp": "1",
       "id": "SRpeX3UTX94"
+    },
+    {
+      "name": "ssss",
+      "position": "444",
+      "avatar": "gradient-purple",
+      "experience": "4",
+      "salary": 4,
+      "category": "legal",
+      "tags": [
+        "fulltime",
+        "parttime",
+        "remote"
+      ],
+      "age": "44",
+      "location": "44",
+      "reason": "44",
+      "general_info": "44",
+      "test_exp": "44",
+      "api_exp": "44",
+      "id": "exvOvwG7mOw"
     }
   ],
   "jobs": [

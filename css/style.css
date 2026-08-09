@@ -566,6 +566,35 @@ body {
     margin: 0 auto;
 }
 
+.candidate-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    top: -5px;
+    position: relative;
+}
+
+/* Контейнер для бейджей */
+/* Блок бейджей с фиксированной высотой */
+.candidate-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 12px;
+    min-height: 60px; /* Фиксируем высоту под 2 строки бейджей */
+    align-items: flex-start; /* Прижимаем к верху */
+}
+
+.badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 12px;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Карточка — всё по верхнему краю */
 .candidate-card {
     background-color: #ffffff;
     border-radius: 20px;
@@ -578,24 +607,10 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.candidate-card:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    top: -5px;
-    position: relative;
-}
-
-.candidate-badges {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.badge {
-    font-size: 12px;
-    font-weight: 500;
-    padding: 4px 12px;
-    border-radius: 12px;
+/* Цвета бейджей */
+.badge-fulltime {
+    background-color: #F0E6FF;
+    color: #6B46C1;
 }
 
 .badge-parttime {
@@ -603,9 +618,9 @@ body {
     color: #8B6914;
 }
 
-.badge-fulltime {
-    background-color: #F0E6FF;
-    color: #6B46C1;
+.badge-remote {
+    background-color: #E6F4FF;
+    color: #1976D2;
 }
 
 .candidate-avatar {
