@@ -15,15 +15,15 @@
                     <span>ЛИЦА</span>
                     <div class="logo-icon"></div>
                 </a>
-                <nav>
-                    <ul class="main-nav">
-                        <li><a href="index.html">Кандидаты</a></li>
-                        <li><a href="catalog.html">Найти кандидата</a></li>
-                        <li><a href="#">Попасть в базу</a></li>
-                        <li><a href="#">О сервисе</a></li>
-                        <li><a href="#">Портал</a></li>
-                    </ul>
-                </nav>
+               <nav>
+    <ul class="main-nav">
+        <li><a href="index.html">Кандидаты</a></li>
+        <li><a href="catalog.html">Найти кандидата</a></li>
+        <li><a href="projects.html">Биржа проектов</a></li>
+        <li><a href="#" id="joinDatabaseBtn">Попасть в базу</a></li>
+        <li><a href="#" id="aboutServiceBtn">О сервисе</a></li>
+    </ul>
+</nav>
             </div>
             <div class="search-auth">
                <div class="search-box">
@@ -310,6 +310,38 @@
         <div id="applicationsList" style="max-height: 400px; overflow-y: auto;">
 
         </div>
+    </div>
+</div>
+
+
+<div class="modal-overlay" id="aboutModal">
+    <div class="modal-window" style="max-width: 600px;">
+        <button class="modal-close" id="closeAboutModal">&times;</button>
+        
+        <div class="modal-header">
+            <span class="modal-logo-text">ЛИЦА</span>
+            <span class="modal-logo-dot"></span>
+            <span class="modal-logo-text">Кандидаты</span>
+        </div>
+        
+        <h2 class="modal-title" style="margin-bottom: 24px;">О сервисе</h2>
+        
+        <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
+            <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
+            <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
+            
+            <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
+            <ul style="margin-left: 20px; margin-bottom: 16px;">
+                <li>Все кандидаты проходят проверку компетенций</li>
+                <li>Вы получаете доступ к базе по подписке</li>
+                <li>Самостоятельно связываетесь с подходящими специалистами</li>
+            </ul>
+            
+            <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br>
+            <em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
+        </div>
+        
+        <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
     </div>
 </div>
 
@@ -948,7 +980,7 @@ fetch('http://localhost:3000/candidates')
     .then(data => {
         allCandidatesCache = data;
         isCacheReady = true;
-        console.log('✅ Поиск готов. Кандидатов:', data.length);
+        console.log('Поиск готов. Кандидатов:', data.length);
     })
     .catch(err => console.error(' Ошибка загрузки базы:', err));
 
@@ -997,6 +1029,50 @@ if (searchInput && resultsDropdown) {
         }
     });
 }
+
+const joinDatabaseBtn = document.getElementById('joinDatabaseBtn');
+const aboutServiceBtn = document.getElementById('aboutServiceBtn');
+const aboutModal = document.getElementById('aboutModal');
+const closeAboutModal = document.getElementById('closeAboutModal');
+const closeAboutBtn = document.getElementById('closeAboutBtn');
+
+if (joinDatabaseBtn) {
+    joinDatabaseBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        if (!currentUser) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        } else if (currentUser.candidateId === null || currentUser.candidateId === undefined) {
+            window.location.href = 'create-profile.html';
+        } else {
+            window.location.href = `profile.html?id=${currentUser.candidateId}`;
+        }
+    });
+}
+
+if (aboutServiceBtn && aboutModal) {
+    aboutServiceBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        aboutModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    const closeAbout = () => {
+        aboutModal.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+    
+    closeAboutModal?.addEventListener('click', closeAbout);
+    closeAboutBtn?.addEventListener('click', closeAbout);
+    aboutModal?.addEventListener('click', (e) => {
+        if (e.target === aboutModal) closeAbout();
+    });
+}
 </script>
+
+
+
 </body>
 </html>

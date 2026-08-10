@@ -14,15 +14,15 @@
                     <span>ЛИЦА</span>
                     <div class="logo-icon"></div>
                 </a>
-                <nav>
-                    <ul class="main-nav">
-    <li><a href="index.html">Кандидаты</a></li>
-    <li><a href="catalog.html">Найти кандидата</a></li>
-    <li><a href="#">Попасть в базу</a></li>
-    <li><a href="#">О сервисе</a></li>
-    <li><a href="#">Портал</a></li>
-                    </ul>
-                </nav>
+          <nav>
+    <ul class="main-nav">
+        <li><a href="index.html">Кандидаты</a></li>
+        <li><a href="catalog.html">Найти кандидата</a></li>
+        <li><a href="projects.html">Биржа проектов</a></li>
+        <li><a href="#" id="joinDatabaseBtn">Попасть в базу</a></li>
+        <li><a href="#" id="aboutServiceBtn">О сервисе</a></li>
+    </ul>
+</nav>
             </div>
             <div class="search-auth">
     <div class="search-box">
@@ -39,7 +39,6 @@
             <div class="user-avatar" id="userAvatar">И</div>
         </div>
         
-        <!-- Выпадающее меню -->
         <div class="user-dropdown" id="userDropdown">
             <a href="dashboard.html" class="dropdown-item" id="profileLink">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -105,7 +104,7 @@
                     <p class="hero-description">Мы уже со всеми провели собеседования и подтверждаем их профессионализм</p>
                     <div class="hero-buttons">
     <a href="catalog.html" class="btn btn-primary">Выбрать кандидата</a>
-    <a href="#" class="btn btn-secondary">Попасть в базу</a>
+    <a href="#" class="btn btn-secondary join-database-btn">Попасть в базу</a>
                     </div>
                 </div>
                 <div class="hero-image">
@@ -302,6 +301,26 @@
             </div>
         </div>
     </footer>
+
+     <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
+            <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
+            
+            <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
+            
+            <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
+            <ul style="margin-left: 20px; margin-bottom: 16px;">
+                <li>Все кандидаты проходят проверку компетенций</li>
+                <li>Вы получаете доступ к базе по подписке</li>
+                <li>Самостоятельно связываетесь с подходящими специалистами</li>
+            </ul>
+            
+            <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br>
+            <em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
+        </div>
+        
+        <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
+    </div>
+</div>
     
     <script>
         function toggleNav() {
@@ -359,6 +378,37 @@
                 </div>
             </form>
         </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="aboutModal">
+    <div class="modal-window" style="max-width: 600px;">
+        <button class="modal-close" id="closeAboutModal">&times;</button>
+        
+        <div class="modal-header">
+            <span class="modal-logo-text">ЛИЦА</span>
+            <span class="modal-logo-dot"></span>
+            <span class="modal-logo-text">Кандидаты</span>
+        </div>
+        
+        <h2 class="modal-title" style="margin-bottom: 24px;">О сервисе</h2>
+        
+        <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
+            <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
+            <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
+            
+            <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
+            <ul style="margin-left: 20px; margin-bottom: 16px;">
+                <li>Все кандидаты проходят проверку компетенций</li>
+                <li>Вы получаете доступ к базе по подписке</li>
+                <li>Самостоятельно связываетесь с подходящими специалистами</li>
+            </ul>
+            
+            <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br>
+            <em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
+        </div>
+        
+        <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
     </div>
 </div>
 
@@ -562,28 +612,37 @@
         }).join('');
     }
 
-    document.querySelectorAll('a[href="#"], .btn-secondary[href="#"]').forEach(link => {
-        link.addEventListener('click', async (e) => {
-            e.preventDefault();
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            if (!currentUser) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-            else if (currentUser.candidateId === null || currentUser.candidateId === undefined) { window.location.href = 'create-profile.html'; }
-            else {
-                try {
-                    const res = await fetch(`http://localhost:3000/candidates/${currentUser.candidateId}`);
-                    if (!res.ok || res.status === 404) {
-                        await fetch(`http://localhost:3000/users/${currentUser.id}`, {
-                            method: 'PATCH', headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ candidateId: null })
-                        });
-                        localStorage.setItem('currentUser', JSON.stringify({ ...currentUser, candidateId: null }));
-                        window.location.href = 'create-profile.html'; return;
-                    }
-                    window.location.href = `profile.html?id=${currentUser.candidateId}`;
-                } catch (err) { console.error('Ошибка:', err); window.location.href = 'create-profile.html'; }
+    // Универсальный обработчик для ссылок с href="#" (ИСКЛЮЧАЯ кнопку "О сервисе")
+document.querySelectorAll('a[href="#"]:not(#aboutServiceBtn), .btn-secondary[href="#"]:not(#aboutServiceBtn)').forEach(link => {
+    link.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        if (!currentUser) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        } else if (currentUser.candidateId === null || currentUser.candidateId === undefined) {
+            window.location.href = 'create-profile.html';
+        } else {
+            try {
+                const res = await fetch(`http://localhost:3000/candidates/${currentUser.candidateId}`);
+                if (!res.ok || res.status === 404) {
+                    await fetch(`http://localhost:3000/users/${currentUser.id}`, {
+                        method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ candidateId: null })
+                    });
+                    localStorage.setItem('currentUser', JSON.stringify({ ...currentUser, candidateId: null }));
+                    window.location.href = 'create-profile.html';
+                    return;
+                }
+                window.location.href = `profile.html?id=${currentUser.candidateId}`;
+            } catch (err) {
+                console.error('Ошибка:', err);
+                window.location.href = 'create-profile.html';
             }
-        });
+        }
     });
+});
 
     const subscribeForm = document.getElementById('subscribeForm');
     if (subscribeForm) {
@@ -674,6 +733,53 @@ if (searchInput && resultsDropdown) {
         if (!searchInput.contains(e.target) && !resultsDropdown.contains(e.target)) {
             resultsDropdown.style.display = 'none';
         }
+    });
+}
+
+const joinDatabaseBtn = document.getElementById('joinDatabaseBtn');
+const aboutServiceBtn = document.getElementById('aboutServiceBtn');
+const aboutModal = document.getElementById('aboutModal');
+const closeAboutModal = document.getElementById('closeAboutModal');
+const closeAboutBtn = document.getElementById('closeAboutBtn');
+
+function handleJoinDatabaseClick(e) {
+    e.preventDefault();
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    
+    if (!currentUser) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    } else if (currentUser.candidateId === null || currentUser.candidateId === undefined) {
+        window.location.href = 'create-profile.html';
+    } else {
+        window.location.href = `profile.html?id=${currentUser.candidateId}`;
+    }
+}
+
+if (joinDatabaseBtn) {
+    joinDatabaseBtn.addEventListener('click', handleJoinDatabaseClick);
+}
+
+document.querySelectorAll('.join-database-btn').forEach(link => {
+    link.addEventListener('click', handleJoinDatabaseClick);
+});
+
+if (aboutServiceBtn && aboutModal) {
+    aboutServiceBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        aboutModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    const closeAbout = () => {
+        aboutModal.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+    
+    closeAboutModal?.addEventListener('click', closeAbout);
+    closeAboutBtn?.addEventListener('click', closeAbout);
+    aboutModal?.addEventListener('click', (e) => {
+        if (e.target === aboutModal) closeAbout();
     });
 }
 </script>
