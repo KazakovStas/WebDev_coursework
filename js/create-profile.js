@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 tags: tags,
                 age: document.getElementById('age').value.trim(),
                 location: document.getElementById('location').value.trim(),
+                telegram: document.getElementById('telegram').value.trim(), // Новое поле
+                portfolio: document.getElementById('portfolio').value.trim(), // Новое поле
                 reason: document.getElementById('reason').value.trim(),
                 general_info: document.getElementById('general_info').value.trim(),
                 test_exp: document.getElementById('test_exp').value.trim(),

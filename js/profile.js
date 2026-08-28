@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // Аватар
             const avatarEl = document.getElementById('profileAvatar');
             const avatarContainer = avatarEl.parentElement;
             
@@ -41,26 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 const gradientDiv = document.createElement('div');
                 gradientDiv.className = 'profile-avatar-gradient';
                 gradientDiv.style.cssText = `
-                    width: 120px; 
-                    height: 120px; 
-                    border-radius: 50%; 
+                    width: 120px; height: 120px; border-radius: 50%; 
                     background: ${gradients[c.avatar] || gradients['gradient-purple']}; 
-                    display: flex; 
-                    align-items: center; 
-                    justify-content: center; 
-                    color: #fff; 
-                    font-size: 48px; 
-                    font-weight: 700;
-                    border: 3px solid var(--border);
+                    display: flex; align-items: center; justify-content: center; 
+                    color: #fff; font-size: 48px; font-weight: 700; border: 3px solid var(--border);
                 `;
                 gradientDiv.textContent = c.name.charAt(0).toUpperCase();
-                
                 avatarContainer.replaceChild(gradientDiv, avatarEl);
             } else {
                 avatarEl.src = c.avatar || 'img/default-avatar.png';
                 avatarEl.style.display = 'block';
             }
 
+            // Данные
             document.getElementById('profileName').textContent = c.name || '—';
             document.getElementById('profileAge').textContent = c.age || '—';
             document.getElementById('profileSpecialty').textContent = c.position || '—';
@@ -73,6 +67,40 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('generalBlock').innerHTML = `<p>${c.general_info || '—'}</p>`;
             document.getElementById('testExpBlock').innerHTML = `<p>${c.test_exp || '—'}</p>`;
             document.getElementById('apiBlock').innerHTML = `<p>${c.api_exp || '—'}</p>`;
+            
+            // Настройка кнопок контактов
+            const telegramLink = document.getElementById('profileTelegram');
+            const portfolioLink = document.getElementById('profilePortfolio');
+            const showContactsBtn = document.getElementById('showContactsBtn');
+            const revealedContacts = document.getElementById('revealedContacts');
+
+            // Скрываем кнопки по умолчанию
+            telegramLink.style.display = 'none';
+            portfolioLink.style.display = 'none';
+            revealedContacts.style.display = 'none';
+
+            // Если есть данные, готовим ссылки
+            if (c.telegram) {
+                const username = c.telegram.replace(/^@/, '');
+                telegramLink.href = `https://t.me/${username}`;
+                telegramLink.style.display = 'inline-block';
+            }
+            if (c.portfolio) {
+                portfolioLink.href = c.portfolio;
+                portfolioLink.style.display = 'inline-block';
+            }
+
+            // Логика кнопки "Открыть контакты"
+            if (c.telegram || c.portfolio) {
+                showContactsBtn.addEventListener('click', () => {
+                    showContactsBtn.style.display = 'none'; // Скрываем кнопку
+                   revealedContacts.style.display = 'flex'; // Показываем ссылки
+                });
+            } else {
+                showContactsBtn.textContent = 'Контакты не указаны';
+                showContactsBtn.disabled = true;
+                showContactsBtn.style.opacity = '0.5';
+            }
             
         } catch (err) {
             console.error('Ошибка загрузки профиля:', err);

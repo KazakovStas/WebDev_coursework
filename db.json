@@ -66,7 +66,9 @@
       "reason": "Ищет удалённый формат работы...",
       "general_info": "13 лет в маркетинге...",
       "test_exp": "Настройка сквозной аналитики...",
-      "api_exp": "Интеграция с CRM..."
+      "api_exp": "Интеграция с CRM...",
+      "telegram": "@vladimir_mktg",
+      "portfolio": "https://vladimir.portfolio.com"
     },
     {
       "id": "2",
@@ -84,7 +86,9 @@
       "reason": "Хочет работать с Big Data...",
       "general_info": "Эксперт в BI-системах...",
       "test_exp": "SQL, Tableau, A/B тесты...",
-      "api_exp": "REST API, вебхуки..."
+      "api_exp": "REST API, вебхуки...",
+      "telegram": "@anna_analyst",
+      "portfolio": "https://anna.data.portfolio.com"
     },
     {
       "id": "3",
@@ -103,7 +107,9 @@
       "reason": "Ищет креативную свободу...",
       "general_info": "Создала 5 бренд-айдентик...",
       "test_exp": "Фокус-группы, юзабилити...",
-      "api_exp": "Маркетинговые API..."
+      "api_exp": "Маркетинговые API...",
+      "telegram": "@daria_brand",
+      "portfolio": "https://daria.behance.net"
     },
     {
       "id": "4",
@@ -121,7 +127,9 @@
       "reason": "Выход на международные рынки...",
       "general_info": "Вывел 3 компании на прибыль...",
       "test_exp": "Unit-экономика, гипотезы...",
-      "api_exp": "Платёжные шлюзы, ERP..."
+      "api_exp": "Платёжные шлюзы, ERP...",
+      "telegram": "@evgeny_biz",
+      "portfolio": "https://evgeny.cases.com"
     },
     {
       "name": "Крабов Краб Крабович",
@@ -139,7 +147,9 @@
       "general_info": "1",
       "test_exp": "1",
       "api_exp": "1",
-      "id": "SRpeX3UTX94"
+      "id": "SRpeX3UTX94",
+      "telegram": "@krabov_test",
+      "portfolio": "https://krabov.test.com"
     }
   ],
   "jobs": [

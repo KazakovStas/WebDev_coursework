@@ -71,52 +71,38 @@
                         <h1 id="profileName">Загрузка...</h1>
                         <p class="profile-age" id="profileAge">31 год</p>
                         <p class="profile-specialty" id="profileSpecialty">Интернет-маркетолог</p>
-                        <p class="profile-location" id="profileLocation">📍 Ташкент</p>
+                        <p class="profile-location" id="profileLocation"> Ташкент</p>
                         <p class="profile-salary">Зарплатные ожидания: <strong id="profileSalary">200 000 ₽</strong></p>
-                        <button class="btn btn-primary profile-contacts-btn">Открыть контакты</button>
+                        
+                        <div id="contactsArea">
+                            <button class="btn btn-primary profile-contacts-btn" id="showContactsBtn">Открыть контакты</button>
+                            <div id="revealedContacts" style="margin-top: 10px; display: none; display: flex; gap: 12px; flex-wrap: wrap;">
+    <a href="#" id="profileTelegram" target="_blank" class="btn-sidebar btn-accent">Telegram</a>
+    <a href="#" id="profilePortfolio" target="_blank" class="btn-sidebar">Портфолио</a>
+</div>
+                        </div>
                     </div>
                 </div>
                 <div class="profile-sections">
                     <div class="info-block">
                         <h2>Причина поиска работы</h2>
-                        <div class="info-text" id="reasonBlock"><p>Полтора года назад кандидат работал в Альфа-Банке ведущим специалистом. В январе получил предложение от другой компании, но формат не подошёл. Сейчас рассматривает любые предложения, потому что текущая компания не предлагает удалённый формат.</p></div>
+                        <div class="info-text" id="reasonBlock"><p>—</p></div>
                     </div>
                     <div class="info-block">
                         <h2>Общая информация, почему именно этот кандидат</h2>
-                        <div class="info-text" id="generalBlock"><p>В сфере IT работает всю карьеру, начинал с администратора баз данных и Oracle-разработчика. Последние 6 лет занимается тестированием. Имеет техническое образование — прикладная информатика в экономике. В Альфа-Банке работал в продуктовой команде, был единственным тестировщиком на проекте, поэтому нёс ответственность за качество продукта.</p></div>
+                        <div class="info-text" id="generalBlock"><p>—</p></div>
                     </div>
                     <div class="info-block">
                         <h2>Опыт в тестировании</h2>
-                        <div class="info-text" id="testExpBlock"><p><strong>Виды используемых автотестов:</strong></p><ul><li>2 года писал end-2-end на аналоге selenium</li><li>1,5 года писал end-2-end на bdd фреймворке Akita</li><li>В Альфа Банке 1 год тестировал руками триф-апи</li></ul></div>
+                        <div class="info-text" id="testExpBlock"><p>—</p></div>
                     </div>
                     <div class="info-block">
                         <h2>Опыт работы с API и тестирования бэкенда</h2>
-                        <div class="info-text" id="apiBlock"><p>REST API начал тестировать руками в Infowatch. На протяжении 2 лет в hh.ru также приходилось тестировать Rest. Инструменты: Postman, SoapUI.</p></div>
+                        <div class="info-text" id="apiBlock"><p>—</p></div>
                     </div>
                 </div>
             </div>
-            <aside class="profile-sidebar">
-                <div class="sidebar-actions">
-                    <button class="btn-sidebar">Посмотреть резюме</button>
-                    <button class="btn-sidebar btn-accent">Обсудить сотрудничество</button>
-                    <button class="btn-sidebar">Найти похожего</button>
-                </div>
-                <div class="sidebar-card">
-                    <h3>Портфолио</h3>
-                    <a href="#" class="sidebar-link" id="portfolioLink">Портфолио кандидата</a>
-                </div>
-                <div class="sidebar-card">
-                    <h3>Примеры</h3>
-                    <a href="#" class="sidebar-link">Пример кейс-экономики</a>
-                    <a href="#" class="sidebar-link">Пример отчёта</a>
-                </div>
-                <div class="sidebar-stats">
-                    <div class="stat-item"><span>Открыто контактов:</span><strong>5/50</strong></div>
-                    <div class="stat-item"><span>Посмотрено кандидатов:</span><strong>10/100</strong></div>
-                    <button class="btn-sidebar-small">Докупить контакты</button>
-                    <button class="btn-sidebar-small">Скрыть из результатов</button>
-                </div>
-            </aside>
+            
         </div>
     </main>
 

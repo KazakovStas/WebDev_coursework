@@ -24,8 +24,7 @@
             <div class="search-auth">
                 <div class="search-box">
                     <img src="img/Search.png" alt="Поиск" class="search-icon">
-                    <input type="text" class="search-input" id="liveSearchInput" placeholder="Поиск по навыкам...">
-                    <div id="searchResults" class="search-results-dropdown" style="display: none;"></div>
+                    <input type="text" class="search-input" placeholder="Поиск">
                 </div>
                 <button class="login-btn" id="openModalBtn">Войти</button>
                 <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
@@ -34,28 +33,11 @@
                         <div class="user-avatar" id="userAvatar">И</div>
                     </div>
                     <div class="user-dropdown" id="userDropdown">
-                        <a href="dashboard.html" class="dropdown-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Мой профиль</a>
-                        <button class="dropdown-item logout-btn" id="logoutBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>Выйти</button>
+                        <a href="dashboard.html" class="dropdown-item">Мой профиль</a>
+                        <button class="dropdown-item logout-btn" id="logoutBtn">Выйти</button>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="header-bottom">
-            <ul class="secondary-nav">
-                <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
-                <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
-                <li><a href="catalog.html?category=design">Дизайнеры</a></li>
-                <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
-                <li class="nav-hidden"><a href="catalog.html?category=analytics">Аналитики</a></li>
-                <li class="nav-hidden"><a href="catalog.html?category=content">Контент-менеджеры</a></li>
-                <li class="nav-hidden"><a href="catalog.html?category=management">Топ-менеджмент</a></li>
-                <li class="nav-hidden"><a href="catalog.html?category=hr">HR-специалисты</a></li>
-                <li class="nav-hidden"><a href="catalog.html?category=finance">Финансисты</a></li>
-                <li class="nav-hidden"><a href="catalog.html?category=legal">Юристы</a></li>
-                <li class="nav-hidden"><a href="catalog.html?category=support">Техподдержка</a></li>
-                <li class="more-li"><button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()"><span>Ещё</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
-                <li class="hide-li" style="display: none;"><button class="hide-btn" type="button" onclick="toggleNav()"><span>Скрыть</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></button></li>
-            </ul>
         </div>
     </header>
 
@@ -64,34 +46,60 @@
             <div class="edit-profile-card">
                 <div class="edit-header">
                     <h1>Редактирование профиля</h1>
-                    <p class="edit-subtitle">Обновите личные данные и настройки безопасности</p>
+                    <p class="edit-subtitle">Обновите информацию и контакты</p>
                 </div>
                 <form id="editProfileForm" class="edit-form">
+                    <div class="form-group">
+                        <label for="editPosition">Должность *</label>
+                        <input type="text" id="editPosition" required>
+                    </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="editName">ФИО</label>
-                            <input type="text" id="editName" name="name" required placeholder="Иванов Иван Иванович">
+                            <label for="editExperience">Опыт *</label>
+                            <input type="text" id="editExperience" required>
                         </div>
                         <div class="form-group">
-                            <label for="editEmail">Email</label>
-                            <input type="email" id="editEmail" name="email" required placeholder="example@mail.ru">
+                            <label for="editSalary">Зарплата *</label>
+                            <input type="number" id="editSalary" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editAge">Возраст</label>
+                            <input type="text" id="editAge">
+                        </div>
+                        <div class="form-group">
+                            <label for="editLocation">Город</label>
+                            <input type="text" id="editLocation">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editTelegram">Telegram (без @)</label>
+                            <input type="text" id="editTelegram" placeholder="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="editPortfolio">Ссылка на портфолио</label>
+                            <input type="url" id="editPortfolio" placeholder="https://...">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="editPassword">Новый пароль</label>
-                        <input type="password" id="editPassword" name="password" placeholder="Оставьте пустым, чтобы не менять">
-                        <span class="form-hint">Минимум 6 символов</span>
+                        <label for="editReason">Причина поиска работы</label>
+                        <textarea id="editReason" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editGeneralInfo">Общая информация</label>
+                        <textarea id="editGeneralInfo" rows="3"></textarea>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn-primary" id="saveBtn">💾 Сохранить изменения</button>
-                        <a href="dashboard.html" class="btn-secondary">↩ Отмена</a>
+                        <button type="submit" class="btn-primary" id="saveEditBtn">💾 Сохранить</button>
+                        <a href="profile.html" class="btn-secondary">↩ Отмена</a>
                     </div>
                 </form>
-                <div id="successMessage" class="success-box" style="display: none;">
+                <div id="editSuccess" class="success-box" style="display: none;">
                     <div class="success-icon">✅</div>
-                    <h3>Данные успешно сохранены!</h3>
-                    <p>Изменения применены к вашему аккаунту.</p>
-                    <a href="dashboard.html" class="btn-primary">Вернуться в кабинет</a>
+                    <h3>Профиль обновлён!</h3>
+                    <a href="profile.html" class="btn-primary">Вернуться к профилю</a>
                 </div>
             </div>
         </div>
@@ -100,47 +108,13 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-column"><h3 class="footer-heading">ЛИЦА.КАНДИДАТЫ</h3><ul class="footer-list"><li><a href="#">Найти кандидата</a></li><li><a href="#">Попасть в базу</a></li><li><a href="#">О сервисе</a></li></ul></div>
-                <div class="footer-column"><h3 class="footer-heading">ЛИЦА.РАБОТА</h3><ul class="footer-list"><li><a href="#">Рекрутинг</a></li><li><a href="#">Конструктор подбора</a></li><li><a href="#">Аналитика подбора</a></li></ul></div>
-                <div class="footer-column"><h3 class="footer-heading">О ПОРТАЛЕ</h3><ul class="footer-list"><li><a href="#">Поддержка</a></li><li><a href="#">Обновления</a></li><li><a href="#">Контакты</a></li></ul></div>
+                <div class="footer-column"><h3>ЛИЦА.КАНДИДАТЫ</h3><ul class="footer-list"><li><a href="#">Найти кандидата</a></li><li><a href="#">Попасть в базу</a></li><li><a href="#">О сервисе</a></li></ul></div>
+                <div class="footer-column"><h3>ЛИЦА.РАБОТА</h3><ul class="footer-list"><li><a href="#">Рекрутинг</a></li><li><a href="#">Конструктор подбора</a></li><li><a href="#">Аналитика подбора</a></li></ul></div>
+                <div class="footer-column"><h3>О ПОРТАЛЕ</h3><ul class="footer-list"><li><a href="#">Поддержка</a></li><li><a href="#">Обновления</a></li><li><a href="#">Контакты</a></li></ul></div>
             </div>
-            <div class="footer-bottom"><span class="footer-copyright">ООО «ЛИЦА»</span><div class="footer-legal"><a href="#">Реквизиты</a><span class="divider">|</span><a href="#">Правовая информация</a></div></div>
+            <div class="footer-bottom"><span>ООО «ЛИЦА»</span><div class="footer-legal"><a href="#">Реквизиты</a><span class="divider">|</span><a href="#">Правовая информация</a></div></div>
         </div>
     </footer>
-
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal-window">
-            <button class="modal-close" id="closeModalBtn">&times;</button>
-            <div class="modal-header"><span class="modal-logo-text">ЛИЦА</span><span class="modal-logo-dot"></span><span class="modal-logo-text">Кандидаты</span></div>
-            <h2 class="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
-            <form class="modal-form" id="loginForm">
-                <input type="email" id="authEmail" class="modal-input" placeholder="Email" required>
-                <input type="password" id="authPassword" class="modal-input" placeholder="Пароль" required>
-                <a href="#" class="forgot-pass">Забыли пароль?</a>
-                <div class="modal-actions"><button type="submit" class="btn-modal-login">Войти</button><button type="button" class="btn-modal-reg">Зарегистрироваться</button></div>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="aboutModal">
-        <div class="modal-window" style="max-width: 600px;">
-            <button class="modal-close" id="closeAboutModal">&times;</button>
-            <div class="modal-header"><span class="modal-logo-text">ЛИЦА</span><span class="modal-logo-dot"></span><span class="modal-logo-text">Кандидаты</span></div>
-            <h2 class="modal-title" style="margin-bottom: 24px;">О сервисе</h2>
-            <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
-                <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
-                <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
-                <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
-                <ul style="margin-left: 20px; margin-bottom: 16px;">
-                    <li>Все кандидаты проходят проверку компетенций</li>
-                    <li>Вы получаете доступ к базе по подписке</li>
-                    <li>Самостоятельно связываетесь с подходящими специалистами</li>
-                </ul>
-                <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br><em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
-            </div>
-            <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
-        </div>
-    </div>
 
     <script src="js/common.js" defer></script>
     <script src="js/edit-profile.js" defer></script>
