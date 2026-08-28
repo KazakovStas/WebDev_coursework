@@ -243,4 +243,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const saved = localStorage.getItem('currentUser');
     if (saved) { try { showUserProfile(JSON.parse(saved)); } catch(e) {} }
+
+        // === БУРГЕР-МЕНЮ ===
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileJoinBtn = document.getElementById('mobileJoinBtn');
+    const mobileAboutBtn = document.getElementById('mobileAboutBtn');
+
+    if (burgerBtn && mobileMenu) {
+        burgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            // Анимация бургера
+            const spans = burgerBtn.querySelectorAll('span');
+            if (mobileMenu.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Закрытие при клике на ссылку
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                const spans = burgerBtn.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+
+        // Дублируем функционал кнопок для мобильного меню
+        if (mobileJoinBtn) {
+            mobileJoinBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (!currentUser) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                } else if (currentUser.candidateId === null || currentUser.candidateId === undefined) {
+                    window.location.href = 'create-profile.html';
+                } else {
+                    window.location.href = `profile.html?id=${currentUser.candidateId}`;
+                }
+            });
+        }
+        
+        if (mobileAboutBtn) {
+            mobileAboutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                aboutModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+    }
 });

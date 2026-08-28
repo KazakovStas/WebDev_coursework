@@ -31,7 +31,7 @@ body {
     display: flex;
     align-items: center; 
     justify-content: space-between;
-    padding: 20px 0px;
+    padding: 20px 40px;
     max-width: 1440px;
     margin: 0 auto;
 }
@@ -39,19 +39,18 @@ body {
 .logo-nav {
     display: flex;
     align-items: center;
-    gap: 4px; 
+    gap: 40px; 
     flex-shrink: 0;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
     font-size: 20px;
     font-weight: 600;
     color: #000;
     text-decoration: none;
-    margin-left: 32px;
 }
 
 .logo-icon {
@@ -86,15 +85,19 @@ body {
     border-left: 6px solid #F4D03F;
 }
 
-.main-nav {
+/* === ДЕСКТОПНОЕ МЕНЮ === */
+.main-nav ul,
+.desktop-nav ul {
     display: flex;
     align-items: center;
-    gap: 16px; 
-    list-style: none;
-    margin: 0; 
+    list-style: none; /* Убирает точки */
+    padding: 0;
+    margin: 0;
+    gap: 24px;
 }
 
-.main-nav a {
+.main-nav a,
+.desktop-nav a {
     text-decoration: none;
     color: var(--text-secondary);
     font-size: 17px;
@@ -103,37 +106,70 @@ body {
     transition: color 0.3s;
 }
 
-.main-nav li:first-child a {
-    font-size: 17px;
+.main-nav a:hover,
+.desktop-nav a:hover {
+    color: var(--accent);
+}
+
+/* === БУРГЕР-КНОПКА === */
+.burger-btn {
+    display: none; /* Скрыта на десктопе */
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 20px;
+}
+
+.burger-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-main);
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+/* === МОБИЛЬНОЕ МЕНЮ === */
+.mobile-menu {
+    display: none; /* Скрыто по умолчанию */
+    background: #fff;
+    border-top: 1px solid var(--border);
+    padding: 20px 40px;
+}
+
+.mobile-menu.active {
+    display: block; /* Показываем при открытии */
+}
+
+.mobile-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mobile-nav a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 18px;
     font-weight: 600;
-    color: var(--text-main);
-    margin-right: 32px; 
-    margin-left: 0px;
+    display: block;
 }
 
-.main-nav li:nth-child(3) {
-    margin-left: 16px; 
-}
-
-.main-nav li:nth-child(4) {
-    margin-left: 14px; 
-}
-
-.main-nav li:nth-child(5) {
-    margin-left: 14px; 
-}
-
-.main-nav li:nth-child(n+2) a {
-    font-size: 15px;
-    font-weight: 400;
-    color: var(--text-main);
+.mobile-nav a:hover {
+    color: var(--accent);
 }
 
 .search-auth {
     display: flex;
     align-items: center;
-    gap: 45px; 
-    margin-right: 100px;
+    gap: 20px; 
+    margin-right: 0;
 }
 
 .search-box {
@@ -153,7 +189,7 @@ body {
 
 .search-input {
     flex-shrink: 0; 
-    width: 320px;
+    width: 280px;
     height: 36px; 
     padding: 0px 22px 0 40px;
     border: 1px solid var(--border);
@@ -178,7 +214,7 @@ body {
     color: var(--text-main);
     border: none;
     height: 36px;
-    width: 150px;
+    width: 120px;
     margin-left: 0px; 
     border-radius: 24px;
     font-size: 15px;
@@ -193,11 +229,10 @@ body {
 
 .header-bottom {
     border-top: 1px solid var(--border);
-    padding: 16px 0px;
+    padding: 16px 40px;
     max-width: 1440px;
     margin: 0 auto;
-    margin-left: 75px;
-    margin-top: 7px;
+    background: #fff;
 }
 
 .secondary-nav {
@@ -260,7 +295,7 @@ body {
 }
 
 .hero-section {
-    padding: 80px 120px;
+    padding: 80px 40px;
     background-color: #ffffff;
 }
 
@@ -572,16 +607,14 @@ body {
     position: relative;
 }
 
-/* Контейнер для бейджей */
-/* Блок бейджей с фиксированной высотой */
 .candidate-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
     justify-content: center;
     margin-bottom: 12px;
-    min-height: 60px; /* Фиксируем высоту под 2 строки бейджей */
-    align-items: flex-start; /* Прижимаем к верху */
+    min-height: 60px;
+    align-items: flex-start;
 }
 
 .badge {
@@ -594,7 +627,6 @@ body {
     white-space: nowrap;
 }
 
-/* Карточка — всё по верхнему краю */
 .candidate-card {
     background-color: #ffffff;
     border-radius: 20px;
@@ -607,7 +639,6 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Цвета бейджей */
 .badge-fulltime {
     background-color: #F0E6FF;
     color: #6B46C1;
@@ -880,7 +911,7 @@ body {
     top: 0; left: 0;
     width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px); /* Размытие фона */
+    backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1159,23 +1190,6 @@ body {
 
 .show-more:hover { border-color: var(--text-main); }
 
-@media (max-width: 1024px) {
-    .candidates-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 768px) {
-    .catalog-container {
-        flex-direction: column;
-        padding: 0 20px;
-    }
-    .filters-sidebar {
-        flex: none;
-        width: 100%;
-        position: static;
-    }
-    .candidates-grid { grid-template-columns: 1fr; }
-}
-
 .profile-main {
     padding: 40px 0;
     background: var(--bg-body);
@@ -1415,48 +1429,6 @@ body {
 .btn-sidebar-small:hover {
     border-color: var(--text-main);
     color: var(--text-main);
-}
-
-@media (max-width: 1024px) {
-    .profile-sidebar {
-        flex: 0 0 260px;
-    }
-}
-
-@media (max-width: 768px) {
-    .profile-container {
-        flex-direction: column;
-        padding: 0 16px;
-    }
-    
-    .profile-sidebar {
-        flex: none;
-        width: 100%;
-        order: -1; 
-    }
-    
-    .profile-header-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .profile-avatar-section img {
-        width: 100px;
-        height: 100px;
-    }
-}
-
-@media (max-width: 480px) {
-    .profile-main { padding: 20px 0; }
-    
-    .info-block { padding: 16px; }
-    
-    .info-block h2 { font-size: 16px; }
-    
-    .info-text p { font-size: 14px; }
-    
-    .btn-sidebar { padding: 12px; font-size: 14px; }
 }
 
 .user-profile-wrapper {
@@ -1795,16 +1767,6 @@ body {
     margin: 0 0 20px;
 }
 
-@media (max-width: 1024px) {
-    .dashboard-container { flex-direction: column; }
-    .dashboard-sidebar { flex: none; width: 100%; }
-}
-@media (max-width: 768px) {
-    .dashboard-container { padding: 0 16px; }
-    .content-header { flex-direction: column; align-items: flex-start; }
-    .projects-grid { grid-template-columns: 1fr; }
-}
-
 .projects-main { padding: 40px 0; background: var(--bg-body); min-height: 100vh; }
 .projects-container { display: flex; gap: 24px; max-width: 1440px; margin: 0 auto; padding: 0 40px; }
 
@@ -1846,15 +1808,6 @@ body {
 .project-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 16px; }
 .project-date { font-size: 13px; color: var(--text-muted); }
 .login-hint { font-size: 13px; color: var(--text-muted); font-style: italic; }
-
-@media (max-width: 1024px) {
-    .projects-container { flex-direction: column; padding: 0 20px; }
-    .projects-sidebar { flex: none; width: 100%; position: static; }
-}
-@media (max-width: 480px) {
-    .project-header-lg { flex-direction: column; align-items: flex-start; }
-    .project-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
-}
 
 .project-details-main { padding: 40px 0; background: var(--bg-body); min-height: 100vh; }
 .project-details-container { display: flex; gap: 24px; max-width: 1440px; margin: 0 auto; padding: 0 40px; }
@@ -1916,16 +1869,6 @@ body {
 .loading, .not-found { text-align: center; padding: 60px 20px; background: #fff; border-radius: 16px; }
 .not-found h2 { font-size: 20px; margin: 0 0 20px; }
 
-@media (max-width: 1024px) {
-    .project-details-container { flex-direction: column; padding: 0 20px; }
-    .project-sidebar { flex: none; width: 100%; }
-}
-@media (max-width: 480px) {
-    .project-meta-details { flex-direction: column; align-items: flex-start; }
-    .apply-footer { flex-direction: column; gap: 10px; align-items: stretch; }
-    .btn-apply { width: 100%; }
-}
-
 .edit-profile-main { padding: 60px 0; background: var(--bg-body); min-height: 100vh; display: flex; align-items: center; }
 .edit-profile-container { max-width: 700px; margin: 0 auto; padding: 0 20px; width: 100%; }
 
@@ -1952,13 +1895,6 @@ body {
 .success-icon { font-size: 48px; }
 .success-box h3 { margin: 0; font-size: 20px; }
 .success-box p { margin: 0; color: var(--text-muted); }
-
-@media (max-width: 600px) {
-    .form-row { flex-direction: column; gap: 20px; }
-    .edit-profile-card { padding: 24px; }
-    .form-actions { flex-direction: column; }
-    .btn-secondary, .btn-primary { width: 100%; }
-}
 
 .subscription-status-card {
     background: #fff;
@@ -2304,4 +2240,291 @@ body {
     padding: 8px;
     background: #f9fafb;
     border-radius: 8px;
+}
+
+/* === АДАПТИВ === */
+
+/* Планшеты (до 1024px) */
+@media (max-width: 1024px) {
+    .header-top {
+        flex-wrap: wrap;
+    }
+    
+    .search-auth {
+        width: 100%;
+        margin-top: 20px;
+        margin-right: 0;
+        justify-content: space-between;
+    }
+    
+    .search-box {
+        flex: 1;
+        max-width: 60%;
+    }
+    
+    .search-input {
+        width: 100%;
+    }
+    
+    .directions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .candidates-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .benefits-container {
+        flex-direction: column;
+    }
+    
+    .benefits-right {
+        flex: 0 0 100%;
+    }
+    
+    .subscribe-container {
+        flex-direction: column;
+    }
+    
+    .catalog-container,
+    .profile-container,
+    .dashboard-container,
+    .projects-container,
+    .project-details-container {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+    
+    .filters-sidebar,
+    .profile-sidebar,
+    .dashboard-sidebar,
+    .projects-sidebar,
+    .project-sidebar {
+        flex: 0 0 100%;
+        width: 100%;
+        position: static;
+    }
+}
+
+/* Мобильные (до 768px) */
+@media (max-width: 768px) {
+    /* Скрываем десктопное меню, показываем бургер */
+    .main-nav, .desktop-nav {
+        display: none !important;
+    }
+    
+    .burger-btn {
+        display: flex !important;
+    }
+    
+    .logo-nav {
+        gap: 15px;
+    }
+    
+    .search-auth {
+        margin-left: 0;
+    }
+    
+    .search-box {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .search-input {
+        width: 100%;
+        font-size: 13px;
+    }
+    
+    .login-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    
+    .user-name {
+        display: none;
+    }
+    
+    .header-bottom {
+        display: none !important;
+    }
+    
+    .hero-section {
+        padding: 40px 20px;
+    }
+    
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .hero-title {
+        font-size: 32px;
+    }
+    
+    .directions-section, .benefits-section, .candidates-section, .subscribe-section {
+        padding: 40px 20px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+    }
+    
+    .directions-grid, .candidates-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer {
+        padding: 40px 20px 20px;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Маленькие экраны (до 480px) */
+@media (max-width: 480px) {
+    .header-top {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+    }
+    
+    .search-auth {
+        width: 100%;
+        margin-top: 10px;
+        justify-content: space-between;
+    }
+    
+    .search-box {
+        flex: 1;
+    }
+    
+    .search-input {
+        width: 100%;
+    }
+    
+    .login-btn {
+        flex: 0 0 auto;
+    }
+    
+    .hero-title {
+        font-size: 26px;
+    }
+    
+    .hero-description {
+        font-size: 14px;
+    }
+    
+    .modal-window {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+    
+    .modal-title {
+        font-size: 16px;
+    }
+}
+
+/* Очень маленькие экраны (360px) */
+@media (max-width: 360px) {
+    .header-top {
+        padding: 8px 10px;
+    }
+    
+    .logo span {
+        font-size: 16px;
+    }
+    
+    .search-input {
+        font-size: 12px;
+        padding: 8px 12px 8px 32px;
+    }
+    
+    .search-icon {
+        left: 10px;
+        width: 16px;
+        height: 16px;
+    }
+    
+    .login-btn {
+        font-size: 12px;
+        padding: 0 12px;
+        height: 32px;
+    }
+    
+    .hero-title {
+        font-size: 22px;
+    }
+    
+    .section-title {
+        font-size: 20px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .mobile-menu {
+        padding: 15px 20px;
+    }
+    
+    .mobile-nav a {
+        font-size: 16px;
+    }
+}
+
+/* Фикс переполнения полей фильтров на мобильных */
+.filter-range input {
+    min-width: 0; /* Разрешает сжатие внутри flex */
+}
+
+@media (max-width: 768px) {
+    .filters-sidebar {
+        padding: 16px; /* Чуть меньше боковые отступы */
+    }
+    .filter-range {
+        gap: 6px; /* Чуть ближе поля друг к другу */
+    }
+}
+
+/* === АДАПТАЦИЯ МОДАЛЬНЫХ ОКОН ДЛЯ ТЕЛЕФОНОВ === */
+@media (max-width: 768px) {
+    .modal-window {
+        max-height: 90vh;       /* Ограничиваем высоту 90% от экрана */
+        width: 90%;             /* Ширина 90% */
+        margin: 10px;           /* Отступы от краев */
+        overflow-y: auto;       /* Включаем вертикальный скролл */
+        border-radius: 12px;    /* Скругляем углы */
+        display: flex;          /* Чтобы контент внутри тоже вел себя хорошо */
+        flex-direction: column; /* Вертикальное расположение */
+    }
+    
+    /* Чтобы кнопка закрытия (крестик) была всегда видна сверху */
+    .modal-close {
+        position: sticky;
+        top: 10px;
+        right: 10px;
+        z-index: 10;
+        background: #fff; /* Фон, чтобы перекрывать текст при скролле */
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+    }
+    
+    /* Убираем лишние отступы внизу модалки */
+    .modal-form {
+        margin-bottom: 20px;
+    }
 }
