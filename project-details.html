@@ -11,22 +11,22 @@
         <div class="header-top">
             <div class="logo-nav">
                 <a href="index.html" class="logo"><span>ЛИЦА</span><div class="logo-icon"></div></a>
-              <nav>
-    <ul class="main-nav">
-        <li><a href="index.html">Кандидаты</a></li>
-        <li><a href="catalog.html">Найти кандидата</a></li>
-        <li><a href="projects.html">Биржа проектов</a></li>
-        <li><a href="#" id="joinDatabaseBtn">Попасть в базу</a></li>
-        <li><a href="#" id="aboutServiceBtn">О сервисе</a></li>
-    </ul>
-</nav>
+                <nav>
+                    <ul class="main-nav">
+                        <li><a href="index.html">Кандидаты</a></li>
+                        <li><a href="catalog.html">Найти кандидата</a></li>
+                        <li><a href="projects.html">Биржа проектов</a></li>
+                        <li><a href="#" id="joinDatabaseBtn">Попасть в базу</a></li>
+                        <li><a href="#" id="aboutServiceBtn">О сервисе</a></li>
+                    </ul>
+                </nav>
             </div>
             <div class="search-auth">
                 <div class="search-box">
-    <img src="img/Search.png" alt="Поиск" class="search-icon">
-    <input type="text" class="search-input" id="liveSearchInput" placeholder="Поиск по навыкам...">
-    <div id="searchResults" class="search-results-dropdown" style="display: none;"></div>
-</div>
+                    <img src="img/Search.png" alt="Поиск" class="search-icon">
+                    <input type="text" class="search-input" id="liveSearchInput" placeholder="Поиск по навыкам...">
+                    <div id="searchResults" class="search-results-dropdown" style="display: none;"></div>
+                </div>
                 <button class="login-btn" id="openModalBtn">Войти</button>
                 <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
                     <div class="user-profile" id="userProfile">
@@ -41,55 +41,33 @@
             </div>
         </div>
         <div class="header-bottom">
-          <ul class="secondary-nav">
-    <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
-    <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
-    <li><a href="catalog.html?category=design">Дизайнеры</a></li>
-    <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
-    
-    <li class="nav-hidden"><a href="catalog.html?category=analytics">Аналитики</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=content">Контент-менеджеры</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=management">Топ-менеджмент</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=hr">HR-специалисты</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=finance">Финансисты</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=legal">Юристы</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=support">Техподдержка</a></li>
-    
-    <li class="more-li">
-        <button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()">
-            <span>Ещё</span>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-            </svg>
-        </button>
-    </li>
-    
-    <li class="hide-li" style="display: none;">
-        <button class="hide-btn" type="button" onclick="toggleNav()">
-            <span>Скрыть</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 15l-6-6-6 6"/>
-            </svg>
-        </button>
-    </li>
-</ul>
+            <ul class="secondary-nav">
+                <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
+                <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
+                <li><a href="catalog.html?category=design">Дизайнеры</a></li>
+                <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=analytics">Аналитики</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=content">Контент-менеджеры</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=management">Топ-менеджмент</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=hr">HR-специалисты</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=finance">Финансисты</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=legal">Юристы</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=support">Техподдержка</a></li>
+                <li class="more-li"><button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()"><span>Ещё</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
+                <li class="hide-li" style="display: none;"><button class="hide-btn" type="button" onclick="toggleNav()"><span>Скрыть</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></button></li>
+            </ul>
         </div>
     </header>
 
     <main class="project-details-main">
         <div class="container project-details-container">
-            
             <section class="project-details-content">
-                <div class="project-breadcrumb">
-                    <a href="projects.html">← Биржа проектов</a>
-                </div>
-                
+                <div class="project-breadcrumb"><a href="projects.html">← Биржа проектов</a></div>
                 <div id="projectLoading" class="loading">Загрузка...</div>
                 <div id="projectNotFound" class="not-found" style="display: none;">
                     <h2>Проект не найден</h2>
                     <a href="projects.html" class="btn-primary">Вернуться к бирже</a>
                 </div>
-                
                 <div id="projectContent" style="display: none;">
                     <div class="project-header-details">
                         <div class="project-status-large status-open" id="projStatus">Открыт</div>
@@ -99,53 +77,38 @@
                             <span class="project-budget-large" id="projBudget">0 ₽</span>
                         </div>
                     </div>
-                    
                     <div class="project-description">
                         <h3>Описание задачи</h3>
                         <p id="projDescription" class="desc-text"></p>
                     </div>
-                    
                     <div class="project-requirements">
                         <h3>Требования</h3>
                         <div class="skills-list" id="projSkills"></div>
                     </div>
-                    
                     <div class="project-timeline">
                         <h3>Сроки</h3>
-                        <div class="timeline-item">
-                            <span>Опубликовано:</span>
-                            <strong id="projCreated">—</strong>
-                        </div>
-                        <div class="timeline-item">
-                            <span>Дедлайн:</span>
-                            <strong id="projDeadline">—</strong>
-                        </div>
-                        <div class="timeline-item">
-                            <span>Формат:</span>
-                            <strong id="projFormat">—</strong>
+                        <div class="timeline-item"><span>Опубликовано:</span><strong id="projCreated">—</strong></div>
+                        <div class="timeline-item"><span>Дедлайн:</span><strong id="projDeadline">—</strong></div>
+                        <div class="timeline-item"><span>Формат:</span><strong id="projFormat">—</strong></div>
+                    </div>
+                    <div class="client-card" style="background: transparent; border: 1px solid var(--border); padding: 16px; border-radius: 12px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div>
+                                <span style="color: var(--text-muted); font-size: 13px; display: block; margin-bottom: 4px;">Заказчик:</span>
+                                <a href="#" id="clientProfileLink" style="color: var(--text-main); font-weight: 600; font-size: 16px; text-decoration: none;">
+                                    <span id="clientName">Загрузка...</span>
+                                    <span style="margin-left: 6px; opacity: 0.5;">→</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                    
-<div class="client-card" style="background: transparent; border: 1px solid var(--border); padding: 16px; border-radius: 12px;">
-    <div style="display: flex; align-items: center; justify-content: space-between;">
-        <div>
-            <span style="color: var(--text-muted); font-size: 13px; display: block; margin-bottom: 4px;">Заказчик:</span>
-            <a href="#" id="clientProfileLink" style="color: var(--text-main); font-weight: 600; font-size: 16px; text-decoration: none;">
-                <span id="clientName">Загрузка...</span>
-                <span style="margin-left: 6px; opacity: 0.5;">→</span>
-            </a>
-        </div>
-    </div>
-</div>
                 </div>
             </section>
-
-            <aside class="project-sidebar">
+            <aside class="project-sidebar" id="projectSidebar">
                 <div class="action-card">
                     <div id="applySection">
                         <h3>Откликнуться на проект</h3>
                         <p class="action-note">Ваш отклик будет отправлен заказчику</p>
-                        
                         <form id="applyForm" class="apply-form">
                             <textarea id="applyMessage" class="apply-textarea" placeholder="Расскажите, почему вы подходите для этого проекта..." required></textarea>
                             <div class="apply-footer">
@@ -154,67 +117,35 @@
                             </div>
                         </form>
                     </div>
-                    
                     <div id="appliedSection" style="display: none;">
                         <div class="success-badge">✓ Отклик отправлен</div>
                         <p>Заказчик получит уведомление и свяжется с вами в ближайшее время.</p>
                         <a href="dashboard.html" class="btn-primary">Перейти в кабинет</a>
                     </div>
-                    
                     <div id="ownProjectSection" style="display: none;">
-    <div class="info-badge">Это ваш проект</div>
-    <button class="btn-primary btn-edit-project" id="editProjectBtn" style="width: 100%; margin-bottom: 10px;">Редактировать</button>
-    <button class="btn-outline btn-close-project" id="closeProjectBtn" style="width: 100%;"> Закрыть проект</button>
-    <p style="font-size: 12px; color: var(--text-muted); margin-top: 10px; text-align: center;">
-        Редактирование доступно только для открытых проектов
-    </p>
-</div>
+                        <div class="info-badge">Это ваш проект</div>
+                        <button class="btn-primary btn-edit-project" id="editProjectBtn" style="width: 100%; margin-bottom: 10px;">Редактировать</button>
+                        <button class="btn-outline btn-close-project" id="closeProjectBtn" style="width: 100%;">Закрыть проект</button>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 10px; text-align: center;">Редактирование доступно только для открытых проектов</p>
+                    </div>
                 </div>
-                
                 <div class="action-card">
-    <button class="btn-outline btn-full" id="saveProjectBtn"> Сохранить в избранное</button>
-    <button class="btn-outline btn-full" id="notifySimilarBtn">Уведомить о похожих</button>
-    <button class="btn-outline btn-full" id="reportBtn">Пожаловаться</button>
-</div>
+                    <button class="btn-outline btn-full" id="saveProjectBtn">Сохранить в избранное</button>
+                    <button class="btn-outline btn-full" id="notifySimilarBtn">Уведомить о похожих</button>
+                    <button class="btn-outline btn-full" id="reportBtn">Пожаловаться</button>
+                </div>
             </aside>
-
         </div>
     </main>
 
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-column">
-                    <h3 class="footer-heading">ЛИЦА.КАНДИДАТЫ</h3>
-                    <ul class="footer-list">
-                        <li><a href="#">Найти кандидата</a></li>
-                        <li><a href="#">Попасть в базу</a></li>
-                        <li><a href="#">О сервисе</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3 class="footer-heading">ЛИЦА.РАБОТА</h3>
-                    <ul class="footer-list">
-                        <li><a href="#">Рекрутинг</a></li>
-                        <li><a href="#">Конструктор подбора</a></li>
-                        <li><a href="#">Аналитика подбора</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3 class="footer-heading">О ПОРТАЛЕ</h3>
-                    <ul class="footer-list">
-                        <li><a href="#">Поддержка</a></li>
-                        <li><a href="#">Обновления</a></li>
-                        <li><a href="#">Контакты</a></li>
-                    </ul>
-                </div>
+                <div class="footer-column"><h3 class="footer-heading">ЛИЦА.КАНДИДАТЫ</h3><ul class="footer-list"><li><a href="#">Найти кандидата</a></li><li><a href="#">Попасть в базу</a></li><li><a href="#">О сервисе</a></li></ul></div>
+                <div class="footer-column"><h3 class="footer-heading">ЛИЦА.РАБОТА</h3><ul class="footer-list"><li><a href="#">Рекрутинг</a></li><li><a href="#">Конструктор подбора</a></li><li><a href="#">Аналитика подбора</a></li></ul></div>
+                <div class="footer-column"><h3 class="footer-heading">О ПОРТАЛЕ</h3><ul class="footer-list"><li><a href="#">Поддержка</a></li><li><a href="#">Обновления</a></li><li><a href="#">Контакты</a></li></ul></div>
             </div>
-            <div class="footer-bottom">
-                <span class="footer-copyright">ООО «ЛИЦА»</span>
-                <div class="footer-legal">
-                    <a href="#">Реквизиты</a><span class="divider">|</span><a href="#">Правовая информация</a>
-                </div>
-            </div>
+            <div class="footer-bottom"><span class="footer-copyright">ООО «ЛИЦА»</span><div class="footer-legal"><a href="#">Реквизиты</a><span class="divider">|</span><a href="#">Правовая информация</a></div></div>
         </div>
     </footer>
 
@@ -227,458 +158,32 @@
                 <input type="email" id="authEmail" class="modal-input" placeholder="Email" required>
                 <input type="password" id="authPassword" class="modal-input" placeholder="Пароль" required>
                 <a href="#" class="forgot-pass">Забыли пароль?</a>
-                <div class="modal-actions">
-                    <button type="submit" class="btn-modal-login">Войти</button>
-                    <button type="button" class="btn-modal-reg">Зарегистрироваться</button>
-                </div>
+                <div class="modal-actions"><button type="submit" class="btn-modal-login">Войти</button><button type="button" class="btn-modal-reg">Зарегистрироваться</button></div>
             </form>
         </div>
     </div>
 
-     <div class="modal-overlay" id="aboutModal">
-    <div class="modal-window" style="max-width: 600px;">
-        <button class="modal-close" id="closeAboutModal">&times;</button>
-        
-        <div class="modal-header">
-            <span class="modal-logo-text">ЛИЦА</span>
-            <span class="modal-logo-dot"></span>
-            <span class="modal-logo-text">Кандидаты</span>
+    <div class="modal-overlay" id="aboutModal">
+        <div class="modal-window" style="max-width: 600px;">
+            <button class="modal-close" id="closeAboutModal">&times;</button>
+            <div class="modal-header"><span class="modal-logo-text">ЛИЦА</span><span class="modal-logo-dot"></span><span class="modal-logo-text">Кандидаты</span></div>
+            <h2 class="modal-title" style="margin-bottom: 24px;">О сервисе</h2>
+            <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
+                <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
+                <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
+                <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
+                <ul style="margin-left: 20px; margin-bottom: 16px;">
+                    <li>Все кандидаты проходят проверку компетенций</li>
+                    <li>Вы получаете доступ к базе по подписке</li>
+                    <li>Самостоятельно связываетесь с подходящими специалистами</li>
+                </ul>
+                <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br><em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
+            </div>
+            <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
         </div>
-        
-        <h2 class="modal-title" style="margin-bottom: 24px;">О сервисе</h2>
-        
-        <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
-            <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
-            <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
-            
-            <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
-            <ul style="margin-left: 20px; margin-bottom: 16px;">
-                <li>Все кандидаты проходят проверку компетенций</li>
-                <li>Вы получаете доступ к базе по подписке</li>
-                <li>Самостоятельно связываетесь с подходящими специалистами</li>
-            </ul>
-            
-            <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br>
-            <em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
-        </div>
-        
-        <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
     </div>
-</div>
 
-   <script>
-    function toggleNav() {
-        const hidden = document.querySelectorAll('.nav-hidden');
-        const more = document.querySelector('.more-li');
-        const hide = document.querySelector('.hide-li');
-        const arrow = document.querySelector('.more-btn .arrow');
-        const isVisible = document.querySelector('.nav-hidden.show');
-        if (!isVisible) {
-            hidden.forEach(i => i.classList.add('show'));
-            more.style.display = 'none';
-            hide.style.display = 'flex';
-        } else {
-            hidden.forEach(i => i.classList.remove('show'));
-            more.style.display = 'flex';
-            hide.style.display = 'none';
-            if (arrow) arrow.style.transform = 'rotate(0deg)';
-        }
-    }
-
-    const openModalBtn = document.getElementById('openModalBtn');
-    const modal = document.getElementById('loginModal');
-    const closeBtn = document.getElementById('closeModalBtn');
-    const loginForm = document.getElementById('loginForm');
-
-    function showUserProfile(user) {
-        if (openModalBtn) openModalBtn.style.display = 'none';
-        const wrap = document.getElementById('userProfileWrapper');
-        const nameEl = document.getElementById('userName');
-        const avatarEl = document.getElementById('userAvatar');
-        if (wrap && nameEl && avatarEl) {
-            wrap.style.display = 'flex';
-            nameEl.textContent = user.name.split(' ')[0];
-            avatarEl.textContent = user.name.charAt(0).toUpperCase();
-        }
-        const dropdown = document.getElementById('userDropdown');
-        document.getElementById('userProfile')?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            dropdown?.classList.toggle('show');
-        });
-        document.addEventListener('click', (e) => {
-            if (dropdown && !e.target.closest('.user-profile-wrapper')) dropdown.classList.remove('show');
-        });
-       document.getElementById('logoutBtn')?.addEventListener('click', () => { 
-    if (confirm('Выйти?')) { 
-        localStorage.removeItem('currentUser'); 
-        window.location.href = 'index.html'; 
-    } 
-});
-    }
-
-    function hideUserProfile() {
-        const wrap = document.getElementById('userProfileWrapper');
-        if (wrap) wrap.style.display = 'none';
-        if (openModalBtn) {
-            openModalBtn.style.display = 'block';
-            openModalBtn.textContent = 'Войти';
-            openModalBtn.style.backgroundColor = '';
-        }
-    }
-
-    openModalBtn?.addEventListener('click', (e) => { e.stopPropagation(); modal.classList.add('active'); document.body.style.overflow = 'hidden'; });
-    closeBtn?.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow = ''; });
-    modal?.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } });
-
-    if (loginForm) {
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('authEmail').value.trim();
-            const password = document.getElementById('authPassword').value.trim();
-            let errorEl = document.querySelector('.auth-error');
-            if (!errorEl) { errorEl = document.createElement('span'); errorEl.className = 'auth-error'; errorEl.style.cssText = 'color: #d32f2f; font-size: 13px; text-align: center; display: block; margin-top: 8px;'; loginForm.appendChild(errorEl); }
-            try {
-                const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
-                const users = await res.json();
-                if (users.length > 0 && users[0].password === password) {
-                    const user = users[0];
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    modal.classList.remove('active'); document.body.style.overflow = ''; loginForm.reset(); errorEl.style.display = 'none';
-                    showUserProfile(user);
-                    loadProject();
-                } else { errorEl.textContent = 'Неверный email или пароль'; errorEl.style.display = 'block'; }
-            } catch (err) { console.error(err); errorEl.textContent = 'Ошибка сервера'; errorEl.style.display = 'block'; }
-        });
-    }
-
-    async function loadProject() {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const params = new URLSearchParams(window.location.search);
-        const projectId = params.get('id');
-        
-        console.log('Загрузка проекта, ID:', projectId);
-        
-        const loading = document.getElementById('projectLoading');
-        const notFound = document.getElementById('projectNotFound');
-        const content = document.getElementById('projectContent');
-               const sidebar = document.getElementById('projectSidebar'); 
-        
-        loading.style.display = 'block';
-        notFound.style.display = 'none';
-        content.style.display = 'none';
-        if (sidebar) sidebar.style.display = 'none'; 
-        
-        if (!projectId) {
-            console.warn(' Нет ID в URL');
-            loading.style.display = 'none';
-            notFound.style.display = 'block';
-            return;
-        }
-        
-        try {
-            const res = await fetch(`http://localhost:3000/jobs/${projectId}`);
-            console.log(' Ответ сервера:', res.status);
-            
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const job = await res.json();
-            console.log(' Проект загружен:', job.title);
-            
-            document.getElementById('projTitle').textContent = job.title;
-            document.getElementById('projDescription').textContent = job.description;
-            document.getElementById('projBudget').textContent = `${job.budget?.toLocaleString() || '0'} ₽`;
-            document.getElementById('projCreated').textContent = job.createdAt ? new Date(job.createdAt).toLocaleDateString('ru-RU') : '—';
-            document.getElementById('projDeadline').textContent = job.deadline ? new Date(job.deadline).toLocaleDateString('ru-RU') : '—';
-            document.getElementById('projFormat').textContent = {'remote':'Удалённо','fulltime':'Full-time','parttime':'Part-time'}[job.workFormat] || job.workFormat;
-            document.getElementById('projCategory').textContent = {'development':'Разработка','marketing':'Маркетинг','design':'Дизайн','analytics':'Аналитика'}[job.category] || job.category;
-            document.getElementById('projStatus').textContent = {'open':'Открыт','in-progress':'В работе','completed':'Завершён'}[job.status] || job.status;
-            document.getElementById('projStatus').className = `project-status-large status-${job.status}`;
-            
-                       const skillsEl = document.getElementById('projSkills');
-            skillsEl.innerHTML = (job.skills || []).map(s => `<span class="skill-tag">${s}</span>`).join('');
-            
-            try {
-                const usersRes = await fetch(`http://localhost:3000/users?candidateId=${job.creatorId}`);
-                const users = await usersRes.json();
-                
-                if (users.length > 0) {
-                    document.getElementById('clientName').textContent = users[0].name;
-                } else {
-                    document.getElementById('clientName').textContent = 'Заказчик';
-                }
-            } catch (err) {
-                console.error('Ошибка загрузки заказчика:', err);
-                document.getElementById('clientName').textContent = 'Заказчик';
-            }
-            document.getElementById('clientProfileLink').href = `profile.html?id=${job.creatorId}`;
-            
-            loading.style.display = 'none';
-            content.style.display = 'block';
-            if (sidebar) sidebar.style.display = 'block';
-            
-            initProjectActions();
-            updateProjectButtons(job); 
-            
-            const applySection = document.getElementById('applySection');
-            const appliedSection = document.getElementById('appliedSection');
-            const ownProjectSection = document.getElementById('ownProjectSection');
-            const applyBtn = document.getElementById('applyBtn');
-            const applyHint = document.getElementById('applyHint');
-            
-            if (currentUser?.candidateId == job.creatorId) {
-                applySection.style.display = 'none';
-                appliedSection.style.display = 'none';
-                ownProjectSection.style.display = 'block';
-            } else if (currentUser) {
-                applySection.style.display = 'block';
-                appliedSection.style.display = 'none';
-                ownProjectSection.style.display = 'none';
-                applyBtn.disabled = false;
-                applyHint.style.display = 'none';
-            } else {
-                applySection.style.display = 'block';
-                appliedSection.style.display = 'none';
-                ownProjectSection.style.display = 'none';
-                applyBtn.disabled = true;
-                applyHint.style.display = 'block';
-            }
-            
-        } catch (err) {
-            console.error(' Ошибка загрузки:', err);
-            loading.style.display = 'none';
-            notFound.style.display = 'block';
-            if (sidebar) sidebar.style.display = 'none'; 
-        }
-    }
-
-        const applyForm = document.getElementById('applyForm');
-    if (applyForm) {
-        applyForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            const message = document.getElementById('applyMessage').value.trim();
-            const projectId = new URLSearchParams(window.location.search).get('id');
-
-            if (!currentUser) { alert('Сначала войдите!'); return; }
-
-            try {
-                await fetch('http://localhost:3000/applications', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        jobId: projectId,
-                        candidateId: currentUser.candidateId,
-                        applicantName: currentUser.name,
-                        status: 'pending',
-                        message: message,
-                        createdAt: new Date().toISOString()
-                    })
-                });
-
-                document.getElementById('applySection').style.display = 'none';
-                document.getElementById('appliedSection').style.display = 'block';
-
-            } catch (err) {
-                alert('Ошибка отправки отклика');
-                console.error(err);
-            }
-        });
-    }
-
-    function initProjectActions() {
-        const editBtn = document.getElementById('editProjectBtn');
-        const closeBtn = document.getElementById('closeProjectBtn');
-        const saveBtn = document.getElementById('saveProjectBtn');
-        const notifyBtn = document.getElementById('notifySimilarBtn');
-        const reportBtn = document.getElementById('reportBtn');
-        
-        editBtn?.addEventListener('click', () => {
-            const currentStatus = document.getElementById('projStatus').textContent;
-            if (currentStatus === 'Завершён') {
-                alert(' Завершённый проект нельзя редактировать с этой страницы.\n\nПерейдите в личный кабинет (dashboard.html), чтобы изменить его.');
-                return;
-            }
-            
-            const projectId = new URLSearchParams(window.location.search).get('id');
-            window.location.href = `dashboard.html?edit=${projectId}`;
-        });
-        
-        closeBtn?.addEventListener('click', async () => {
-            if (!confirm('Закрыть проект?\n\nОн больше не будет отображаться в бирже.')) return;
-            
-            const projectId = new URLSearchParams(window.location.search).get('id');
-            
-            try {
-                await fetch(`http://localhost:3000/jobs/${projectId}`, {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ status: 'completed' })
-                });
-                
-                alert(' Проект закрыт');
-                loadProject(); 
-            } catch (err) {
-                alert(' Ошибка при закрытии проекта');
-                console.error(err);
-            }
-        });
-        
-        saveBtn?.addEventListener('click', () => {
-            alert(' Проект добавлен в избранное (функция в разработке)');
-        });
-        
-        notifyBtn?.addEventListener('click', () => {
-            alert(' Вы будете получать уведомления о похожих проектах (функция в разработке)');
-        });
-        
-        reportBtn?.addEventListener('click', () => {
-            const reason = prompt('Пожалуйста, укажите причину жалобы:\n(спам, мошенничество, неактуально и т.д.)');
-            if (reason) {
-                const projectId = new URLSearchParams(window.location.search).get('id');
-                console.log('Жалоба на проект:', projectId, 'Причина:', reason);
-                alert(' Жалоба отправлена. Мы проверим проект.');
-            }
-        });
-    }
-
-    function updateProjectButtons(job) {
-        const editBtn = document.getElementById('editProjectBtn');
-        const closeBtn = document.getElementById('closeProjectBtn');
-        
-        if (job.status === 'completed') {
-            if (editBtn) {
-                editBtn.disabled = true;
-                editBtn.style.opacity = '0.5';
-                editBtn.style.cursor = 'not-allowed';
-                editBtn.textContent = ' Редактирование недоступно';
-            }
-            if (closeBtn) {
-                closeBtn.disabled = true;
-                closeBtn.style.opacity = '0.5';
-                closeBtn.style.cursor = 'not-allowed';
-                closeBtn.textContent = 'Проект завершён';
-            }
-        } else {
-            if (editBtn) {
-                editBtn.disabled = false;
-                editBtn.style.opacity = '1';
-                editBtn.style.cursor = 'pointer';
-                editBtn.textContent = ' Редактировать';
-            }
-            if (closeBtn) {
-                closeBtn.disabled = false;
-                closeBtn.style.opacity = '1';
-                closeBtn.style.cursor = 'pointer';
-                closeBtn.textContent = 'Закрыть проект';
-            }
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const saved = localStorage.getItem('currentUser');
-        if (saved) { try { showUserProfile(JSON.parse(saved)); } catch(e) {} }
-        loadProject();
-    });
-
-    const searchInput = document.getElementById('liveSearchInput');
-const resultsDropdown = document.getElementById('searchResults');
-let allCandidatesCache = [];
-let isCacheReady = false;
-
-fetch('http://localhost:3000/candidates')
-    .then(res => res.json())
-    .then(data => {
-        allCandidatesCache = data;
-        isCacheReady = true;
-        console.log('Поиск готов. Кандидатов:', data.length);
-    })
-    .catch(err => console.error(' Ошибка загрузки базы:', err));
-
-if (searchInput && resultsDropdown) {
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.trim().toLowerCase();
-        
-        if (!isCacheReady || query.length < 3) {
-            resultsDropdown.style.display = 'none';
-            return;
-        }
-
-        const filtered = allCandidatesCache.filter(c => {
-            const tags = (c.tags || []).join(' ').toLowerCase();
-            const testExp = (c.test_exp || '').toLowerCase();
-            const apiExp = (c.api_exp || '').toLowerCase();
-            const generalInfo = (c.general_info || '').toLowerCase();
-            
-            return tags.includes(query) || 
-                   testExp.includes(query) || 
-                   apiExp.includes(query) || 
-                   generalInfo.includes(query);
-        });
-
-        if (filtered.length === 0) {
-            resultsDropdown.innerHTML = '<div style="padding:16px;text-align:center;color:#999">Навыки не найдены</div>';
-        } else {
-            resultsDropdown.innerHTML = filtered.slice(0, 5).map(c => {
-                const topTags = (c.tags || []).slice(0, 3).join(', ');
-                return `
-                <a href="profile.html?id=${c.id}" class="search-result-item">
-                    <div class="search-result-avatar">${c.name.charAt(0)}</div>
-                    <div class="search-result-info">
-                        <h4>${c.position || 'Специалист'}</h4>
-                        <p>${c.name} • ${topTags || 'Опыт в описании'}</p>
-                    </div>
-                </a>`;
-            }).join('');
-        }
-        resultsDropdown.style.display = 'block';
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!searchInput.contains(e.target) && !resultsDropdown.contains(e.target)) {
-            resultsDropdown.style.display = 'none';
-        }
-    });
-}
-
-const joinDatabaseBtn = document.getElementById('joinDatabaseBtn');
-const aboutServiceBtn = document.getElementById('aboutServiceBtn');
-const aboutModal = document.getElementById('aboutModal');
-const closeAboutModal = document.getElementById('closeAboutModal');
-const closeAboutBtn = document.getElementById('closeAboutBtn');
-
-if (joinDatabaseBtn) {
-    joinDatabaseBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        
-        if (!currentUser) {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        } else if (currentUser.candidateId === null || currentUser.candidateId === undefined) {
-            window.location.href = 'create-profile.html';
-        } else {
-            window.location.href = `profile.html?id=${currentUser.candidateId}`;
-        }
-    });
-}
-
-if (aboutServiceBtn && aboutModal) {
-    aboutServiceBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        aboutModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-    
-    const closeAbout = () => {
-        aboutModal.classList.remove('active');
-        document.body.style.overflow = '';
-    };
-    
-    closeAboutModal?.addEventListener('click', closeAbout);
-    closeAboutBtn?.addEventListener('click', closeAbout);
-    aboutModal?.addEventListener('click', (e) => {
-        if (e.target === aboutModal) closeAbout();
-    });
-}
-</script>
+    <script src="js/common.js" defer></script>
+    <script src="js/project-details.js" defer></script>
 </body>
 </html>

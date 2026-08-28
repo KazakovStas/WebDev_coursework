@@ -10,89 +10,52 @@
     <header class="header">
         <div class="header-top">
             <div class="logo-nav">
-                <a href="#" class="logo">
-                    <span>ЛИЦА</span>
-                    <div class="logo-icon"></div>
-                </a>
-          <nav>
-    <ul class="main-nav">
-        <li><a href="index.html">Кандидаты</a></li>
-        <li><a href="catalog.html">Найти кандидата</a></li>
-        <li><a href="projects.html">Биржа проектов</a></li>
-        <li><a href="#" id="joinDatabaseBtn">Попасть в базу</a></li>
-        <li><a href="#" id="aboutServiceBtn">О сервисе</a></li>
-    </ul>
-</nav>
+                <a href="#" class="logo"><span>ЛИЦА</span><div class="logo-icon"></div></a>
+                <nav>
+                    <ul class="main-nav">
+                        <li><a href="index.html">Кандидаты</a></li>
+                        <li><a href="catalog.html">Найти кандидата</a></li>
+                        <li><a href="projects.html">Биржа проектов</a></li>
+                        <li><a href="#" id="joinDatabaseBtn">Попасть в базу</a></li>
+                        <li><a href="#" id="aboutServiceBtn">О сервисе</a></li>
+                    </ul>
+                </nav>
             </div>
             <div class="search-auth">
-    <div class="search-box">
-    <img src="img/Search.png" alt="Поиск" class="search-icon">
-    <input type="text" class="search-input" id="liveSearchInput" placeholder="Поиск по навыкам...">
-    <div id="searchResults" class="search-results-dropdown" style="display: none;"></div>
-</div>
-    
-    <button class="login-btn" id="openModalBtn">Войти</button>
-    
-    <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
-        <div class="user-profile" id="userProfile">
-            <span class="user-name" id="userName">Имя</span>
-            <div class="user-avatar" id="userAvatar">И</div>
+                <div class="search-box">
+                    <img src="img/Search.png" alt="Поиск" class="search-icon">
+                    <input type="text" class="search-input" id="liveSearchInput" placeholder="Поиск по навыкам...">
+                    <div id="searchResults" class="search-results-dropdown" style="display: none;"></div>
+                </div>
+                <button class="login-btn" id="openModalBtn">Войти</button>
+                <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
+                    <div class="user-profile" id="userProfile">
+                        <span class="user-name" id="userName">Имя</span>
+                        <div class="user-avatar" id="userAvatar">И</div>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="dashboard.html" class="dropdown-item" id="profileLink"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Мой профиль</a>
+                        <button class="dropdown-item logout-btn" id="logoutBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>Выйти</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="user-dropdown" id="userDropdown">
-            <a href="dashboard.html" class="dropdown-item" id="profileLink">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-        <circle cx="12" cy="7" r="4"></circle>
-    </svg>
-    Мой профиль
-</a>
-            <button class="dropdown-item logout-btn" id="logoutBtn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                    <polyline points="16 17 21 12 16 7"></polyline>
-                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                </svg>
-                Выйти
-            </button>
-        </div>
-    </div>
-</div>
-        </div>
-        
         <div class="header-bottom">
             <ul class="secondary-nav">
-    <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
-    <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
-    <li><a href="catalog.html?category=design">Дизайнеры</a></li>
-    <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
-    
-    <li class="nav-hidden"><a href="catalog.html?category=analytics">Аналитики</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=content">Контент-менеджеры</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=management">Топ-менеджмент</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=hr">HR-специалисты</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=finance">Финансисты</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=legal">Юристы</a></li>
-    <li class="nav-hidden"><a href="catalog.html?category=support">Техподдержка</a></li>
-    
-    <li class="more-li">
-        <button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()">
-            <span>Ещё</span>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-            </svg>
-        </button>
-    </li>
-    
-    <li class="hide-li" style="display: none;">
-        <button class="hide-btn" type="button" onclick="toggleNav()">
-            <span>Скрыть</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 15l-6-6-6 6"/>
-            </svg>
-        </button>
-    </li>
-</ul>
+                <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
+                <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
+                <li><a href="catalog.html?category=design">Дизайнеры</a></li>
+                <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=analytics">Аналитики</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=content">Контент-менеджеры</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=management">Топ-менеджмент</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=hr">HR-специалисты</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=finance">Финансисты</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=legal">Юристы</a></li>
+                <li class="nav-hidden"><a href="catalog.html?category=support">Техподдержка</a></li>
+                <li class="more-li"><button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()"><span>Ещё</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
+                <li class="hide-li" style="display: none;"><button class="hide-btn" type="button" onclick="toggleNav()"><span>Скрыть</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></button></li>
+            </ul>
         </div>
     </header>
 
@@ -103,114 +66,38 @@
                     <h1 class="hero-title">Нанимайте проверенных <span class="highlight">кандидатов</span></h1>
                     <p class="hero-description">Мы уже со всеми провели собеседования и подтверждаем их профессионализм</p>
                     <div class="hero-buttons">
-    <a href="catalog.html" class="btn btn-primary">Выбрать кандидата</a>
-    <a href="#" class="btn btn-secondary join-database-btn">Попасть в базу</a>
+                        <a href="catalog.html" class="btn btn-primary">Выбрать кандидата</a>
+                        <a href="#" class="btn btn-secondary join-database-btn">Попасть в базу</a>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <img src="img/Scene 1.png" alt="Собеседование кандидатов по видеосвязи">
-                </div>
+                <div class="hero-image"><img src="img/Scene 1.png" alt="Собеседование кандидатов по видеосвязи"></div>
             </div>
         </section>
 
         <section class="directions-section">
             <div class="container directions-container">
                 <h2 class="section-title">Выберите направление работы</h2>
-                
                 <div class="directions-grid">
-                    <div class="direction-card">
-                        <div class="card-icon">
-                            <img src="img/dir.png" alt="Маркетинг">
-                        </div>
-                        <span class="card-title">Маркетинг</span>
-                        <span class="card-badge">40+</span>
-                    </div>
-
-                    <div class="direction-card">
-                        <div class="card-icon">
-                            <img src="img/dev.png" alt="Разработка">
-                        </div>
-                        <span class="card-title">Разработка</span>
-                        <span class="card-badge">80+</span>
-                    </div>
-
-                    <div class="direction-card">
-                        <div class="card-icon">
-                            <img src="img/ana.png" alt="Аналитика">
-                        </div>
-                        <span class="card-title">Аналитика</span>
-                    </div>
-
-                    <div class="direction-card">
-                        <div class="card-icon">
-                            <img src="img/com.png" alt="Комьюнити">
-                        </div>
-                        <span class="card-title">Комьюнити</span>
-                    </div>
-
-                    <div class="direction-card">
-                        <div class="card-icon">
-                            <img src="img/dis.png" alt="Дизайн">
-                        </div>
-                        <span class="card-title">Дизайн</span>
-                    </div>
-
-                    <div class="direction-card">
-                        <div class="card-icon">
-                            <img src="img/sel.png" alt="Продажи">
-                        </div>
-                        <span class="card-title">Продажи</span>
-                    </div>
-
-                    <div class="direction-card">
-                        <div class="card-icon">
-                            <img src="img/cont.png" alt="Контент">
-                        </div>
-                        <span class="card-title">Контент</span>
-                    </div>
-
-                    <div class="direction-card">
-                        <div class="card-icon">
-                            <img src="img/top.png" alt="Топ-менеджмент">
-                        </div>
-                        <span class="card-title">Топ-менеджмент</span>
-                    </div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/dir.png" alt="Маркетинг"></div><span class="card-title">Маркетинг</span><span class="card-badge">40+</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/dev.png" alt="Разработка"></div><span class="card-title">Разработка</span><span class="card-badge">80+</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/ana.png" alt="Аналитика"></div><span class="card-title">Аналитика</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/com.png" alt="Комьюнити"></div><span class="card-title">Комьюнити</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/dis.png" alt="Дизайн"></div><span class="card-title">Дизайн</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/sel.png" alt="Продажи"></div><span class="card-title">Продажи</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/cont.png" alt="Контент"></div><span class="card-title">Контент</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/top.png" alt="Топ-менеджмент"></div><span class="card-title">Топ-менеджмент</span></div>
                 </div>
             </div>
         </section>
 
         <section class="benefits-section">
             <div class="container benefits-container">
-                
                 <div class="benefits-left">
                     <h2 class="section-title-left">Почему работодатели выбирают ЛИЦА?</h2>
-                    
-                    <div class="benefit-item">
-                        <img src="img/yes.png" alt="Галочка" class="check-icon">
-                        <div class="benefit-text">
-                            <h3 class="benefit-title">Проверка компетенций</h3>
-                            <p class="benefit-desc">Всех кандидатов с нашей стороны собеседуют не рекрутера, а эксперты в своих областях. По результаты мы составляем справку о кандидате, чтобы вы могли узнать его лучше.</p>
-                        </div>
-                    </div>
-
-                    <div class="benefit-item">
-                        <img src="img/yes.png" alt="Галочка" class="check-icon">
-                        <div class="benefit-text">
-                            <h3 class="benefit-title">Сотни кандидатов по подписке</h3>
-                            <p class="benefit-desc">Вы сможете самостоятельно связываться с кандидатами – все они дали согласие на это.</p>
-                        </div>
-                    </div>
-
-                    <div class="benefit-item">
-                        <img src="img/yes.png" alt="Галочка" class="check-icon">
-                        <div class="benefit-text">
-                            <h3 class="benefit-title">Еженедельное обновление базы</h3>
-                            <p class="benefit-desc">В рамках сервиса ЛИЦА.Работа мы проводим по несколько десятков собеседований еженедельно, и пополняем базу новыми справками по лучшим кандидатам.</p>
-                        </div>
-                    </div>
+                    <div class="benefit-item"><img src="img/yes.png" alt="Галочка" class="check-icon"><div class="benefit-text"><h3 class="benefit-title">Проверка компетенций</h3><p class="benefit-desc">Всех кандидатов с нашей стороны собеседуют не рекрутера, а эксперты в своих областях. По результаты мы составляем справку о кандидате, чтобы вы могли узнать его лучше.</p></div></div>
+                    <div class="benefit-item"><img src="img/yes.png" alt="Галочка" class="check-icon"><div class="benefit-text"><h3 class="benefit-title">Сотни кандидатов по подписке</h3><p class="benefit-desc">Вы сможете самостоятельно связываться с кандидатами – все они дали согласие на это.</p></div></div>
+                    <div class="benefit-item"><img src="img/yes.png" alt="Галочка" class="check-icon"><div class="benefit-text"><h3 class="benefit-title">Еженедельное обновление базы</h3><p class="benefit-desc">В рамках сервиса ЛИЦА.Работа мы проводим по несколько десятков собеседований еженедельно, и пополняем базу новыми справками по лучшим кандидатам.</p></div></div>
                 </div>
-
-            
                 <div class="benefits-right">
                     <div class="subscription-card">
                         <h3 class="sub-title">Кандидаты по подписке</h3>
@@ -219,570 +106,84 @@
                         <a href="#" class="btn btn-white">Выбрать кандидата</a>
                     </div>
                 </div>
-
             </div>
         </section>
 
         <section class="candidates-section">
             <div class="container">
                 <h2 class="section-title">Как выглядит база кандидатов</h2>
-                
-               <div class="candidates-grid" id="candidatesGrid">
-                   
-                </div>
+                <div class="candidates-grid" id="candidatesGrid"></div>
             </div>
         </section>
 
         <section class="subscribe-section">
             <div class="container subscribe-container">
-                <div class="subscribe-image">
-                    <img src="img/Scene 2.png" alt="Подписка на обновления базы кандидатов">
-                </div>
-                
+                <div class="subscribe-image"><img src="img/Scene 2.png" alt="Подписка на обновления базы кандидатов"></div>
                 <div class="subscribe-form-wrapper">
                     <h2 class="subscribe-title">Подписаться на обновления базы</h2>
                     <p class="subscribe-description">Мы будет присылать вам информацию каждую неделю, по каким сферам у нас появились кандидаты.</p>
-                    
                     <form class="subscribe-form" id="subscribeForm">
-    <input type="text" class="form-input" placeholder="Ваше имя" required>
-    <input type="email" id="subscribeEmail" class="form-input" placeholder="Email" required>
-    <input type="tel" class="form-input" placeholder="Номер телефона" required>
-    
-    <button type="submit" class="btn-subscribe" id="subscribeBtn">Подписаться</button>
-    
-    <p class="form-agreement">Отправка данной формы означает согласие с <a href="#" class="agreement-link">Пользовательским соглашением</a> и <a href="#" class="agreement-link">Политикой конфиденциальности</a></p>
-</form>
-
-<div id="subscribeSuccess" class="success-message" style="display: none;">
-    <h3>Вы успешно подписались!</h3>
-    <p>Теперь вы будете получать обновления базы кандидатов каждую неделю.</p>
-</div>
+                        <input type="text" class="form-input" placeholder="Ваше имя" required>
+                        <input type="email" id="subscribeEmail" class="form-input" placeholder="Email" required>
+                        <input type="tel" class="form-input" placeholder="Номер телефона" required>
+                        <button type="submit" class="btn-subscribe" id="subscribeBtn">Подписаться</button>
+                        <p class="form-agreement">Отправка данной формы означает согласие с <a href="#" class="agreement-link">Пользовательским соглашением</a> и <a href="#" class="agreement-link">Политикой конфиденциальности</a></p>
+                    </form>
+                    <div id="subscribeSuccess" class="success-message" style="display: none;">
+                        <h3>Вы успешно подписались!</h3>
+                        <p>Теперь вы будете получать обновления базы кандидатов каждую неделю.</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-column">
-                    <h3 class="footer-heading">ЛИЦА.КАНДИДАТЫ</h3>
-                    <ul class="footer-list">
-                        <li><a href="#">Найти кандидата</a></li>
-                        <li><a href="#">Попасть в базу</a></li>
-                        <li><a href="#">О сервисе</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3 class="footer-heading">ЛИЦА.РАБОТА</h3>
-                    <ul class="footer-list">
-                        <li><a href="#">Рекрутинг</a></li>
-                        <li><a href="#">Конструктор подбора</a></li>
-                        <li><a href="#">Аналитика подбора</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3 class="footer-heading">О ПОРТАЛЕ</h3>
-                    <ul class="footer-list">
-                        <li><a href="#">Поддержка</a></li>
-                        <li><a href="#">Обновления</a></li>
-                        <li><a href="#">Контакты</a></li>
-                    </ul>
-                </div>
+                <div class="footer-column"><h3 class="footer-heading">ЛИЦА.КАНДИДАТЫ</h3><ul class="footer-list"><li><a href="#">Найти кандидата</a></li><li><a href="#">Попасть в базу</a></li><li><a href="#">О сервисе</a></li></ul></div>
+                <div class="footer-column"><h3 class="footer-heading">ЛИЦА.РАБОТА</h3><ul class="footer-list"><li><a href="#">Рекрутинг</a></li><li><a href="#">Конструктор подбора</a></li><li><a href="#">Аналитика подбора</a></li></ul></div>
+                <div class="footer-column"><h3 class="footer-heading">О ПОРТАЛЕ</h3><ul class="footer-list"><li><a href="#">Поддержка</a></li><li><a href="#">Обновления</a></li><li><a href="#">Контакты</a></li></ul></div>
             </div>
-            
-            <div class="footer-bottom">
-                <span class="footer-copyright">ООО «ЛИЦА»</span>
-                <div class="footer-legal">
-                    <a href="#">Реквизиты</a>
-                    <span class="divider">|</span>
-                    <a href="#">Правовая информация</a>
-                </div>
-            </div>
+            <div class="footer-bottom"><span class="footer-copyright">ООО «ЛИЦА»</span><div class="footer-legal"><a href="#">Реквизиты</a><span class="divider">|</span><a href="#">Правовая информация</a></div></div>
         </div>
     </footer>
 
-     <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
-            <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
-            
-            <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
-            
-            <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
-            <ul style="margin-left: 20px; margin-bottom: 16px;">
-                <li>Все кандидаты проходят проверку компетенций</li>
-                <li>Вы получаете доступ к базе по подписке</li>
-                <li>Самостоятельно связываетесь с подходящими специалистами</li>
-            </ul>
-            
-            <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br>
-            <em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
-        </div>
-        
-        <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
-    </div>
-</div>
-    
-    <script>
-        function toggleNav() {
-            const hiddenItems = document.querySelectorAll('.nav-hidden');
-            const moreLi = document.querySelector('.more-li');
-            const hideLi = document.querySelector('.hide-li');
-            const arrow = document.querySelector('.more-btn .arrow');
-            
-            const isVisible = document.querySelector('.nav-hidden.show');
-            
-            if (!isVisible) {
-                hiddenItems.forEach(item => item.classList.add('show'));
-                moreLi.style.display = 'none';
-                hideLi.style.display = 'flex';
-            } else {
-                hiddenItems.forEach(item => item.classList.remove('show'));
-                moreLi.style.display = 'flex';
-                hideLi.style.display = 'none';
-                if (arrow) arrow.style.transform = 'rotate(0deg)';
-            }
-        }
-    </script>
     <div class="modal-overlay" id="loginModal">
-    <div class="modal-window">
-        <button class="modal-close" id="closeModalBtn">&times;</button>
-        
-        <div class="modal-header">
-            <span class="modal-logo-text">ЛИЦА</span>
-            <span class="modal-logo-dot"></span>
-            <span class="modal-logo-text">Кандидаты</span>
-        </div>
-
-        <div id="loginView">
+        <div class="modal-window">
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+            <div class="modal-header"><span class="modal-logo-text">ЛИЦА</span><span class="modal-logo-dot"></span><span class="modal-logo-text">Кандидаты</span></div>
             <h2 class="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
             <form class="modal-form" id="loginForm">
                 <input type="email" id="authEmail" class="modal-input" placeholder="Email" required>
                 <input type="password" id="authPassword" class="modal-input" placeholder="Пароль" required>
                 <a href="#" class="forgot-pass">Забыли пароль?</a>
-                <div class="modal-actions">
-                    <button type="submit" class="btn-modal-login">Войти</button>
-                    <button type="button" class="btn-modal-reg" id="toRegisterBtn">Зарегистрироваться</button>
-                </div>
-            </form>
-        </div>
-
-        <div id="registerView" style="display: none;">
-            <h2 class="modal-title">Создать аккаунт</h2>
-            <form class="modal-form" id="registerForm">
-                <input type="text" id="regName" class="modal-input" placeholder="ФИО" required>
-                <input type="email" id="regEmail" class="modal-input" placeholder="Email" required>
-                <input type="password" id="regPassword" class="modal-input" placeholder="Пароль" required>
-                <div class="modal-actions" style="flex-direction: column; gap: 10px;">
-                    <button type="submit" class="btn-modal-login">Зарегистрироваться</button>
-                    <button type="button" class="btn-modal-reg" id="backToLoginBtn">← Вернуться ко входу</button>
-                </div>
+                <div class="modal-actions"><button type="submit" class="btn-modal-login">Войти</button><button type="button" class="btn-modal-reg" id="toRegisterBtn">Зарегистрироваться</button></div>
             </form>
         </div>
     </div>
-</div>
 
-<div class="modal-overlay" id="aboutModal">
-    <div class="modal-window" style="max-width: 600px;">
-        <button class="modal-close" id="closeAboutModal">&times;</button>
-        
-        <div class="modal-header">
-            <span class="modal-logo-text">ЛИЦА</span>
-            <span class="modal-logo-dot"></span>
-            <span class="modal-logo-text">Кандидаты</span>
+    <div class="modal-overlay" id="aboutModal">
+        <div class="modal-window" style="max-width: 600px;">
+            <button class="modal-close" id="closeAboutModal">&times;</button>
+            <div class="modal-header"><span class="modal-logo-text">ЛИЦА</span><span class="modal-logo-dot"></span><span class="modal-logo-text">Кандидаты</span></div>
+            <h2 class="modal-title" style="margin-bottom: 24px;">О сервисе</h2>
+            <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
+                <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
+                <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
+                <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
+                <ul style="margin-left: 20px; margin-bottom: 16px;">
+                    <li>Все кандидаты проходят проверку компетенций</li>
+                    <li>Вы получаете доступ к базе по подписке</li>
+                    <li>Самостоятельно связываетесь с подходящими специалистами</li>
+                </ul>
+                <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br><em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
+            </div>
+            <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
         </div>
-        
-        <h2 class="modal-title" style="margin-bottom: 24px;">О сервисе</h2>
-        
-        <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
-            <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
-            <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
-            
-            <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
-            <ul style="margin-left: 20px; margin-bottom: 16px;">
-                <li>Все кандидаты проходят проверку компетенций</li>
-                <li>Вы получаете доступ к базе по подписке</li>
-                <li>Самостоятельно связываетесь с подходящими специалистами</li>
-            </ul>
-            
-            <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br>
-            <em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
-        </div>
-        
-        <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
     </div>
-</div>
 
-    <script>
-    function toggleNav() {
-        const hidden = document.querySelectorAll('.nav-hidden');
-        const more = document.querySelector('.more-li');
-        const hide = document.querySelector('.hide-li');
-        const arrow = document.querySelector('.more-btn .arrow');
-        const isVisible = document.querySelector('.nav-hidden.show');
-        if (!isVisible) {
-            hidden.forEach(i => i.classList.add('show'));
-            more.style.display = 'none';
-            hide.style.display = 'flex';
-        } else {
-            hidden.forEach(i => i.classList.remove('show'));
-            more.style.display = 'flex';
-            hide.style.display = 'none';
-            if (arrow) arrow.style.transform = 'rotate(0deg)';
-        }
-    }
-
-    const openModalBtn = document.getElementById('openModalBtn');
-    const modal = document.getElementById('loginModal');
-    const closeBtn = document.getElementById('closeModalBtn');
-    const loginForm = document.getElementById('loginForm');
-    const loginView = document.getElementById('loginView');
-    const registerView = document.getElementById('registerView');
-    const toRegisterBtn = document.getElementById('toRegisterBtn');
-    const backToLoginBtn = document.getElementById('backToLoginBtn');
-    const registerForm = document.getElementById('registerForm');
-
-    function showUserProfile(user) {
-        if (openModalBtn) openModalBtn.style.display = 'none';
-        const userProfileWrapper = document.getElementById('userProfileWrapper');
-        const userName = document.getElementById('userName');
-        const userAvatar = document.getElementById('userAvatar');
-        const userDropdown = document.getElementById('userDropdown');
-        const profileLink = document.getElementById('profileLink');
-        const logoutBtn = document.getElementById('logoutBtn');
-        
-        if (userProfileWrapper && userName && userAvatar) {
-            userProfileWrapper.style.display = 'flex';
-            const firstName = user.name.split(' ')[0];
-            userName.textContent = firstName;
-            userAvatar.textContent = firstName.charAt(0).toUpperCase();
-        }
-        if (profileLink) profileLink.href = 'dashboard.html';
-        
-        const userProfile = document.getElementById('userProfile');
-        if (userProfile && userDropdown) {
-            userProfile.onclick = (e) => { e.stopPropagation(); userDropdown.classList.toggle('show'); };
-        }
-        document.addEventListener('click', (e) => {
-            if (userDropdown && !e.target.closest('.user-profile-wrapper')) userDropdown.classList.remove('show');
-        });
-        if (logoutBtn) {
-            logoutBtn.onclick = (e) => {
-                e.preventDefault();
-                if (confirm('Выйти из аккаунта?')) {
-                    localStorage.removeItem('currentUser');
-                    hideUserProfile();
-                    if (userDropdown) userDropdown.classList.remove('show');
-                }
-            };
-        }
-    }
-
-    function hideUserProfile() {
-        const userProfileWrapper = document.getElementById('userProfileWrapper');
-        if (userProfileWrapper) userProfileWrapper.style.display = 'none';
-        if (openModalBtn) {
-            openModalBtn.style.display = 'block';
-            openModalBtn.textContent = 'Войти';
-            openModalBtn.style.backgroundColor = '';
-        }
-    }
-
-    openModalBtn?.addEventListener('click', (e) => { e.stopPropagation(); modal.classList.add('active'); document.body.style.overflow = 'hidden'; });
-    closeBtn?.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow = ''; });
-    modal?.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } });
-
-    if (loginForm) {
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('authEmail').value.trim();
-            const password = document.getElementById('authPassword').value.trim();
-            let errorEl = document.querySelector('.auth-error');
-            if (!errorEl) { errorEl = document.createElement('span'); errorEl.className = 'auth-error'; errorEl.style.cssText = 'color: #d32f2f; font-size: 13px; text-align: center; display: block; margin-top: 8px;'; loginForm.appendChild(errorEl); }
-            try {
-                const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
-                const users = await res.json();
-                if (users.length > 0 && users[0].password === password) {
-                    const user = users[0];
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    modal.classList.remove('active'); document.body.style.overflow = ''; loginForm.reset(); errorEl.style.display = 'none';
-                    showUserProfile(user);
-                } else { errorEl.textContent = 'Неверный email или пароль'; errorEl.style.display = 'block'; }
-            } catch (err) { console.error('Ошибка входа:', err); errorEl.textContent = 'Ошибка сервера'; errorEl.style.display = 'block'; }
-        });
-    }
-
-    if (toRegisterBtn) {
-        toRegisterBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginView.style.display = 'none';
-            registerView.style.display = 'block';
-            document.querySelector('.modal-title').textContent = 'Создать аккаунт';
-        });
-    }
-    if (backToLoginBtn) {
-        backToLoginBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            registerView.style.display = 'none';
-            loginView.style.display = 'block';
-            document.querySelector('.modal-title').innerHTML = 'Получить доступ к базе<br>проверенных кандидатов';
-        });
-    }
-    if (registerForm) {
-        registerForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('regName').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value.trim();
-            if (password.length < 4) { alert('Пароль должен быть не менее 4 символов'); return; }
-            try {
-                const checkRes = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
-                const existing = await checkRes.json();
-                if (existing.length > 0) { alert('Этот email уже зарегистрирован. Попробуйте войти.'); return; }
-                const res = await fetch('http://localhost:3000/users', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, password, candidateId: null, subscribed: false })
-                });
-                if (res.ok) {
-                    const newUser = await res.json();
-                    localStorage.setItem('currentUser', JSON.stringify(newUser));
-                    registerForm.reset(); modal.classList.remove('active'); document.body.style.overflow = '';
-                    loginView.style.display = 'block'; registerView.style.display = 'none';
-                    document.querySelector('.modal-title').innerHTML = 'Получить доступ к базе<br>проверенных кандидатов';
-                    showUserProfile(newUser);
-                    alert(`Добро пожаловать, ${name.split(' ')[0]}!`);
-                } else { alert('Ошибка при создании аккаунта'); }
-            } catch (err) { console.error('Ошибка регистрации:', err); alert('Не удалось подключиться к серверу.'); }
-        });
-    }
-
-    let allCandidates = [];
-
-    async function loadAllCandidates() {
-        try {
-            const res = await fetch('http://localhost:3000/candidates');
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            allCandidates = await res.json();
-            console.log('Загружено кандидатов:', allCandidates.length);
-            renderCandidates(allCandidates); 
-        } catch (err) {
-            console.error('Ошибка загрузки:', err);
-            document.getElementById('candidatesGrid').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Не удалось загрузить кандидатов</p>';
-        }
-    }
-
-    function renderCandidates(candidates) {
-        const grid = document.getElementById('candidatesGrid');
-        if (!grid) return;
-        
-        if (candidates.length === 0) {
-            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">Кандидаты не найдены</p>';
-            return;
-        }
-        
-        function getGradient(avatarName) {
-            const gradients = {
-                'gradient-purple': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                'gradient-blue': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                'gradient-green': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-                'gradient-orange': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-                'gradient-red': 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
-            };
-            return gradients[avatarName] || gradients['gradient-purple'];
-        }
-        
-        grid.innerHTML = candidates.map(c => {
-            const avatarHTML = c.avatar?.startsWith('gradient-') 
-                ? `<div class="avatar-gradient" style="width: 104px; height: 104px; border-radius: 50%; background: ${getGradient(c.avatar)}; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 36px; font-weight: 700;">${c.name.charAt(0).toUpperCase()}</div>`
-                : `<img src="${c.avatar || 'img/default-avatar.png'}" alt="${c.name}" style="width: 104px; height: 104px; border-radius: 50%; object-fit: cover;">`;
-            
-            return `
-            <div class="candidate-card">
-                <div class="candidate-badges">
-                    ${c.tags?.map(t => `<span class="badge badge-${t}">${t}</span>`).join('') || ''}
-                </div>
-                <div class="candidate-avatar">${avatarHTML}</div>
-                <h3 class="candidate-name">${c.name}</h3>
-                <p class="candidate-position">${c.position}</p>
-                <div class="candidate-info">
-                    <p class="info-item">Опыт: ${c.experience}</p>
-                    <p class="info-item">Зарплата: от ${c.salary?.toLocaleString() || '0'} ₽</p>
-                </div>
-                <a href="profile.html?id=${c.id}" class="btn-candidate" style="text-decoration: none;">Посмотреть справку</a>
-            </div>`;
-        }).join('');
-    }
-
-    // Универсальный обработчик для ссылок с href="#" (ИСКЛЮЧАЯ кнопку "О сервисе")
-document.querySelectorAll('a[href="#"]:not(#aboutServiceBtn), .btn-secondary[href="#"]:not(#aboutServiceBtn)').forEach(link => {
-    link.addEventListener('click', async (e) => {
-        e.preventDefault();
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        
-        if (!currentUser) {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        } else if (currentUser.candidateId === null || currentUser.candidateId === undefined) {
-            window.location.href = 'create-profile.html';
-        } else {
-            try {
-                const res = await fetch(`http://localhost:3000/candidates/${currentUser.candidateId}`);
-                if (!res.ok || res.status === 404) {
-                    await fetch(`http://localhost:3000/users/${currentUser.id}`, {
-                        method: 'PATCH', headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ candidateId: null })
-                    });
-                    localStorage.setItem('currentUser', JSON.stringify({ ...currentUser, candidateId: null }));
-                    window.location.href = 'create-profile.html';
-                    return;
-                }
-                window.location.href = `profile.html?id=${currentUser.candidateId}`;
-            } catch (err) {
-                console.error('Ошибка:', err);
-                window.location.href = 'create-profile.html';
-            }
-        }
-    });
-});
-
-    const subscribeForm = document.getElementById('subscribeForm');
-    if (subscribeForm) {
-        subscribeForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('subscribeEmail').value.trim();
-            const btn = document.getElementById('subscribeBtn');
-            const successMsg = document.getElementById('subscribeSuccess');
-            btn.disabled = true; btn.textContent = 'Проверка...';
-            try {
-                const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
-                const users = await res.json();
-                if (users.length > 0) {
-                    await fetch(`http://localhost:3000/users/${users[0].id}`, {
-                        method: 'PATCH', headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ subscribed: true })
-                    });
-                    subscribeForm.style.display = 'none'; successMsg.style.display = 'block';
-                } else { alert('Email не найден в базе. Пожалуйста, зарегистрируйтесь сначала.'); btn.disabled = false; btn.textContent = 'Подписаться'; }
-            } catch (err) { console.error('Ошибка подписки:', err); alert('Произошла ошибка.'); btn.disabled = false; btn.textContent = 'Подписаться'; }
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const saved = localStorage.getItem('currentUser');
-        if (saved) { try { const user = JSON.parse(saved); showUserProfile(user); } catch(e) { console.error('Ошибка сессии:', e); } }
-        
-        loadAllCandidates();
-    });
-
-const searchInput = document.getElementById('liveSearchInput');
-const resultsDropdown = document.getElementById('searchResults');
-let allCandidatesCache = [];
-let isCacheReady = false;
-
-fetch('http://localhost:3000/candidates')
-    .then(res => res.json())
-    .then(data => {
-        allCandidatesCache = data;
-        isCacheReady = true;
-        console.log(' База готова. Кандидатов:', data.length);
-    })
-    .catch(err => console.error(' Ошибка:', err));
-
-if (searchInput && resultsDropdown) {
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.trim().toLowerCase();
-        
-        if (!isCacheReady || query.length < 3) {
-            resultsDropdown.style.display = 'none';
-            return;
-        }
-
-        const filtered = allCandidatesCache.filter(c => {
-            const tags = (c.tags || []).join(' ').toLowerCase();
-            const testExp = (c.test_exp || '').toLowerCase();
-            const apiExp = (c.api_exp || '').toLowerCase();
-            const generalInfo = (c.general_info || '').toLowerCase();
-            
-            return tags.includes(query) || 
-                   testExp.includes(query) || 
-                   apiExp.includes(query) || 
-                   generalInfo.includes(query);
-        });
-
-        console.log(` "${query}" → найдено: ${filtered.length}`);
-
-        if (filtered.length === 0) {
-            resultsDropdown.innerHTML = '<div class="search-empty">Навыки не найдены</div>';
-        } else {
-            resultsDropdown.innerHTML = filtered.slice(0, 5).map(c => {
-                const topTags = (c.tags || []).slice(0, 3).join(', ');
-                
-                return `
-                <a href="profile.html?id=${c.id}" class="search-result-item">
-                    <div class="search-result-avatar">${c.name.charAt(0)}</div>
-                    <div class="search-result-info">
-                        <h4>${c.position || 'Специалист'}</h4>
-                        <p>${c.name} • ${topTags || 'Опыт в описании'}</p>
-                    </div>
-                </a>`;
-            }).join('');
-        }
-        resultsDropdown.style.display = 'block';
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!searchInput.contains(e.target) && !resultsDropdown.contains(e.target)) {
-            resultsDropdown.style.display = 'none';
-        }
-    });
-}
-
-const joinDatabaseBtn = document.getElementById('joinDatabaseBtn');
-const aboutServiceBtn = document.getElementById('aboutServiceBtn');
-const aboutModal = document.getElementById('aboutModal');
-const closeAboutModal = document.getElementById('closeAboutModal');
-const closeAboutBtn = document.getElementById('closeAboutBtn');
-
-function handleJoinDatabaseClick(e) {
-    e.preventDefault();
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    
-    if (!currentUser) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    } else if (currentUser.candidateId === null || currentUser.candidateId === undefined) {
-        window.location.href = 'create-profile.html';
-    } else {
-        window.location.href = `profile.html?id=${currentUser.candidateId}`;
-    }
-}
-
-if (joinDatabaseBtn) {
-    joinDatabaseBtn.addEventListener('click', handleJoinDatabaseClick);
-}
-
-document.querySelectorAll('.join-database-btn').forEach(link => {
-    link.addEventListener('click', handleJoinDatabaseClick);
-});
-
-if (aboutServiceBtn && aboutModal) {
-    aboutServiceBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        aboutModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-    
-    const closeAbout = () => {
-        aboutModal.classList.remove('active');
-        document.body.style.overflow = '';
-    };
-    
-    closeAboutModal?.addEventListener('click', closeAbout);
-    closeAboutBtn?.addEventListener('click', closeAbout);
-    aboutModal?.addEventListener('click', (e) => {
-        if (e.target === aboutModal) closeAbout();
-    });
-}
-</script>
-    
+    <script src="js/common.js" defer></script>
+    <script src="js/index.js" defer></script>
 </body>
 </html>

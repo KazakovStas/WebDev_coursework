@@ -14,15 +14,15 @@
                     <span>ЛИЦА</span>
                     <div class="logo-icon"></div>
                 </a>
-              <nav>
-    <ul class="main-nav">
-        <li><a href="index.html">Кандидаты</a></li>
-        <li><a href="catalog.html">Найти кандидата</a></li>
-        <li><a href="projects.html">Биржа проектов</a></li>
-        <li><a href="#" id="joinDatabaseBtn">Попасть в базу</a></li>
-        <li><a href="#" id="aboutServiceBtn">О сервисе</a></li>
-    </ul>
-</nav>
+                <nav>
+                    <ul class="main-nav">
+                        <li><a href="index.html">Кандидаты</a></li>
+                        <li><a href="catalog.html">Найти кандидата</a></li>
+                        <li><a href="projects.html">Биржа проектов</a></li>
+                        <li><a href="#" id="joinDatabaseBtn">Попасть в базу</a></li>
+                        <li><a href="#" id="aboutServiceBtn">О сервисе</a></li>
+                    </ul>
+                </nav>
             </div>
             <div class="search-auth">
                 <div class="search-box">
@@ -213,425 +213,31 @@
         </div>
     </div>
 
-     <div class="modal-overlay" id="aboutModal">
-    <div class="modal-window" style="max-width: 600px;">
-        <button class="modal-close" id="closeAboutModal">&times;</button>
-        
-        <div class="modal-header">
-            <span class="modal-logo-text">ЛИЦА</span>
-            <span class="modal-logo-dot"></span>
-            <span class="modal-logo-text">Кандидаты</span>
+    <div class="modal-overlay" id="aboutModal">
+        <div class="modal-window" style="max-width: 600px;">
+            <button class="modal-close" id="closeAboutModal">&times;</button>
+            <div class="modal-header">
+                <span class="modal-logo-text">ЛИЦА</span>
+                <span class="modal-logo-dot"></span>
+                <span class="modal-logo-text">Кандидаты</span>
+            </div>
+            <h2 class="modal-title" style="margin-bottom: 24px;">О сервисе</h2>
+            <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
+                <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
+                <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
+                <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
+                <ul style="margin-left: 20px; margin-bottom: 16px;">
+                    <li>Все кандидаты проходят проверку компетенций</li>
+                    <li>Вы получаете доступ к базе по подписке</li>
+                    <li>Самостоятельно связываетесь с подходящими специалистами</li>
+                </ul>
+                <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br><em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
+            </div>
+            <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
         </div>
-        
-        <h2 class="modal-title" style="margin-bottom: 24px;">О сервисе</h2>
-        
-        <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
-            <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
-            <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
-            
-            <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
-            <ul style="margin-left: 20px; margin-bottom: 16px;">
-                <li>Все кандидаты проходят проверку компетенций</li>
-                <li>Вы получаете доступ к базе по подписке</li>
-                <li>Самостоятельно связываетесь с подходящими специалистами</li>
-            </ul>
-            
-            <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br>
-            <em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
-        </div>
-        
-        <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
     </div>
-</div>
 
-    <script>
-    function toggleNav() {
-        const hidden = document.querySelectorAll('.nav-hidden');
-        const more = document.querySelector('.more-li');
-        const hide = document.querySelector('.hide-li');
-        const arrow = document.querySelector('.more-btn .arrow');
-        const isVisible = document.querySelector('.nav-hidden.show');
-        if (!isVisible) {
-            hidden.forEach(i => i.classList.add('show'));
-            more.style.display = 'none';
-            hide.style.display = 'flex';
-        } else {
-            hidden.forEach(i => i.classList.remove('show'));
-            more.style.display = 'flex';
-            hide.style.display = 'none';
-            if (arrow) arrow.style.transform = 'rotate(0deg)';
-        }
-    }
-
-    const openModalBtn = document.getElementById('openModalBtn');
-    const modal = document.getElementById('loginModal');
-    const closeBtn = document.getElementById('closeModalBtn');
-    const loginForm = document.getElementById('loginForm');
-
-    function showUserProfile(user) {
-        if (openModalBtn) openModalBtn.style.display = 'none';
-        const userProfileWrapper = document.getElementById('userProfileWrapper');
-        const userName = document.getElementById('userName');
-        const userAvatar = document.getElementById('userAvatar');
-        const userDropdown = document.getElementById('userDropdown');
-        const logoutBtn = document.getElementById('logoutBtn');
-        
-        if (userProfileWrapper && userName && userAvatar) {
-            userProfileWrapper.style.display = 'flex';
-            const firstName = user.name.split(' ')[0];
-            userName.textContent = firstName;
-            userAvatar.textContent = firstName.charAt(0).toUpperCase();
-        }
-        
-        const userProfile = document.getElementById('userProfile');
-        if (userProfile && userDropdown) {
-            userProfile.onclick = (e) => {
-                e.stopPropagation();
-                userDropdown.classList.toggle('show');
-            };
-        }
-        
-        document.addEventListener('click', (e) => {
-            if (userDropdown && !e.target.closest('.user-profile-wrapper')) {
-                userDropdown.classList.remove('show');
-            }
-        });
-        
-        if (logoutBtn) {
-            logoutBtn.onclick = (e) => {
-                e.preventDefault();
-                if (confirm('Выйти из аккаунта?')) {
-                    localStorage.removeItem('currentUser');
-                    hideUserProfile();
-                    if (userDropdown) userDropdown.classList.remove('show');
-                }
-            };
-        }
-    }
-
-    function hideUserProfile() {
-        const userProfileWrapper = document.getElementById('userProfileWrapper');
-        if (userProfileWrapper) userProfileWrapper.style.display = 'none';
-        if (openModalBtn) {
-            openModalBtn.style.display = 'block';
-            openModalBtn.textContent = 'Войти';
-            openModalBtn.style.backgroundColor = '';
-        }
-    }
-
-    openModalBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-
-    closeBtn?.addEventListener('click', () => {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-
-    modal?.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
-
-    if (loginForm) {
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('authEmail').value.trim();
-            const password = document.getElementById('authPassword').value.trim();
-            
-            let errorEl = document.querySelector('.auth-error');
-            if (!errorEl) {
-                errorEl = document.createElement('span');
-                errorEl.className = 'auth-error';
-                errorEl.style.cssText = 'color: #d32f2f; font-size: 13px; text-align: center; display: block; margin-top: 8px;';
-                loginForm.appendChild(errorEl);
-            }
-
-            try {
-                const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
-                const users = await res.json();
-                
-                if (users.length > 0 && users[0].password === password) {
-                    const user = users[0];
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    
-                    modal.classList.remove('active');
-                    document.body.style.overflow = '';
-                    loginForm.reset();
-                    errorEl.style.display = 'none';
-                    
-                    showUserProfile(user);
-                } else {
-                    errorEl.textContent = 'Неверный email или пароль';
-                    errorEl.style.display = 'block';
-                }
-            } catch (err) {
-                console.error('Ошибка входа:', err);
-                errorEl.textContent = 'Ошибка сервера';
-                errorEl.style.display = 'block';
-            }
-        });
-    }
-
-    let allCandidates = []; 
-    let currentCategory = null;
-
-    async function loadAllCandidates(category = null) {
-        try {
-            const res = await fetch('http://localhost:3000/candidates');
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            let candidates = await res.json();
-            
-            if (category) {
-                candidates = candidates.filter(c => c.category === category);
-                
-                const categoryNames = {
-                    'marketing': 'Маркетологи',
-                    'development': 'Backend-разработчики',
-                    'design': 'Дизайнеры',
-                    'sales': 'Менеджеры по продажам',
-                    'analytics': 'Аналитики',
-                    'content': 'Контент-менеджеры',
-                    'management': 'Топ-менеджмент',
-                    'hr': 'HR-специалисты',
-                    'finance': 'Финансисты',
-                    'legal': 'Юристы',
-                    'support': 'Техподдержка'
-                };
-                const pageTitle = document.querySelector('.catalog-main h1') || document.querySelector('.content-header h1');
-                if (pageTitle) {
-                    pageTitle.textContent = categoryNames[category] || 'Кандидаты';
-                }
-            }
-            
-            console.log(' Загружено кандидатов:', candidates.length);
-            allCandidates = candidates;
-            renderCandidates(candidates); 
-        } catch (err) {
-            console.error('Ошибка загрузки:', err);
-            document.getElementById('candidatesGrid').innerHTML = '<p>Не удалось загрузить кандидатов</p>';
-        }
-    }
-
-    function applyFilters() {
-    const salaryMin = document.getElementById('salaryMin')?.value;
-    const salaryMax = document.getElementById('salaryMax')?.value;
-    const expChecks = Array.from(document.querySelectorAll('input[name="exp"]:checked')).map(i => i.value);
-    const formatChecks = Array.from(document.querySelectorAll('input[name="format"]:checked')).map(i => i.value);
-    
-    console.log(' Фильтры:', { salaryMin, salaryMax, expChecks, formatChecks });
-    
-    let filtered = [...allCandidates];
-    
-    if (salaryMin) {
-        filtered = filtered.filter(c => (c.salary || 0) >= Number(salaryMin));
-    }
-    if (salaryMax) {
-        filtered = filtered.filter(c => (c.salary || 0) <= Number(salaryMax));
-    }
-    
-    if (formatChecks.length > 0) {
-        filtered = filtered.filter(c => {
-            const candidateTags = c.tags || [];
-            // Проверяем, есть ли ХОТЯ БЫ ОДИН совпадающий тег
-            const hasMatch = formatChecks.some(format => candidateTags.includes(format));
-            console.log(`Кандидат ${c.name}: теги=[${candidateTags}], фильтры=[${formatChecks}], результат=${hasMatch}`);
-            return hasMatch;
-        });
-    }
-    
-    if (expChecks.length > 0) {
-        filtered = filtered.filter(c => {
-            const exp = c.experience || '';
-            const match = exp.match(/(\d+)/);
-            const years = match ? parseInt(match[1]) : 0;
-            
-            return expChecks.some(e => {
-                if (e === '1-3') return years >= 1 && years <= 3;
-                if (e === '3-5') return years >= 3 && years <= 5;
-                if (e === '5+') return years >= 5;
-                return false;
-            });
-        });
-    }
-    
-    console.log(` Найдено: ${filtered.length} из ${allCandidates.length}`);
-    renderCandidates(filtered);
-}
-
-    function clearFilters() {
-        document.getElementById('salaryMin').value = '';
-        document.getElementById('salaryMax').value = '';
-        document.querySelectorAll('input[name="exp"]').forEach(i => i.checked = false);
-        document.querySelectorAll('input[name="format"]').forEach(i => i.checked = false);
-        
-        const url = new URL(window.location);
-        url.searchParams.delete('category');
-        window.history.replaceState({}, '', url);
-        
-        loadAllCandidates();
-    }
-
-    function renderCandidates(candidates) {
-        const grid = document.getElementById('candidatesGrid');
-        if (!grid) return;
-        
-        if (candidates.length === 0) {
-            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">Кандидаты не найдены</p>';
-            return;
-        }
-        
-        function getGradient(avatarName) {
-            const gradients = {
-                'gradient-purple': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                'gradient-blue': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                'gradient-green': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-                'gradient-orange': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-                'gradient-red': 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
-            };
-            return gradients[avatarName] || gradients['gradient-purple'];
-        }
-        
-        grid.innerHTML = candidates.map(c => {
-            const avatarHTML = c.avatar?.startsWith('gradient-') 
-                ? `<div class="avatar-gradient" style="width: 104px; height: 104px; border-radius: 50%; background: ${getGradient(c.avatar)}; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 36px; font-weight: 700;">${c.name.charAt(0).toUpperCase()}</div>`
-                : `<img src="${c.avatar || 'img/default-avatar.png'}" alt="${c.name}" style="width: 104px; height: 104px; border-radius: 50%; object-fit: cover;">`;
-            
-            return `
-            <div class="candidate-card">
-                <div class="candidate-badges">
-                    ${c.tags?.map(t => {
-                        const tagNames = {
-                            'fulltime': 'Полная занятость',
-                            'parttime': 'Частичная занятость',
-                            'remote': 'Удалённо'
-                        };
-                        return `<span class="badge badge-${t}">${tagNames[t] || t}</span>`;
-                    }).join('') || ''}
-                </div>
-                <div class="candidate-avatar">${avatarHTML}</div>
-                <h3 class="candidate-name">${c.name}</h3>
-                <p class="candidate-position">${c.position}</p>
-                <div class="candidate-info">
-                    <p class="info-item">Опыт: ${c.experience}</p>
-                    <p class="info-item">Зарплата: от ${c.salary?.toLocaleString() || '0'} ₽</p>
-                </div>
-                <a href="profile.html?id=${c.id}" class="btn-candidate" style="text-decoration: none;">Посмотреть справку</a>
-            </div>`;
-        }).join('');
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const saved = localStorage.getItem('currentUser');
-        if (saved) {
-            try { showUserProfile(JSON.parse(saved)); } catch(e) {}
-        }
-        
-        const params = new URLSearchParams(window.location.search);
-        currentCategory = params.get('category');
-        loadAllCandidates(currentCategory);
-        
-        document.querySelector('.apply-filters')?.addEventListener('click', applyFilters);
-        document.querySelector('.clear-filters')?.addEventListener('click', clearFilters);
-        
-        document.getElementById('logoutBtn')?.addEventListener('click', () => { 
-            if (confirm('Выйти?')) { 
-                localStorage.removeItem('currentUser'); 
-                window.location.href = 'index.html'; 
-            } 
-        });
-        
-        document.querySelectorAll('.secondary-nav a[href*="category"]').forEach(link => {
-            link.addEventListener('click', () => {
-                clearFilters();
-            });
-        });
-    });
-
-    const searchInput = document.getElementById('liveSearchInput');
-    const resultsDropdown = document.getElementById('searchResults');
-    let allCandidatesCache = [];
-    let isCacheReady = false;
-
-    fetch('http://localhost:3000/candidates')
-        .then(res => res.json())
-        .then(data => { allCandidatesCache = data; isCacheReady = true; })
-        .catch(err => console.error('Ошибка:', err));
-
-    if (searchInput && resultsDropdown) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.trim().toLowerCase();
-            if (!isCacheReady || query.length < 3) { resultsDropdown.style.display = 'none'; return; }
-
-            const filtered = allCandidatesCache.filter(c => {
-                const tags = (c.tags || []).join(' ').toLowerCase();
-                return tags.includes(query) || (c.test_exp || '').toLowerCase().includes(query) || (c.api_exp || '').toLowerCase().includes(query);
-            });
-
-            resultsDropdown.innerHTML = filtered.length === 0 
-                ? '<div style="padding:16px;text-align:center;color:#999">Не найдено</div>'
-                : filtered.slice(0, 5).map(c => `
-                    <a href="profile.html?id=${c.id}" class="search-result-item">
-                        <div class="search-result-avatar">${c.name.charAt(0)}</div>
-                        <div class="search-result-info">
-                            <h4>${c.position || 'Специалист'}</h4>
-                            <p>${c.name}</p>
-                        </div>
-                    </a>`).join('');
-            resultsDropdown.style.display = 'block';
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!searchInput.contains(e.target) && !resultsDropdown.contains(e.target)) {
-                resultsDropdown.style.display = 'none';
-            }
-        });
-    }
-
-    const joinDatabaseBtn = document.getElementById('joinDatabaseBtn');
-const aboutServiceBtn = document.getElementById('aboutServiceBtn');
-const aboutModal = document.getElementById('aboutModal');
-const closeAboutModal = document.getElementById('closeAboutModal');
-const closeAboutBtn = document.getElementById('closeAboutBtn');
-
-if (joinDatabaseBtn) {
-    joinDatabaseBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        
-        if (!currentUser) {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        } else if (currentUser.candidateId === null || currentUser.candidateId === undefined) {
-            window.location.href = 'create-profile.html';
-        } else {
-            window.location.href = `profile.html?id=${currentUser.candidateId}`;
-        }
-    });
-}
-
-if (aboutServiceBtn && aboutModal) {
-    aboutServiceBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        aboutModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-    
-    const closeAbout = () => {
-        aboutModal.classList.remove('active');
-        document.body.style.overflow = '';
-    };
-    
-    closeAboutModal?.addEventListener('click', closeAbout);
-    closeAboutBtn?.addEventListener('click', closeAbout);
-    aboutModal?.addEventListener('click', (e) => {
-        if (e.target === aboutModal) closeAbout();
-    });
-}
-    </script>
+    <script src="js/common.js" defer></script>
+    <script src="js/catalog.js" defer></script>
 </body>
 </html>
