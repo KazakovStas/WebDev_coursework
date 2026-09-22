@@ -221,10 +221,18 @@
         </div>
     </footer>
 
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal-window">
-            <button class="modal-close" id="closeModalBtn">&times;</button>
-            <div class="modal-header"><span class="modal-logo-text">ЛИЦА</span><span class="modal-logo-dot"></span><span class="modal-logo-text" data-i18n="modal-cand-word">Кандидаты</span></div>
+    <!-- Модальное окно ВХОДА/РЕГИСТРАЦИИ -->
+<div class="modal-overlay" id="loginModal">
+    <div class="modal-window">
+        <button class="modal-close" id="closeModalBtn">&times;</button>
+        <div class="modal-header">
+            <span class="modal-logo-text">ЛИЦА</span>
+            <span class="modal-logo-dot"></span>
+            <span class="modal-logo-text" data-i18n="modal-cand-word">Кандидаты</span>
+        </div>
+        
+        <!-- Вкладка ВХОД -->
+        <div id="loginView">
             <h2 class="modal-title" data-i18n="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
             <form class="modal-form" id="loginForm">
                 <input type="email" id="authEmail" class="modal-input" placeholder="Email" data-i18n-ph="modal-email-ph" required>
@@ -236,8 +244,24 @@
                 </div>
             </form>
         </div>
+        
+        <!-- Вкладка РЕГИСТРАЦИЯ (скрыта по умолчанию) -->
+        <div id="registerView" style="display: none;">
+            <h2 class="modal-title" data-i18n="modal-reg-title">Создать аккаунт</h2>
+            <form class="modal-form" id="registerForm">
+                <input type="text" id="regName" class="modal-input" placeholder="Ваше имя" data-i18n-ph="modal-name-ph" required>
+                <input type="email" id="regEmail" class="modal-input" placeholder="Email" data-i18n-ph="modal-email-ph" required>
+                <input type="password" id="regPassword" class="modal-input" placeholder="Пароль (мин. 4 символа)" data-i18n-ph="modal-pass-ph" required>
+                <div class="modal-actions">
+                    <button type="button" class="btn-modal-reg" id="backToLoginBtn" data-i18n="modal-back-btn">Назад</button>
+                    <button type="submit" class="btn-modal-login" data-i18n="modal-reg-btn">Зарегистрироваться</button>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
 
+    <!-- Модальное окно О СЕРВИСЕ -->
     <div class="modal-overlay" id="aboutModal">
         <div class="modal-window" style="max-width: 600px;">
             <button class="modal-close" id="closeAboutModal">&times;</button>
