@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const res = await fetch(`http://localhost:3000/users/${session.id}`);
-            if (!res.ok) throw new Error('Ошибка загрузки пользователя');
+            if (!res.ok) throw new Error('User load error');
             const freshUser = await res.json();
 
             localStorage.setItem('currentUser', JSON.stringify(freshUser));
@@ -25,35 +25,35 @@ document.addEventListener('DOMContentLoaded', () => {
             if (statusEl && toggleBtn) {
                 const isSubscribed = freshUser.subscribed === true;
                 if (isSubscribed) {
-                    statusEl.textContent = 'Подписан';
+                    statusEl.textContent = t('dash-subscribed');
                     statusEl.className = 'subscribed';
-                    toggleBtn.textContent = '🔕 Отписаться от рассылки';
+                    toggleBtn.textContent = t('dash-sub-off');
                     toggleBtn.onclick = () => toggleSubscription(false);
                 } else {
-                    statusEl.textContent = 'Не подписан';
+                    statusEl.textContent = t('dash-not-subscribed');
                     statusEl.className = 'not-subscribed';
-                    toggleBtn.textContent = ' Подписаться на рассылку';
+                    toggleBtn.textContent = t('dash-sub-on');
                     toggleBtn.onclick = () => toggleSubscription(true);
                 }
                 toggleBtn.style.display = 'block';
             }
 
             const jobsRes = await fetch('http://localhost:3000/jobs');
-            if (!jobsRes.ok) throw new Error('Ошибка загрузки проектов');
+            if (!jobsRes.ok) throw new Error('Jobs load error');
             allJobs = await jobsRes.json();
 
             const userId = freshUser.candidateId;
-            const userJobs = userId !== null && userId !== undefined 
+            const userJobs = userId !== null && userId !== undefined
                 ? allJobs.filter(job => job.creatorId == userId || job.applicantId == userId)
-                : []; 
+                : [];
 
             renderProjects(userJobs, 'all');
             updateStats(userJobs, freshUser.candidateId);
             initCandidateManagement();
 
         } catch (err) {
-            console.error('Ошибка инициализации дашборда:', err);
-            alert('Не удалось загрузить данные. Проверьте, запущен ли сервер.');
+            console.error('Dashboard init error:', err);
+            alert(t('dash-load-error'));
         }
     }
 
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadDashboard();
         } catch (err) {
             console.error(err);
-            alert('Ошибка при обновлении статуса подписки');
+            alert(t('dash-sub-error'));
         }
     }
 
@@ -79,41 +79,41 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!list || !empty) return;
 
         const filtered = filter === 'all' ? jobs : jobs.filter(j => j.status === filter);
-        
+
         if (filtered.length === 0) {
             list.style.display = 'none';
             empty.style.display = 'block';
             return;
         }
-        
+
         list.style.display = 'grid';
         empty.style.display = 'none';
-        
+
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        
+
         list.innerHTML = filtered.map(job => {
             const isCreator = job.creatorId == currentUser?.candidateId;
-            const statusMap = {'open':'Открыт', 'in-progress':'В работе', 'completed':'Завершён'};
-            const statusClass = {'open':'status-open', 'in-progress':'status-progress', 'completed':'status-completed'};
-            
+            const statusMap = { 'open': t('status-open'), 'in-progress': t('status-inprogress'), 'completed': t('status-completed') };
+            const statusClass = { 'open': 'status-open', 'in-progress': 'status-progress', 'completed': 'status-completed' };
+
             return `
                 <div class="project-card">
                     <div class="project-header">
                         <span class="project-status ${statusClass[job.status]}">${statusMap[job.status] || job.status}</span>
-                        <span class="project-date">${new Date(job.createdAt).toLocaleDateString('ru-RU')}</span>
+                        <span class="project-date">${job.createdAt ? new Date(job.createdAt).toLocaleDateString('ru-RU') : '—'}</span>
                     </div>
                     <h3 class="project-title">${job.title}</h3>
                     <p class="project-desc">${job.description}</p>
                     <div class="project-meta">
-                        <span>Бюджет: <strong>${job.budget.toLocaleString()} ₽</strong></span>
-                        <span>Срок: ${new Date(job.deadline).toLocaleDateString('ru-RU')}</span>
+                        <span>${t('dash-budget')} <strong>${job.budget.toLocaleString()} ₽</strong></span>
+                        <span>${t('prj-deadline')} ${new Date(job.deadline).toLocaleDateString('ru-RU')}</span>
                     </div>
                     <div class="project-actions">
                         ${isCreator ? `
-                            <button class="btn-sm btn-outline" onclick="viewApplications('${job.id}')">Отклики</button>
-                            <button class="btn-sm" onclick="openEditModal('${job.id}')">Изменить</button>
-                        ` : `<button class="btn-sm">Связаться</button>`}
-                        <a href="project-details.html?id=${job.id}" class="btn-sm btn-outline">Детали</a>
+                            <button class="btn-sm btn-outline" onclick="viewApplications('${job.id}')">${t('proj-actions-apps')}</button>
+                            <button class="btn-sm" onclick="openEditModal('${job.id}')">${t('proj-actions-edit')}</button>
+                        ` : `<button class="btn-sm">${t('proj-actions-contact')}</button>`}
+                        <a href="project-details.html?id=${job.id}" class="btn-sm btn-outline">${t('proj-actions-details')}</a>
                     </div>
                 </div>
             `;
@@ -126,11 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const earned = jobs
             .filter(j => j.status === 'completed' && j.applicantId == candidateId)
             .reduce((sum, j) => sum + j.budget, 0);
-        
+
         const elActive = document.getElementById('statActive');
         const elCompleted = document.getElementById('statCompleted');
         const elEarned = document.getElementById('statEarned');
-        
+
         if (elActive) elActive.textContent = active;
         if (elCompleted) elCompleted.textContent = completed;
         if (elEarned) elEarned.textContent = `${earned.toLocaleString()} ₽`;
@@ -141,9 +141,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const managementCard = document.getElementById('candidateManagementCard');
         const deleteBtn = document.getElementById('deleteCandidateBtn');
         const viewBtn = document.getElementById('viewProfileBtn');
-        
+
         if (!currentUser || !managementCard) return;
-        
+
         if (currentUser.candidateId) {
             managementCard.style.display = 'block';
             if (viewBtn) viewBtn.href = `profile.html?id=${currentUser.candidateId}`;
@@ -167,34 +167,34 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }
 
-        closeDeleteBtn?.addEventListener('click', closeDeleteModal);
-        cancelDeleteBtn?.addEventListener('click', closeDeleteModal);
-        deleteModal?.addEventListener('click', (e) => {
-            if (e.target === deleteModal) closeDeleteModal();
-        });
+        // onclick вместо addEventListener — иначе при перерисовке (langchange)
+        // обработчики накапливались бы и удаление срабатывало несколько раз
+        if (closeDeleteBtn) closeDeleteBtn.onclick = closeDeleteModal;
+        if (cancelDeleteBtn) cancelDeleteBtn.onclick = closeDeleteModal;
+        if (deleteModal) deleteModal.onclick = (e) => { if (e.target === deleteModal) closeDeleteModal(); };
 
-        confirmDeleteBtn?.addEventListener('click', async () => {
+        if (confirmDeleteBtn) confirmDeleteBtn.onclick = async () => {
             try {
                 confirmDeleteBtn.disabled = true;
-                confirmDeleteBtn.textContent = 'Удаление...';
-                
+                confirmDeleteBtn.textContent = t('dash-del-progress');
+
                 await fetch(`http://localhost:3000/candidates/${currentUser.candidateId}`, { method: 'DELETE' });
                 await fetch(`http://localhost:3000/users/${currentUser.id}`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ candidateId: null })
                 });
-                
+
                 localStorage.setItem('currentUser', JSON.stringify({ ...currentUser, candidateId: null }));
                 closeDeleteModal();
                 loadDashboard();
             } catch (err) {
-                console.error('Ошибка удаления:', err);
+                console.error('Delete error:', err);
             } finally {
                 confirmDeleteBtn.disabled = false;
-                confirmDeleteBtn.textContent = 'Удалить профиль';
+                confirmDeleteBtn.textContent = t('del-confirm');
             }
-        });
+        };
     }
 
     function initCreateProject() {
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         createProjectForm?.addEventListener('submit', async (e) => {
             e.preventDefault();
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            if (!currentUser) { alert('Сначала войдите в аккаунт'); return; }
+            if (!currentUser) { alert(t('auth-required')); return; }
 
             const projectData = {
                 title: document.getElementById('projectTitle').value.trim(),
@@ -251,10 +251,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 await res.json();
                 closeCreateModal();
                 await loadDashboard();
-                alert(`Проект "${projectData.title}" успешно создан!`);
+                alert(`${t('prj-created')} «${projectData.title}»`);
             } catch (err) {
-                console.error('Ошибка создания проекта:', err);
-                alert('Не удалось создать проект. Проверьте подключение к серверу.');
+                console.error('Project create error:', err);
+                alert(t('prj-create-error'));
             }
         });
     }
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.openEditModal = async (projectId) => {
             try {
                 const res = await fetch(`http://localhost:3000/jobs/${projectId}`);
-                if (!res.ok) throw new Error('Проект не найден');
+                if (!res.ok) throw new Error('Project not found');
                 const project = await res.json();
                 document.getElementById('editProjectId').value = project.id;
                 document.getElementById('editProjectTitle').value = project.title;
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.style.overflow = 'hidden';
             } catch (err) {
                 console.error(err);
-                alert('Не удалось загрузить данные проекта');
+                alert(t('prj-load-error'));
             }
         };
 
@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const btn = editForm.querySelector('button[type="submit"]');
             btn.disabled = true;
-            btn.textContent = 'Сохранение...';
+            btn.textContent = t('dash-save-progress');
 
             const projectId = document.getElementById('editProjectId').value;
             const updatedData = {
@@ -317,15 +317,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(updatedData)
                 });
-                if (!res.ok) throw new Error('Ошибка сервера');
+                if (!res.ok) throw new Error('Server error');
                 closeEditModal();
                 loadDashboard();
             } catch (err) {
                 console.error(err);
-                alert('Не удалось сохранить изменения');
+                alert(t('prj-save-error'));
             } finally {
                 btn.disabled = false;
-                btn.textContent = '💾 Сохранить';
+                btn.textContent = t('edit-save');
             }
         });
     }
@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const list = document.getElementById('applicationsList');
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
-        list.innerHTML = '<p>Загрузка...</p>';
+        list.innerHTML = `<p>${t('pd-loading')}</p>`;
 
         try {
             const res = await fetch('http://localhost:3000/applications');
@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const apps = allApps.filter(app => String(app.jobId) === String(jobId));
 
             if (apps.length === 0) {
-                list.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">Пока нет откликов</p>';
+                list.innerHTML = `<p style="text-align:center; color:#999; padding:20px;">${t('apps-none')}</p>`;
                 return;
             }
 
@@ -351,26 +351,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="app-card" style="border:1px solid #eee; padding:16px; margin-bottom:12px; border-radius:12px; background:#fff;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
                         <div>
-                            <strong style="font-size:15px;">${app.applicantName || 'Кандидат'}</strong>
-                            <span style="font-size:12px; padding:3px 8px; border-radius:12px; background:${app.status==='pending'?'#FFF4CC':'#E8F5E9'}; margin-left:8px;">
-                                ${app.status === 'pending' ? 'Ожидает' : 'Принят'}
+                            <strong style="font-size:15px;">${app.applicantName || '—'}</strong>
+                            <span style="font-size:12px; padding:3px 8px; border-radius:12px; background:${app.status === 'pending' ? '#FFF4CC' : '#E8F5E9'}; margin-left:8px;">
+                                ${app.status === 'pending' ? t('apps-pending') : t('apps-accepted')}
                             </span>
                         </div>
                         <small style="color:#999;">${new Date(app.createdAt).toLocaleDateString('ru-RU')}</small>
                     </div>
                     ${app.message ? `<p style="margin:0 0 12px; font-size:14px; color:#555; background:#f9f9f9; padding:10px; border-radius:8px;">${app.message}</p>` : ''}
                     <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                        <a href="profile.html?id=${app.candidateId}" class="btn-sm btn-outline" target="_blank" style="text-decoration:none;">👁 Профиль кандидата</a>
+                        <a href="profile.html?id=${app.candidateId}" class="btn-sm btn-outline" target="_blank" style="text-decoration:none;">${t('apps-view')}</a>
                         ${app.status === 'pending' ? `
-                            <button class="btn-sm" style="background:#4CAF50; color:#fff; border:none; cursor:pointer;" onclick="window.acceptApplicant('${app.id}', '${jobId}', '${app.candidateId}', this)">Принять</button>
-                            <button class="btn-sm" style="background:#f44336; color:#fff; border:none; cursor:pointer;" onclick="window.rejectApplicant('${app.id}', this)">Отказать</button>
-                        ` : '<span style="color:#4CAF50; font-weight:600; padding:8px;">✓ Проект назначен</span>'}
+                            <button class="btn-sm" style="background:#4CAF50; color:#fff; border:none; cursor:pointer;" onclick="window.acceptApplicant('${app.id}', '${jobId}', '${app.candidateId}', this)">${t('apps-accept')}</button>
+                            <button class="btn-sm" style="background:#f44336; color:#fff; border:none; cursor:pointer;" onclick="window.rejectApplicant('${app.id}', this)">${t('apps-reject')}</button>
+                        ` : `<span style="color:#4CAF50; font-weight:600; padding:8px;">${t('apps-assigned')}</span>`}
                     </div>
                 </div>
             `).join('');
         } catch (err) {
-            console.error('Ошибка:', err);
-            list.innerHTML = '<p style="color:#f44336; text-align:center;">Ошибка загрузки откликов</p>';
+            console.error('Applications load error:', err);
+            list.innerHTML = `<p style="color:#f44336; text-align:center;">${t('apps-load-error')}</p>`;
         }
     };
 
@@ -378,12 +378,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             await fetch(`http://localhost:3000/jobs/${jobId}`, {
                 method: 'PATCH',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: 'in-progress', applicantId: candidateId })
             });
             await fetch(`http://localhost:3000/applications/${appId}`, {
                 method: 'PATCH',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: 'accepted' })
             });
             const res = await fetch('http://localhost:3000/applications');
@@ -392,12 +392,12 @@ document.addEventListener('DOMContentLoaded', () => {
             for (const otherApp of otherApps) {
                 await fetch(`http://localhost:3000/applications/${otherApp.id}`, { method: 'DELETE' });
             }
-            alert('Кандидат принят! Проект перешёл в статус "В работе".');
+            alert(t('app-accepted-ok'));
             window.viewApplications(jobId);
             loadDashboard();
         } catch (err) {
-            console.error('Ошибка принятия:', err);
-            alert('Не удалось принять кандидата');
+            console.error('Accept error:', err);
+            alert(t('app-accept-error'));
         }
     };
 
@@ -408,12 +408,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const btn = document.querySelector(`[onclick*="rejectApplicant('${appId}'"]`);
             if (btn) btn.closest('.app-card')?.remove();
             if (list.children.length === 0) {
-                list.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">Пока нет откликов</p>';
+                list.innerHTML = `<p style="text-align:center; color:#999; padding:20px;">${t('apps-none')}</p>`;
             }
-            alert('✖ Отклик удалён');
+            alert(t('app-rejected-ok'));
         } catch (err) {
-            console.error('Ошибка отказа:', err);
-            alert('Не удалось удалить отклик');
+            console.error('Reject error:', err);
+            alert(t('app-reject-error'));
         }
     };
 
@@ -424,10 +424,13 @@ document.addEventListener('DOMContentLoaded', () => {
         appsModalOverlay.onclick = (e) => { if (e.target === appsModalOverlay) { appsModalOverlay.classList.remove('active'); document.body.style.overflow = ''; } };
     }
 
+    // ГЛАВНОЕ: перерисовка дашборда при смене языка
+    window.addEventListener('langchange', loadDashboard);
+
     loadDashboard();
     initCreateProject();
     initEditProject();
-    
+
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));

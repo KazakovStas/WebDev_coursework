@@ -2518,3 +2518,221 @@ body {
         margin-bottom: 20px;
     }
 }
+
+/* ==========================================================================
+   ЛАБА 10: СВЕТЛАЯ / ТЁМНАЯ ТЕМА
+   ========================================================================== */
+
+/* Тёмная тема — переопределение переменных */
+[data-theme="dark"] {
+    --bg-body: #1a1a1a;
+    --bg-header: #2a2a2a;
+    --text-main: #ffffff;
+    --text-secondary: #cccccc;
+    --text-muted: #999999;
+    --accent: #F4D03F;
+    --accent-hover: #E5C036;
+    --border: #3a3a3a;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Тёмная тема — перебивка элементов с жёстко зашитым белым */
+[data-theme="dark"] body { background-color: var(--bg-body); color: var(--text-main); }
+[data-theme="dark"] .header,
+[data-theme="dark"] .header-bottom,
+[data-theme="dark"] .footer,
+[data-theme="dark"] .direction-card,
+[data-theme="dark"] .candidate-card,
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .project-card-lg,
+[data-theme="dark"] .benefits-left,
+[data-theme="dark"] .subscribe-form-wrapper,
+[data-theme="dark"] .profile-header-card,
+[data-theme="dark"] .info-block,
+[data-theme="dark"] .sidebar-card,
+[data-theme="dark"] .sidebar-stats,
+[data-theme="dark"] .profile-card,
+[data-theme="dark"] .stats-card,
+[data-theme="dark"] .quick-actions,
+[data-theme="dark"] .action-card,
+[data-theme="dark"] .client-card,
+[data-theme="dark"] .filters-sidebar,
+[data-theme="dark"] .projects-sidebar,
+[data-theme="dark"] .edit-profile-card,
+[data-theme="dark"] .subscription-status-card,
+[data-theme="dark"] .candidate-management-card,
+[data-theme="dark"] .search-results-dropdown,
+[data-theme="dark"] .user-dropdown,
+[data-theme="dark"] .mobile-menu,
+[data-theme="dark"] .modal-window {
+    background: #2a2a2a;
+    color: var(--text-main);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .modal-input,
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .apply-textarea,
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea,
+[data-theme="dark"] .form-group select,
+[data-theme="dark"] .filter-range input,
+[data-theme="dark"] .search-input {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #3a3a3a;
+}
+
+[data-theme="dark"] .hero-section { background-color: #2a2a2a; }
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .section-title-left,
+[data-theme="dark"] .subscribe-title,
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3 { color: var(--text-main); }
+
+[data-theme="dark"] .subscription-card { background-color: var(--accent); color: #000; }
+
+[data-theme="dark"] .user-profile { background-color: #2a2a2a; }
+[data-theme="dark"] .user-profile:hover { background-color: #3a3a3a; }
+
+[data-theme="dark"] .btn-secondary,
+[data-theme="dark"] .btn-sidebar,
+[data-theme="dark"] .btn-sidebar-small,
+[data-theme="dark"] .btn-action {
+    background: #1a1a1a;
+    border-color: #3a3a3a;
+    color: #fff;
+}
+
+[data-theme="dark"] .btn-modal-reg {
+    background: #1a1a1a;
+    border-color: #3a3a3a;
+    color: #fff;
+}
+
+[data-theme="dark"] .badge-fulltime { background: #3a2a5c; color: #c9a8ff; }
+[data-theme="dark"] .badge-parttime { background: #5c4a1a; color: #ffeb99; }
+[data-theme="dark"] .badge-remote { background: #1a3a5c; color: #99d6ff; }
+
+[data-theme="dark"] .tag { background: #3a3a3a; color: #fff; }
+[data-theme="dark"] .project-category { background: #3a3a3a; color: #ccc; }
+[data-theme="dark"] .skill-chip,
+[data-theme="dark"] .skill-tag { background: #3a3a3a; color: #fff; border-color: #3a3a3a; }
+
+[data-theme="dark"] .logo-icon { background-color: var(--accent); }
+[data-theme="dark"] .logo-icon::before { background-color: #000; }
+
+[data-theme="dark"] ::placeholder { color: #777 !important; }
+
+/* ==========================================================================
+   ПАНЕЛЬ НАСТРОЕК: ЯЗЫК И ТЕМА (ЛАБА 10)
+   ========================================================================== */
+
+.settings-bar {
+    display: flex;
+    gap: 6px;
+    margin-left: 12px;
+    align-items: center;
+}
+
+.settings-bar button {
+    padding: 6px 12px;
+    border-radius: 16px;
+    border: 1px solid var(--border, #333);
+    background: transparent;
+    color: var(--text-main, #fff);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.settings-bar button:hover {
+    background: var(--accent, #ff0000);
+    color: #000;
+    border-color: var(--accent, #ff0000);
+}
+
+.settings-bar .lang-btn.active {
+    background: var(--accent, #ff0000);
+    color: #000;
+    border-color: var(--accent, #ff0000);
+    font-weight: 600;
+}
+
+/* Тёмная тема — панель настроек адаптируется */
+[data-theme="dark"] .settings-bar button {
+    border-color: #555;
+    color: #fff;
+}
+
+[data-theme="dark"] .settings-bar button:hover,
+[data-theme="dark"] .settings-bar .lang-btn.active {
+    background: var(--accent);
+    color: #000;
+}
+
+/* ==========================================================================
+   ТЁМНАЯ ТЕМА: КНОПКИ, КОТОРЫЕ БЫЛИ ЗАШИТЫ СВЕТЛЫМИ
+   ========================================================================== */
+[data-theme="dark"] .btn-sm.btn-outline,
+[data-theme="dark"] .btn-edit-profile {
+    background: #1a1a1a;
+    color: #ffffff;
+    border-color: #3a3a3a;
+}
+
+[data-theme="dark"] .btn-sm.btn-outline:hover,
+[data-theme="dark"] .btn-edit-profile:hover {
+    background: #2a2a2a;
+    border-color: #555;
+}
+
+/* Панель вкладок (Все / В работе / ...) */
+[data-theme="dark"] .tabs { background: #2a2a2a; }
+[data-theme="dark"] .tab-btn { color: #999999; }
+[data-theme="dark"] .tab-btn.active,
+[data-theme="dark"] .tab-btn:hover { background: var(--accent); color: #000; }
+
+/* Карточки откликов в модалке */
+[data-theme="dark"] .app-card { background: #1a1a1a !important; border-color: #3a3a3a !important; }
+
+/* ==========================================================================
+   ТЁМНАЯ ТЕМА: СЕКЦИИ С ЖЁСТКО ЗАШИТЫМ СВЕТЛЫМ ФОНОМ И ТЕКСТЫ ВНУТРИ КАРТОЧЕК
+   ========================================================================== */
+
+/* Секции, где фон был прописан константой #f5f5f5 */
+[data-theme="dark"] .directions-section,
+[data-theme="dark"] .benefits-section {
+    background-color: var(--bg-body);
+}
+
+/* Тексты внутри карточек направлений (у них свои зашитые цвета) */
+[data-theme="dark"] .card-title {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .card-badge {
+    color: #cccccc;
+    border-color: #555555;
+}
+
+/* Описания преимуществ на тёмной плашке */
+[data-theme="dark"] .benefit-desc {
+    color: #cccccc;
+}
+
+/* Мелкий текст под формой подписки */
+[data-theme="dark"] .form-agreement,
+[data-theme="dark"] .agreement-link {
+    color: #aaaaaa;
+}
+
+/* Блок успешной подписки */
+[data-theme="dark"] .success-message {
+    background-color: #1e3a1e;
+    border-color: #4CAF50;
+}
+[data-theme="dark"] .success-message h3 { color: #81C784; }
+[data-theme="dark"] .success-message p  { color: #cccccc; }

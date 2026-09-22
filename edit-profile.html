@@ -4,79 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛИЦА - Редактирование профиля</title>
+    <!-- Тема применяется ДО отрисовки CSS: нет вспышки светлой темы -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');</script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+    <script src="js/i18n.js"></script>
 </head>
 <body>
-   <header class="header">
+    <header class="header">
     <div class="header-top">
         <div class="logo-nav">
             <a href="index.html" class="logo"><span>ЛИЦА</span><div class="logo-icon"></div></a>
-            
+
             <nav class="main-nav desktop-nav">
                 <ul>
-                    <li><a href="catalog.html">Найти кандидата</a></li>
-                    <li><a href="projects.html">Биржа проектов</a></li>
-                    <li><a href="#" id="joinDatabaseBtn">Попасть в базу</a></li>
-                    <li><a href="#" id="aboutServiceBtn">О сервисе</a></li>
+                    <li><a href="catalog.html" data-i18n="nav-find">Найти кандидата</a></li>
+                    <li><a href="projects.html" data-i18n="nav-projects">Биржа проектов</a></li>
+                    <li><a href="#" id="joinDatabaseBtn" data-i18n="nav-join">Попасть в базу</a></li>
+                    <li><a href="#" id="aboutServiceBtn" data-i18n="nav-about">О сервисе</a></li>
                 </ul>
             </nav>
-            
+
             <button class="burger-btn" id="burgerBtn" aria-label="Меню">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
-        
+
         <div class="search-auth">
             <div class="search-box">
                 <img src="img/Search.png" alt="Поиск" class="search-icon">
-                <input type="text" class="search-input" id="liveSearchInput" placeholder="Поиск по навыкам...">
+                <input type="text" class="search-input" id="liveSearchInput"
+                       placeholder="Поиск по навыкам..." data-i18n-ph="search-ph">
                 <div id="searchResults" class="search-results-dropdown" style="display: none;"></div>
             </div>
-            
-            <button class="login-btn" id="openModalBtn">Войти</button>
-            
+
+            <div class="settings-bar">
+                <button class="lang-btn" data-lang="ru" onclick="toggleLang('ru')">RU</button>
+                <button class="lang-btn" data-lang="en" onclick="toggleLang('en')">EN</button>
+                <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+            </div>
+
+            <button class="login-btn" id="openModalBtn" data-i18n="nav-login">Войти</button>
+
             <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
                 <div class="user-profile" id="userProfile">
                     <span class="user-name" id="userName">Имя</span>
                     <div class="user-avatar" id="userAvatar">И</div>
                 </div>
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="dashboard.html" class="dropdown-item">Мой профиль</a>
-                    <button class="dropdown-item logout-btn" id="logoutBtn">Выйти</button>
+                    <a href="dashboard.html" class="dropdown-item" data-i18n="dropdown-profile">Мой профиль</a>
+                    <button class="dropdown-item logout-btn" id="logoutBtn" data-i18n="dropdown-logout">Выйти</button>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="mobile-menu" id="mobileMenu">
         <nav class="mobile-nav">
             <ul>
-                <li><a href="catalog.html">Найти кандидата</a></li>
-                <li><a href="projects.html">Биржа проектов</a></li>
-                <li><a href="#" id="mobileJoinBtn">Попасть в базу</a></li>
-                <li><a href="#" id="mobileAboutBtn">О сервисе</a></li>
+                <li><a href="catalog.html" data-i18n="nav-find">Найти кандидата</a></li>
+                <li><a href="projects.html" data-i18n="nav-projects">Биржа проектов</a></li>
+                <li><a href="#" id="mobileJoinBtn" data-i18n="nav-join">Попасть в базу</a></li>
+                <li><a href="#" id="mobileAboutBtn" data-i18n="nav-about">О сервисе</a></li>
             </ul>
         </nav>
     </div>
-    
+
     <div class="header-bottom">
         <ul class="secondary-nav">
-            <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
-            <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
-            <li><a href="catalog.html?category=design">Дизайнеры</a></li>
-            <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=analytics">Аналитики</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=content">Контент-менеджеры</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=management">Топ-менеджмент</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=hr">HR-специалисты</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=finance">Финансисты</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=legal">Юристы</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=support">Техподдержка</a></li>
+            <li><a href="catalog.html?category=marketing" data-i18n="cat-marketing">Маркетологи</a></li>
+            <li><a href="catalog.html?category=development" data-i18n="cat-development">Backend-разработчики</a></li>
+            <li><a href="catalog.html?category=design" data-i18n="cat-design">Дизайнеры</a></li>
+            <li><a href="catalog.html?category=sales" data-i18n="cat-sales">Менеджеры по продажам</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=analytics" data-i18n="cat-analytics">Аналитики</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=content" data-i18n="cat-content">Контент-менеджеры</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=management" data-i18n="cat-management">Топ-менеджмент</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=hr" data-i18n="cat-hr">HR-специалисты</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=finance" data-i18n="cat-finance">Финансисты</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=legal" data-i18n="cat-legal">Юристы</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=support" data-i18n="cat-support">Техподдержка</a></li>
             <li class="more-li">
                 <button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()">
-                    <span>Ещё</span>
+                    <span data-i18n="nav-more">Ещё</span>
                     <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 9l6 6 6-6"/>
                     </svg>
@@ -84,7 +95,7 @@
             </li>
             <li class="hide-li" style="display: none;">
                 <button class="hide-btn" type="button" onclick="toggleNav()">
-                    <span>Скрыть</span>
+                    <span data-i18n="nav-hide">Скрыть</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M18 15l-6-6-6 6"/>
                     </svg>
@@ -98,61 +109,62 @@
         <div class="container edit-profile-container">
             <div class="edit-profile-card">
                 <div class="edit-header">
-                    <h1>Редактирование профиля</h1>
-                    <p class="edit-subtitle">Обновите информацию и контакты</p>
+                    <h1 data-i18n="edit-title">Редактирование профиля</h1>
+                    <p class="edit-subtitle" data-i18n="edit-subtitle">Обновите информацию и контакты</p>
                 </div>
                 <form id="editProfileForm" class="edit-form">
                     <div class="form-group">
-                        <label for="editPosition">Должность *</label>
+                        <label for="editPosition" data-i18n="edit-position">Должность *</label>
+                        <!-- ВАЖНО: на input НЕТ data-i18n — значение пишет edit-profile.js -->
                         <input type="text" id="editPosition" required>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="editExperience">Опыт *</label>
+                            <label for="editExperience" data-i18n="edit-exp">Опыт *</label>
                             <input type="text" id="editExperience" required>
                         </div>
                         <div class="form-group">
-                            <label for="editSalary">Зарплата *</label>
+                            <label for="editSalary" data-i18n="edit-salary">Зарплата *</label>
                             <input type="number" id="editSalary" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="editAge">Возраст</label>
+                            <label for="editAge" data-i18n="edit-age">Возраст</label>
                             <input type="text" id="editAge">
                         </div>
                         <div class="form-group">
-                            <label for="editLocation">Город</label>
+                            <label for="editLocation" data-i18n="edit-city">Город</label>
                             <input type="text" id="editLocation">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="editTelegram">Telegram (без @)</label>
+                            <label for="editTelegram" data-i18n="edit-telegram">Telegram (без @)</label>
                             <input type="text" id="editTelegram" placeholder="username">
                         </div>
                         <div class="form-group">
-                            <label for="editPortfolio">Ссылка на портфолио</label>
+                            <label for="editPortfolio" data-i18n="edit-portfolio">Ссылка на портфолио</label>
                             <input type="url" id="editPortfolio" placeholder="https://...">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="editReason">Причина поиска работы</label>
+                        <label for="editReason" data-i18n="edit-reason">Причина поиска работы</label>
                         <textarea id="editReason" rows="3"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="editGeneralInfo">Общая информация</label>
+                        <label for="editGeneralInfo" data-i18n="edit-general">Общая информация</label>
                         <textarea id="editGeneralInfo" rows="3"></textarea>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn-primary" id="saveEditBtn">💾 Сохранить</button>
-                        <a href="profile.html" class="btn-secondary">↩ Отмена</a>
+                        <button type="submit" class="btn-primary" id="saveEditBtn" data-i18n="edit-save-btn">💾 Сохранить</button>
+                        <a href="profile.html" class="btn-secondary" data-i18n="del-cancel">↩ Отмена</a>
                     </div>
                 </form>
                 <div id="editSuccess" class="success-box" style="display: none;">
                     <div class="success-icon">✅</div>
-                    <h3>Профиль обновлён!</h3>
-                    <a href="profile.html" class="btn-primary">Вернуться к профилю</a>
+                    <h3 data-i18n="edit-ok-title">Профиль обновлён!</h3>
+                    <a href="profile.html" class="btn-primary" data-i18n="edit-ok-btn">Вернуться к профилю</a>
                 </div>
             </div>
         </div>
@@ -161,11 +173,39 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-column"><h3>ЛИЦА.КАНДИДАТЫ</h3><ul class="footer-list"><li><a href="#">Найти кандидата</a></li><li><a href="#">Попасть в базу</a></li><li><a href="#">О сервисе</a></li></ul></div>
-                <div class="footer-column"><h3>ЛИЦА.РАБОТА</h3><ul class="footer-list"><li><a href="#">Рекрутинг</a></li><li><a href="#">Конструктор подбора</a></li><li><a href="#">Аналитика подбора</a></li></ul></div>
-                <div class="footer-column"><h3>О ПОРТАЛЕ</h3><ul class="footer-list"><li><a href="#">Поддержка</a></li><li><a href="#">Обновления</a></li><li><a href="#">Контакты</a></li></ul></div>
+                <div class="footer-column">
+                    <h3 class="footer-heading" data-i18n="f-cand">ЛИЦА.КАНДИДАТЫ</h3>
+                    <ul class="footer-list">
+                        <li><a href="#" data-i18n="nav-find">Найти кандидата</a></li>
+                        <li><a href="#" data-i18n="nav-join">Попасть в базу</a></li>
+                        <li><a href="#" data-i18n="nav-about">О сервисе</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-heading" data-i18n="f-work">ЛИЦА.РАБОТА</h3>
+                    <ul class="footer-list">
+                        <li><a href="#" data-i18n="f-recruit">Рекрутинг</a></li>
+                        <li><a href="#" data-i18n="f-constructor">Конструктор подбора</a></li>
+                        <li><a href="#" data-i18n="f-analytics">Аналитика подбора</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-heading" data-i18n="f-portal">О ПОРТАЛЕ</h3>
+                    <ul class="footer-list">
+                        <li><a href="#" data-i18n="f-support">Поддержка</a></li>
+                        <li><a href="#" data-i18n="f-updates">Обновления</a></li>
+                        <li><a href="#" data-i18n="f-contacts">Контакты</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-bottom"><span>ООО «ЛИЦА»</span><div class="footer-legal"><a href="#">Реквизиты</a><span class="divider">|</span><a href="#">Правовая информация</a></div></div>
+            <div class="footer-bottom">
+                <span class="footer-copyright" data-i18n="f-copy">ООО «ЛИЦА»</span>
+                <div class="footer-legal">
+                    <a href="#" data-i18n="f-requisites">Реквизиты</a>
+                    <span class="divider">|</span>
+                    <a href="#" data-i18n="f-legal">Правовая информация</a>
+                </div>
+            </div>
         </div>
     </footer>
 

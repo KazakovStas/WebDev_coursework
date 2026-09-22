@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛИЦА - Каталог кандидатов</title>
+    <!-- Тема применяется ДО отрисовки CSS: нет вспышки светлой темы -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');</script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+    <script src="js/i18n.js"></script>
 </head>
 <body>
-   <header class="header">
+    <header class="header">
     <div class="header-top">
         <div class="logo-nav">
             <a href="index.html" class="logo"><span>ЛИЦА</span><div class="logo-icon"></div></a>
             
             <nav class="main-nav desktop-nav">
                 <ul>
-                    <li><a href="catalog.html">Найти кандидата</a></li>
-                    <li><a href="projects.html">Биржа проектов</a></li>
-                    <li><a href="#" id="joinDatabaseBtn">Попасть в базу</a></li>
-                    <li><a href="#" id="aboutServiceBtn">О сервисе</a></li>
+                    <li><a href="catalog.html" data-i18n="nav-find">Найти кандидата</a></li>
+                    <li><a href="projects.html" data-i18n="nav-projects">Биржа проектов</a></li>
+                    <li><a href="#" id="joinDatabaseBtn" data-i18n="nav-join">Попасть в базу</a></li>
+                    <li><a href="#" id="aboutServiceBtn" data-i18n="nav-about">О сервисе</a></li>
                 </ul>
             </nav>
             
@@ -31,11 +35,17 @@
         <div class="search-auth">
             <div class="search-box">
                 <img src="img/Search.png" alt="Поиск" class="search-icon">
-                <input type="text" class="search-input" id="liveSearchInput" placeholder="Поиск по навыкам...">
+                <input type="text" class="search-input" id="liveSearchInput" placeholder="Поиск по навыкам..." data-i18n-ph="search-ph">
                 <div id="searchResults" class="search-results-dropdown" style="display: none;"></div>
             </div>
             
-            <button class="login-btn" id="openModalBtn">Войти</button>
+            <div class="settings-bar">
+                <button class="lang-btn" data-lang="ru" onclick="toggleLang('ru')">RU</button>
+                <button class="lang-btn active" data-lang="en" onclick="toggleLang('en')">EN</button>
+                <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+            </div>
+
+            <button class="login-btn" id="openModalBtn" data-i18n="nav-login">Войти</button>
             
             <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
                 <div class="user-profile" id="userProfile">
@@ -43,8 +53,8 @@
                     <div class="user-avatar" id="userAvatar">И</div>
                 </div>
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="dashboard.html" class="dropdown-item">Мой профиль</a>
-                    <button class="dropdown-item logout-btn" id="logoutBtn">Выйти</button>
+                    <a href="dashboard.html" class="dropdown-item" data-i18n="dropdown-profile">Мой профиль</a>
+                    <button class="dropdown-item logout-btn" id="logoutBtn" data-i18n="dropdown-logout">Выйти</button>
                 </div>
             </div>
         </div>
@@ -53,30 +63,30 @@
     <div class="mobile-menu" id="mobileMenu">
         <nav class="mobile-nav">
             <ul>
-                <li><a href="catalog.html">Найти кандидата</a></li>
-                <li><a href="projects.html">Биржа проектов</a></li>
-                <li><a href="#" id="mobileJoinBtn">Попасть в базу</a></li>
-                <li><a href="#" id="mobileAboutBtn">О сервисе</a></li>
+                <li><a href="catalog.html" data-i18n="nav-find">Найти кандидата</a></li>
+                <li><a href="projects.html" data-i18n="nav-projects">Биржа проектов</a></li>
+                <li><a href="#" id="mobileJoinBtn" data-i18n="nav-join">Попасть в базу</a></li>
+                <li><a href="#" id="mobileAboutBtn" data-i18n="nav-about">О сервисе</a></li>
             </ul>
         </nav>
     </div>
     
     <div class="header-bottom">
         <ul class="secondary-nav">
-            <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
-            <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
-            <li><a href="catalog.html?category=design">Дизайнеры</a></li>
-            <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=analytics">Аналитики</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=content">Контент-менеджеры</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=management">Топ-менеджмент</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=hr">HR-специалисты</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=finance">Финансисты</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=legal">Юристы</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=support">Техподдержка</a></li>
+            <li><a href="catalog.html?category=marketing" data-i18n="cat-marketing">Маркетологи</a></li>
+            <li><a href="catalog.html?category=development" data-i18n="cat-development">Backend-разработчики</a></li>
+            <li><a href="catalog.html?category=design" data-i18n="cat-design">Дизайнеры</a></li>
+            <li><a href="catalog.html?category=sales" data-i18n="cat-sales">Менеджеры по продажам</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=analytics" data-i18n="cat-analytics">Аналитики</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=content" data-i18n="cat-content">Контент-менеджеры</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=management" data-i18n="cat-management">Топ-менеджмент</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=hr" data-i18n="cat-hr">HR-специалисты</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=finance" data-i18n="cat-finance">Финансисты</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=legal" data-i18n="cat-legal">Юристы</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=support" data-i18n="cat-support">Техподдержка</a></li>
             <li class="more-li">
                 <button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()">
-                    <span>Ещё</span>
+                    <span data-i18n="nav-more">Ещё</span>
                     <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 9l6 6 6-6"/>
                     </svg>
@@ -84,7 +94,7 @@
             </li>
             <li class="hide-li" style="display: none;">
                 <button class="hide-btn" type="button" onclick="toggleNav()">
-                    <span>Скрыть</span>
+                    <span data-i18n="nav-hide">Скрыть</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M18 15l-6-6-6 6"/>
                     </svg>
@@ -99,51 +109,51 @@
             
             <aside class="filters-sidebar">
                 <div class="filters-header">
-                    <h2>Фильтры</h2>
-                    <button class="clear-filters">Очистить</button>
+                    <h2 data-i18n="filters-title">Фильтры</h2>
+                    <button class="clear-filters" data-i18n="filters-clear">Очистить</button>
                 </div>
                 
                 <div class="filter-group">
-                    <h3>Зарплата, ₽</h3>
+                    <h3 data-i18n="filter-salary">Зарплата, ₽</h3>
                     <div class="filter-range">
-                        <input type="number" id="salaryMin" placeholder="от">
-                        <input type="number" id="salaryMax" placeholder="до">
+                        <input type="number" id="salaryMin" placeholder="от" data-i18n-ph="filter-from-ph">
+                        <input type="number" id="salaryMax" placeholder="до" data-i18n-ph="filter-to-ph">
                     </div>
                 </div>
                 
                 <div class="filter-group">
-                    <h3>Опыт</h3>
+                    <h3 data-i18n="filter-exp">Опыт</h3>
                     <label class="checkbox-label">
                         <input type="checkbox" name="exp" value="1-3">
-                        <span>1-3 года</span>
+                        <span data-i18n="exp-1-3">1-3 года</span>
                     </label>
                     <label class="checkbox-label">
                         <input type="checkbox" name="exp" value="3-5">
-                        <span>3-5 лет</span>
+                        <span data-i18n="exp-3-5">3-5 лет</span>
                     </label>
                     <label class="checkbox-label">
                         <input type="checkbox" name="exp" value="5+">
-                        <span>5+ лет</span>
+                        <span data-i18n="exp-5">5+ лет</span>
                     </label>
                 </div>
                 
                 <div class="filter-group">
-                    <h3>Формат</h3>
+                    <h3 data-i18n="filter-format">Формат</h3>
                     <label class="checkbox-label">
                         <input type="checkbox" name="format" value="fulltime">
-                        <span>Полная занятость</span>
+                        <span data-i18n="format-fulltime">Полная занятость</span>
                     </label>
                     <label class="checkbox-label">
                         <input type="checkbox" name="format" value="parttime">
-                        <span>Частичная занятость</span>
+                        <span data-i18n="format-parttime">Частичная занятость</span>
                     </label>
                     <label class="checkbox-label">
                         <input type="checkbox" name="format" value="remote">
-                        <span>Удалённо</span>
+                        <span data-i18n="format-remote">Удалённо</span>
                     </label>
                 </div>
                 
-                <button class="apply-filters btn-primary">Применить</button>
+                <button class="apply-filters btn-primary" data-i18n="filters-apply">Применить</button>
             </aside>
 
             <div class="candidates-grid" id="candidatesGrid"></div>
@@ -155,7 +165,7 @@
             <button class="page-btn">3</button>
             <span class="pagination-dots">...</span>
             <button class="page-btn">10</button>
-            <button class="show-more">Показать ещё</button>
+            <button class="show-more" data-i18n="pagination-more">Показать ещё</button>
         </div>
     </main>
 
@@ -163,36 +173,36 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column">
-                    <h3 class="footer-heading">ЛИЦА.КАНДИДАТЫ</h3>
+                    <h3 class="footer-heading" data-i18n="f-cand">ЛИЦА.КАНДИДАТЫ</h3>
                     <ul class="footer-list">
-                        <li><a href="#">Найти кандидата</a></li>
-                        <li><a href="#">Попасть в базу</a></li>
-                        <li><a href="#">О сервисе</a></li>
+                        <li><a href="#" data-i18n="nav-find">Найти кандидата</a></li>
+                        <li><a href="#" data-i18n="nav-join">Попасть в базу</a></li>
+                        <li><a href="#" data-i18n="nav-about">О сервисе</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3 class="footer-heading">ЛИЦА.РАБОТА</h3>
+                    <h3 class="footer-heading" data-i18n="f-work">ЛИЦА.РАБОТА</h3>
                     <ul class="footer-list">
-                        <li><a href="#">Рекрутинг</a></li>
-                        <li><a href="#">Конструктор подбора</a></li>
-                        <li><a href="#">Аналитика подбора</a></li>
+                        <li><a href="#" data-i18n="f-recruit">Рекрутинг</a></li>
+                        <li><a href="#" data-i18n="f-constructor">Конструктор подбора</a></li>
+                        <li><a href="#" data-i18n="f-analytics">Аналитика подбора</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3 class="footer-heading">О ПОРТАЛЕ</h3>
+                    <h3 class="footer-heading" data-i18n="f-portal">О ПОРТАЛЕ</h3>
                     <ul class="footer-list">
-                        <li><a href="#">Поддержка</a></li>
-                        <li><a href="#">Обновления</a></li>
-                        <li><a href="#">Контакты</a></li>
+                        <li><a href="#" data-i18n="f-support">Поддержка</a></li>
+                        <li><a href="#" data-i18n="f-updates">Обновления</a></li>
+                        <li><a href="#" data-i18n="f-contacts">Контакты</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <span class="footer-copyright">ООО «ЛИЦА»</span>
+                <span class="footer-copyright" data-i18n="f-copy">ООО «ЛИЦА»</span>
                 <div class="footer-legal">
-                    <a href="#">Реквизиты</a>
+                    <a href="#" data-i18n="f-requisites">Реквизиты</a>
                     <span class="divider">|</span>
-                    <a href="#">Правовая информация</a>
+                    <a href="#" data-i18n="f-legal">Правовая информация</a>
                 </div>
             </div>
         </div>
@@ -204,16 +214,16 @@
             <div class="modal-header">
                 <span class="modal-logo-text">ЛИЦА</span>
                 <span class="modal-logo-dot"></span>
-                <span class="modal-logo-text">Кандидаты</span>
+                <span class="modal-logo-text" data-i18n="modal-cand-word">Кандидаты</span>
             </div>
-            <h2 class="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
+            <h2 class="modal-title" data-i18n="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
             <form class="modal-form" id="loginForm">
-                <input type="email" id="authEmail" class="modal-input" placeholder="Email" required>
-                <input type="password" id="authPassword" class="modal-input" placeholder="Пароль" required>
-                <a href="#" class="forgot-pass">Забыли пароль?</a>
+                <input type="email" id="authEmail" class="modal-input" placeholder="Email" data-i18n-ph="modal-email-ph" required>
+                <input type="password" id="authPassword" class="modal-input" placeholder="Пароль" data-i18n-ph="modal-pass-ph" required>
+                <a href="#" class="forgot-pass" data-i18n="modal-forgot">Забыли пароль?</a>
                 <div class="modal-actions">
-                    <button type="submit" class="btn-modal-login">Войти</button>
-                    <button type="button" class="btn-modal-reg">Зарегистрироваться</button>
+                    <button type="submit" class="btn-modal-login" data-i18n="modal-login-btn">Войти</button>
+                    <button type="button" class="btn-modal-reg" data-i18n="modal-reg-btn">Зарегистрироваться</button>
                 </div>
             </form>
         </div>
@@ -225,21 +235,21 @@
             <div class="modal-header">
                 <span class="modal-logo-text">ЛИЦА</span>
                 <span class="modal-logo-dot"></span>
-                <span class="modal-logo-text">Кандидаты</span>
+                <span class="modal-logo-text" data-i18n="modal-cand-word">Кандидаты</span>
             </div>
-            <h2 class="modal-title" style="margin-bottom: 24px;">О сервисе</h2>
+            <h2 class="modal-title" style="margin-bottom: 24px;" data-i18n="about-title">О сервисе</h2>
             <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
-                <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
-                <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
-                <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
+                <p style="margin-bottom: 16px;" data-i18n="about-p1"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
+                <p style="margin-bottom: 16px;" data-i18n="about-p2">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
+                <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);" data-i18n="about-how">Как это работает:</h3>
                 <ul style="margin-left: 20px; margin-bottom: 16px;">
-                    <li>Все кандидаты проходят проверку компетенций</li>
-                    <li>Вы получаете доступ к базе по подписке</li>
-                    <li>Самостоятельно связываетесь с подходящими специалистами</li>
+                    <li data-i18n="about-li1">Все кандидаты проходят проверку компетенций</li>
+                    <li data-i18n="about-li2">Вы получаете доступ к базе по подписке</li>
+                    <li data-i18n="about-li3">Самостоятельно связываетесь с подходящими специалистами</li>
                 </ul>
-                <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br><em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
+                <p style="margin-bottom: 16px;" data-i18n="about-price"><strong>Стоимость:</strong> 4900 ₽ в месяц<br><em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
             </div>
-            <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
+            <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;" data-i18n="about-ok">Понятно</button>
         </div>
     </div>
 

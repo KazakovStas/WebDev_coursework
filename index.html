@@ -5,78 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛИЦА - Главная</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+    <script src="js/i18n.js"></script>
 </head>
 <body>
     <header class="header">
     <div class="header-top">
         <div class="logo-nav">
             <a href="index.html" class="logo"><span>ЛИЦА</span><div class="logo-icon"></div></a>
-            
+
             <nav class="main-nav desktop-nav">
                 <ul>
-                    <li><a href="catalog.html">Найти кандидата</a></li>
-                    <li><a href="projects.html">Биржа проектов</a></li>
-                    <li><a href="#" id="joinDatabaseBtn">Попасть в базу</a></li>
-                    <li><a href="#" id="aboutServiceBtn">О сервисе</a></li>
+                    <li><a href="catalog.html" data-i18n="nav-find">Найти кандидата</a></li>
+                    <li><a href="projects.html" data-i18n="nav-projects">Биржа проектов</a></li>
+                    <li><a href="#" id="joinDatabaseBtn" data-i18n="nav-join">Попасть в базу</a></li>
+                    <li><a href="#" id="aboutServiceBtn" data-i18n="nav-about">О сервисе</a></li>
                 </ul>
             </nav>
-            
+
             <button class="burger-btn" id="burgerBtn" aria-label="Меню">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
-        
+
         <div class="search-auth">
             <div class="search-box">
                 <img src="img/Search.png" alt="Поиск" class="search-icon">
-                <input type="text" class="search-input" id="liveSearchInput" placeholder="Поиск по навыкам...">
+                <input type="text" class="search-input" id="liveSearchInput"
+                       placeholder="Поиск по навыкам..." data-i18n-ph="search-ph">
                 <div id="searchResults" class="search-results-dropdown" style="display: none;"></div>
             </div>
-            
-            <button class="login-btn" id="openModalBtn">Войти</button>
-            
+
+            <div class="settings-bar">
+                <button class="lang-btn" data-lang="ru" onclick="toggleLang('ru')">RU</button>
+                <button class="lang-btn" data-lang="en" onclick="toggleLang('en')">EN</button>
+                <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+            </div>
+
+            <button class="login-btn" id="openModalBtn" data-i18n="nav-login">Войти</button>
+
             <div class="user-profile-wrapper" id="userProfileWrapper" style="display: none;">
                 <div class="user-profile" id="userProfile">
                     <span class="user-name" id="userName">Имя</span>
                     <div class="user-avatar" id="userAvatar">И</div>
                 </div>
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="dashboard.html" class="dropdown-item">Мой профиль</a>
-                    <button class="dropdown-item logout-btn" id="logoutBtn">Выйти</button>
+                    <a href="dashboard.html" class="dropdown-item" data-i18n="dropdown-profile">Мой профиль</a>
+                    <button class="dropdown-item logout-btn" id="logoutBtn" data-i18n="dropdown-logout">Выйти</button>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="mobile-menu" id="mobileMenu">
         <nav class="mobile-nav">
             <ul>
-                <li><a href="catalog.html">Найти кандидата</a></li>
-                <li><a href="projects.html">Биржа проектов</a></li>
-                <li><a href="#" id="mobileJoinBtn">Попасть в базу</a></li>
-                <li><a href="#" id="mobileAboutBtn">О сервисе</a></li>
+                <li><a href="catalog.html" data-i18n="nav-find">Найти кандидата</a></li>
+                <li><a href="projects.html" data-i18n="nav-projects">Биржа проектов</a></li>
+                <li><a href="#" id="mobileJoinBtn" data-i18n="nav-join">Попасть в базу</a></li>
+                <li><a href="#" id="mobileAboutBtn" data-i18n="nav-about">О сервисе</a></li>
             </ul>
         </nav>
     </div>
-    
+
     <div class="header-bottom">
         <ul class="secondary-nav">
-            <li><a href="catalog.html?category=marketing">Маркетологи</a></li>
-            <li><a href="catalog.html?category=development">Backend-разработчики</a></li>
-            <li><a href="catalog.html?category=design">Дизайнеры</a></li>
-            <li><a href="catalog.html?category=sales">Менеджеры по продажам</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=analytics">Аналитики</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=content">Контент-менеджеры</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=management">Топ-менеджмент</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=hr">HR-специалисты</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=finance">Финансисты</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=legal">Юристы</a></li>
-            <li class="nav-hidden"><a href="catalog.html?category=support">Техподдержка</a></li>
+            <li><a href="catalog.html?category=marketing" data-i18n="cat-marketing">Маркетологи</a></li>
+            <li><a href="catalog.html?category=development" data-i18n="cat-development">Backend-разработчики</a></li>
+            <li><a href="catalog.html?category=design" data-i18n="cat-design">Дизайнеры</a></li>
+            <li><a href="catalog.html?category=sales" data-i18n="cat-sales">Менеджеры по продажам</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=analytics" data-i18n="cat-analytics">Аналитики</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=content" data-i18n="cat-content">Контент-менеджеры</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=management" data-i18n="cat-management">Топ-менеджмент</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=hr" data-i18n="cat-hr">HR-специалисты</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=finance" data-i18n="cat-finance">Финансисты</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=legal" data-i18n="cat-legal">Юристы</a></li>
+            <li class="nav-hidden"><a href="catalog.html?category=support" data-i18n="cat-support">Техподдержка</a></li>
             <li class="more-li">
                 <button class="more-btn" id="moreBtn" type="button" onclick="toggleNav()">
-                    <span>Ещё</span>
+                    <span data-i18n="nav-more">Ещё</span>
                     <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 9l6 6 6-6"/>
                     </svg>
@@ -84,7 +93,7 @@
             </li>
             <li class="hide-li" style="display: none;">
                 <button class="hide-btn" type="button" onclick="toggleNav()">
-                    <span>Скрыть</span>
+                    <span data-i18n="nav-hide">Скрыть</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M18 15l-6-6-6 6"/>
                     </svg>
@@ -98,11 +107,11 @@
         <section class="hero-section">
             <div class="container hero-container">
                 <div class="hero-content">
-                    <h1 class="hero-title">Нанимайте проверенных <span class="highlight">кандидатов</span></h1>
-                    <p class="hero-description">Мы уже со всеми провели собеседования и подтверждаем их профессионализм</p>
+                    <h1 class="hero-title" data-i18n="hero-title">Нанимайте проверенных <span class="highlight">кандидатов</span></h1>
+                    <p class="hero-description" data-i18n="hero-desc">Мы уже со всеми провели собеседования и подтверждаем их профессионализм</p>
                     <div class="hero-buttons">
-                        <a href="catalog.html" class="btn btn-primary">Выбрать кандидата</a>
-                        <a href="#" class="btn btn-secondary join-database-btn">Попасть в базу</a>
+                        <a href="catalog.html" class="btn btn-primary" data-i18n="hero-btn1">Выбрать кандидата</a>
+                        <a href="#" class="btn btn-secondary join-database-btn" data-i18n="hero-btn2">Попасть в базу</a>
                     </div>
                 </div>
                 <div class="hero-image"><img src="img/Scene 1.png" alt="Собеседование кандидатов по видеосвязи"></div>
@@ -111,16 +120,16 @@
 
         <section class="directions-section">
             <div class="container directions-container">
-                <h2 class="section-title">Выберите направление работы</h2>
+                <h2 class="section-title" data-i18n="dir-title">Выберите направление работы</h2>
                 <div class="directions-grid">
-                    <div class="direction-card"><div class="card-icon"><img src="img/dir.png" alt="Маркетинг"></div><span class="card-title">Маркетинг</span><span class="card-badge">40+</span></div>
-                    <div class="direction-card"><div class="card-icon"><img src="img/dev.png" alt="Разработка"></div><span class="card-title">Разработка</span><span class="card-badge">80+</span></div>
-                    <div class="direction-card"><div class="card-icon"><img src="img/ana.png" alt="Аналитика"></div><span class="card-title">Аналитика</span></div>
-                    <div class="direction-card"><div class="card-icon"><img src="img/com.png" alt="Комьюнити"></div><span class="card-title">Комьюнити</span></div>
-                    <div class="direction-card"><div class="card-icon"><img src="img/dis.png" alt="Дизайн"></div><span class="card-title">Дизайн</span></div>
-                    <div class="direction-card"><div class="card-icon"><img src="img/sel.png" alt="Продажи"></div><span class="card-title">Продажи</span></div>
-                    <div class="direction-card"><div class="card-icon"><img src="img/cont.png" alt="Контент"></div><span class="card-title">Контент</span></div>
-                    <div class="direction-card"><div class="card-icon"><img src="img/top.png" alt="Топ-менеджмент"></div><span class="card-title">Топ-менеджмент</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/dir.png" alt="Маркетинг"></div><span class="card-title" data-i18n="dir-marketing">Маркетинг</span><span class="card-badge">40+</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/dev.png" alt="Разработка"></div><span class="card-title" data-i18n="dir-dev">Разработка</span><span class="card-badge">80+</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/ana.png" alt="Аналитика"></div><span class="card-title" data-i18n="dir-analytics">Аналитика</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/com.png" alt="Комьюнити"></div><span class="card-title" data-i18n="dir-community">Комьюнити</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/dis.png" alt="Дизайн"></div><span class="card-title" data-i18n="dir-design">Дизайн</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/sel.png" alt="Продажи"></div><span class="card-title" data-i18n="dir-sales">Продажи</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/cont.png" alt="Контент"></div><span class="card-title" data-i18n="dir-content">Контент</span></div>
+                    <div class="direction-card"><div class="card-icon"><img src="img/top.png" alt="Топ-менеджмент"></div><span class="card-title" data-i18n="dir-top">Топ-менеджмент</span></div>
                 </div>
             </div>
         </section>
@@ -128,17 +137,17 @@
         <section class="benefits-section">
             <div class="container benefits-container">
                 <div class="benefits-left">
-                    <h2 class="section-title-left">Почему работодатели выбирают ЛИЦА?</h2>
-                    <div class="benefit-item"><img src="img/yes.png" alt="Галочка" class="check-icon"><div class="benefit-text"><h3 class="benefit-title">Проверка компетенций</h3><p class="benefit-desc">Всех кандидатов с нашей стороны собеседуют не рекрутера, а эксперты в своих областях. По результаты мы составляем справку о кандидате, чтобы вы могли узнать его лучше.</p></div></div>
-                    <div class="benefit-item"><img src="img/yes.png" alt="Галочка" class="check-icon"><div class="benefit-text"><h3 class="benefit-title">Сотни кандидатов по подписке</h3><p class="benefit-desc">Вы сможете самостоятельно связываться с кандидатами – все они дали согласие на это.</p></div></div>
-                    <div class="benefit-item"><img src="img/yes.png" alt="Галочка" class="check-icon"><div class="benefit-text"><h3 class="benefit-title">Еженедельное обновление базы</h3><p class="benefit-desc">В рамках сервиса ЛИЦА.Работа мы проводим по несколько десятков собеседований еженедельно, и пополняем базу новыми справками по лучшим кандидатам.</p></div></div>
+                    <h2 class="section-title-left" data-i18n="benefits-title">Почему работодатели выбирают ЛИЦА?</h2>
+                    <div class="benefit-item"><img src="img/yes.png" alt="Галочка" class="check-icon"><div class="benefit-text"><h3 class="benefit-title" data-i18n="ben1-title">Проверка компетенций</h3><p class="benefit-desc" data-i18n="ben1-desc">Всех кандидатов с нашей стороны собеседуют не рекрутера, а эксперты в своих областях. По результаты мы составляем справку о кандидате, чтобы вы могли узнать его лучше.</p></div></div>
+                    <div class="benefit-item"><img src="img/yes.png" alt="Галочка" class="check-icon"><div class="benefit-text"><h3 class="benefit-title" data-i18n="ben2-title">Сотни кандидатов по подписке</h3><p class="benefit-desc" data-i18n="ben2-desc">Вы сможете самостоятельно связываться с кандидатами – все они дали согласие на это.</p></div></div>
+                    <div class="benefit-item"><img src="img/yes.png" alt="Галочка" class="check-icon"><div class="benefit-text"><h3 class="benefit-title" data-i18n="ben3-title">Еженедельное обновление базы</h3><p class="benefit-desc" data-i18n="ben3-desc">В рамках сервиса ЛИЦА.Работа мы проводим по несколько десятков собеседований еженедельно, и пополняем базу новыми справками по лучшим кандидатам.</p></div></div>
                 </div>
                 <div class="benefits-right">
                     <div class="subscription-card">
-                        <h3 class="sub-title">Кандидаты по подписке</h3>
-                        <div class="sub-price">4900 ₽ в месяц</div>
-                        <p class="sub-note">В 10-100 раз ниже стоимости любого подбора</p>
-                        <a href="#" class="btn btn-white">Выбрать кандидата</a>
+                        <h3 class="sub-title" data-i18n="subcard-title">Кандидаты по подписке</h3>
+                        <div class="sub-price" data-i18n="subcard-price">4900 ₽ в месяц</div>
+                        <p class="sub-note" data-i18n="subcard-note">В 10-100 раз ниже стоимости любого подбора</p>
+                        <a href="#" class="btn btn-white" data-i18n="hero-btn1">Выбрать кандидата</a>
                     </div>
                 </div>
             </div>
@@ -146,7 +155,7 @@
 
         <section class="candidates-section">
             <div class="container">
-                <h2 class="section-title">Как выглядит база кандидатов</h2>
+                <h2 class="section-title" data-i18n="cand-title">Как выглядит база кандидатов</h2>
                 <div class="candidates-grid" id="candidatesGrid"></div>
             </div>
         </section>
@@ -155,18 +164,18 @@
             <div class="container subscribe-container">
                 <div class="subscribe-image"><img src="img/Scene 2.png" alt="Подписка на обновления базы кандидатов"></div>
                 <div class="subscribe-form-wrapper">
-                    <h2 class="subscribe-title">Подписаться на обновления базы</h2>
-                    <p class="subscribe-description">Мы будет присылать вам информацию каждую неделю, по каким сферам у нас появились кандидаты.</p>
+                    <h2 class="subscribe-title" data-i18n="subscribe-title">Подписаться на обновления базы</h2>
+                    <p class="subscribe-description" data-i18n="subscribe-desc">Мы будет присылать вам информацию каждую неделю, по каким сферам у нас появились кандидаты.</p>
                     <form class="subscribe-form" id="subscribeForm">
-                        <input type="text" class="form-input" placeholder="Ваше имя" required>
-                        <input type="email" id="subscribeEmail" class="form-input" placeholder="Email" required>
-                        <input type="tel" class="form-input" placeholder="Номер телефона" required>
-                        <button type="submit" class="btn-subscribe" id="subscribeBtn">Подписаться</button>
-                        <p class="form-agreement">Отправка данной формы означает согласие с <a href="#" class="agreement-link">Пользовательским соглашением</a> и <a href="#" class="agreement-link">Политикой конфиденциальности</a></p>
+                        <input type="text" class="form-input" placeholder="Ваше имя" data-i18n-ph="sub-name-ph" required>
+                        <input type="email" id="subscribeEmail" class="form-input" placeholder="Email" data-i18n-ph="modal-email-ph" required>
+                        <input type="tel" class="form-input" placeholder="Номер телефона" data-i18n-ph="sub-phone-ph" required>
+                        <button type="submit" class="btn-subscribe" id="subscribeBtn" data-i18n="sub-btn">Подписаться</button>
+                        <p class="form-agreement" data-i18n="sub-agreement">Отправка данной формы означает согласие с <a href="#" class="agreement-link">Пользовательским соглашением</a> и <a href="#" class="agreement-link">Политикой конфиденциальности</a></p>
                     </form>
                     <div id="subscribeSuccess" class="success-message" style="display: none;">
-                        <h3>Вы успешно подписались!</h3>
-                        <p>Теперь вы будете получать обновления базы кандидатов каждую неделю.</p>
+                        <h3 data-i18n="sub-ok-title">Вы успешно подписались!</h3>
+                        <p data-i18n="sub-ok-desc">Теперь вы будете получать обновления базы кандидатов каждую неделю.</p>
                     </div>
                 </div>
             </div>
@@ -176,24 +185,55 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-column"><h3 class="footer-heading">ЛИЦА.КАНДИДАТЫ</h3><ul class="footer-list"><li><a href="#">Найти кандидата</a></li><li><a href="#">Попасть в базу</a></li><li><a href="#">О сервисе</a></li></ul></div>
-                <div class="footer-column"><h3 class="footer-heading">ЛИЦА.РАБОТА</h3><ul class="footer-list"><li><a href="#">Рекрутинг</a></li><li><a href="#">Конструктор подбора</a></li><li><a href="#">Аналитика подбора</a></li></ul></div>
-                <div class="footer-column"><h3 class="footer-heading">О ПОРТАЛЕ</h3><ul class="footer-list"><li><a href="#">Поддержка</a></li><li><a href="#">Обновления</a></li><li><a href="#">Контакты</a></li></ul></div>
+                <div class="footer-column">
+                    <h3 class="footer-heading" data-i18n="f-cand">ЛИЦА.КАНДИДАТЫ</h3>
+                    <ul class="footer-list">
+                        <li><a href="#" data-i18n="nav-find">Найти кандидата</a></li>
+                        <li><a href="#" data-i18n="nav-join">Попасть в базу</a></li>
+                        <li><a href="#" data-i18n="nav-about">О сервисе</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-heading" data-i18n="f-work">ЛИЦА.РАБОТА</h3>
+                    <ul class="footer-list">
+                        <li><a href="#" data-i18n="f-recruit">Рекрутинг</a></li>
+                        <li><a href="#" data-i18n="f-constructor">Конструктор подбора</a></li>
+                        <li><a href="#" data-i18n="f-analytics">Аналитика подбора</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-heading" data-i18n="f-portal">О ПОРТАЛЕ</h3>
+                    <ul class="footer-list">
+                        <li><a href="#" data-i18n="f-support">Поддержка</a></li>
+                        <li><a href="#" data-i18n="f-updates">Обновления</a></li>
+                        <li><a href="#" data-i18n="f-contacts">Контакты</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-bottom"><span class="footer-copyright">ООО «ЛИЦА»</span><div class="footer-legal"><a href="#">Реквизиты</a><span class="divider">|</span><a href="#">Правовая информация</a></div></div>
+            <div class="footer-bottom">
+                <span class="footer-copyright" data-i18n="f-copy">ООО «ЛИЦА»</span>
+                <div class="footer-legal">
+                    <a href="#" data-i18n="f-requisites">Реквизиты</a>
+                    <span class="divider">|</span>
+                    <a href="#" data-i18n="f-legal">Правовая информация</a>
+                </div>
+            </div>
         </div>
     </footer>
 
     <div class="modal-overlay" id="loginModal">
         <div class="modal-window">
             <button class="modal-close" id="closeModalBtn">&times;</button>
-            <div class="modal-header"><span class="modal-logo-text">ЛИЦА</span><span class="modal-logo-dot"></span><span class="modal-logo-text">Кандидаты</span></div>
-            <h2 class="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
+            <div class="modal-header"><span class="modal-logo-text">ЛИЦА</span><span class="modal-logo-dot"></span><span class="modal-logo-text" data-i18n="modal-cand-word">Кандидаты</span></div>
+            <h2 class="modal-title" data-i18n="modal-title">Получить доступ к базе<br>проверенных кандидатов</h2>
             <form class="modal-form" id="loginForm">
-                <input type="email" id="authEmail" class="modal-input" placeholder="Email" required>
-                <input type="password" id="authPassword" class="modal-input" placeholder="Пароль" required>
-                <a href="#" class="forgot-pass">Забыли пароль?</a>
-                <div class="modal-actions"><button type="submit" class="btn-modal-login">Войти</button><button type="button" class="btn-modal-reg" id="toRegisterBtn">Зарегистрироваться</button></div>
+                <input type="email" id="authEmail" class="modal-input" placeholder="Email" data-i18n-ph="modal-email-ph" required>
+                <input type="password" id="authPassword" class="modal-input" placeholder="Пароль" data-i18n-ph="modal-pass-ph" required>
+                <a href="#" class="forgot-pass" data-i18n="modal-forgot">Забыли пароль?</a>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-modal-login" data-i18n="modal-login-btn">Войти</button>
+                    <button type="button" class="btn-modal-reg" id="toRegisterBtn" data-i18n="modal-reg-btn">Зарегистрироваться</button>
+                </div>
             </form>
         </div>
     </div>
@@ -201,20 +241,20 @@
     <div class="modal-overlay" id="aboutModal">
         <div class="modal-window" style="max-width: 600px;">
             <button class="modal-close" id="closeAboutModal">&times;</button>
-            <div class="modal-header"><span class="modal-logo-text">ЛИЦА</span><span class="modal-logo-dot"></span><span class="modal-logo-text">Кандидаты</span></div>
-            <h2 class="modal-title" style="margin-bottom: 24px;">О сервисе</h2>
+            <div class="modal-header"><span class="modal-logo-text">ЛИЦА</span><span class="modal-logo-dot"></span><span class="modal-logo-text" data-i18n="modal-cand-word">Кандидаты</span></div>
+            <h2 class="modal-title" style="margin-bottom: 24px;" data-i18n="about-title">О сервисе</h2>
             <div style="text-align: left; line-height: 1.6; color: var(--text-secondary);">
-                <p style="margin-bottom: 16px;"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
-                <p style="margin-bottom: 16px;">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
-                <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);">Как это работает:</h3>
+                <p style="margin-bottom: 16px;" data-i18n="about-p1"><strong>ЛИЦА.Кандидаты</strong> — это платформа для поиска проверенных специалистов.</p>
+                <p style="margin-bottom: 16px;" data-i18n="about-p2">Мы уже провели собеседования с сотнями кандидатов и подтверждаем их профессионализм. Вам остаётся только выбрать подходящего специалиста.</p>
+                <h3 style="margin: 24px 0 12px; font-size: 18px; color: var(--text-main);" data-i18n="about-how">Как это работает:</h3>
                 <ul style="margin-left: 20px; margin-bottom: 16px;">
-                    <li>Все кандидаты проходят проверку компетенций</li>
-                    <li>Вы получаете доступ к базе по подписке</li>
-                    <li>Самостоятельно связываетесь с подходящими специалистами</li>
+                    <li data-i18n="about-li1">Все кандидаты проходят проверку компетенций</li>
+                    <li data-i18n="about-li2">Вы получаете доступ к базе по подписке</li>
+                    <li data-i18n="about-li3">Самостоятельно связываетесь с подходящими специалистами</li>
                 </ul>
-                <p style="margin-bottom: 16px;"><strong>Стоимость:</strong> 4900 ₽ в месяц<br><em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
+                <p style="margin-bottom: 16px;" data-i18n="about-price"><strong>Стоимость:</strong> 4900 ₽ в месяц<br><em>Это в 10-100 раз ниже стоимости любого подбора</em></p>
             </div>
-            <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;">Понятно</button>
+            <button class="btn-primary btn-full" id="closeAboutBtn" style="margin-top: 24px;" data-i18n="about-ok">Понятно</button>
         </div>
     </div>
 
