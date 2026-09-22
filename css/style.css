@@ -2242,9 +2242,6 @@ body {
     border-radius: 8px;
 }
 
-/* === АДАПТИВ === */
-
-/* Планшеты (до 1024px) */
 @media (max-width: 1024px) {
     .header-top {
         flex-wrap: wrap;
@@ -2306,9 +2303,8 @@ body {
     }
 }
 
-/* Мобильные (до 768px) */
 @media (max-width: 768px) {
-    /* Скрываем десктопное меню, показываем бургер */
+
     .main-nav, .desktop-nav {
         display: none !important;
     }
@@ -2393,7 +2389,6 @@ body {
     }
 }
 
-/* Маленькие экраны (до 480px) */
 @media (max-width: 480px) {
     .header-top {
         padding: 10px 15px;
@@ -2436,7 +2431,6 @@ body {
     }
 }
 
-/* Очень маленькие экраны (360px) */
 @media (max-width: 360px) {
     .header-top {
         padding: 8px 10px;
@@ -2485,45 +2479,41 @@ body {
     }
 }
 
-/* Фикс переполнения полей фильтров на мобильных */
 .filter-range input {
-    min-width: 0; /* Разрешает сжатие внутри flex */
+    min-width: 0;
 }
 
 @media (max-width: 768px) {
     .filters-sidebar {
-        padding: 16px; /* Чуть меньше боковые отступы */
+        padding: 16px;
     }
     .filter-range {
-        gap: 6px; /* Чуть ближе поля друг к другу */
+        gap: 6px; 
     }
 }
 
-/* === АДАПТАЦИЯ МОДАЛЬНЫХ ОКОН ДЛЯ ТЕЛЕФОНОВ === */
 @media (max-width: 768px) {
     .modal-window {
-        max-height: 90vh;       /* Ограничиваем высоту 90% от экрана */
-        width: 90%;             /* Ширина 90% */
-        margin: 10px;           /* Отступы от краев */
-        overflow-y: auto;       /* Включаем вертикальный скролл */
-        border-radius: 12px;    /* Скругляем углы */
-        display: flex;          /* Чтобы контент внутри тоже вел себя хорошо */
-        flex-direction: column; /* Вертикальное расположение */
+        max-height: 90vh;       
+        width: 90%;             
+        margin: 10px;          
+        overflow-y: auto;       
+        border-radius: 12px;    
+        display: flex;         
+        flex-direction: column; 
     }
     
-    /* Чтобы кнопка закрытия (крестик) была всегда видна сверху */
     .modal-close {
         position: sticky;
         top: 10px;
         right: 10px;
         z-index: 10;
-        background: #fff; /* Фон, чтобы перекрывать текст при скролле */
+        background: #fff; 
         border-radius: 50%;
         width: 32px;
         height: 32px;
     }
     
-    /* Убираем лишние отступы внизу модалки */
     .modal-form {
         margin-bottom: 20px;
     }

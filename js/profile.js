@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Аватар
             const avatarEl = document.getElementById('profileAvatar');
             const avatarContainer = avatarEl.parentElement;
             
@@ -54,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 avatarEl.style.display = 'block';
             }
 
-            // Данные
             document.getElementById('profileName').textContent = c.name || '—';
             document.getElementById('profileAge').textContent = c.age || '—';
             document.getElementById('profileSpecialty').textContent = c.position || '—';
@@ -68,18 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('testExpBlock').innerHTML = `<p>${c.test_exp || '—'}</p>`;
             document.getElementById('apiBlock').innerHTML = `<p>${c.api_exp || '—'}</p>`;
             
-            // Настройка кнопок контактов
             const telegramLink = document.getElementById('profileTelegram');
             const portfolioLink = document.getElementById('profilePortfolio');
             const showContactsBtn = document.getElementById('showContactsBtn');
             const revealedContacts = document.getElementById('revealedContacts');
 
-            // Скрываем кнопки по умолчанию
             telegramLink.style.display = 'none';
             portfolioLink.style.display = 'none';
             revealedContacts.style.display = 'none';
 
-            // Если есть данные, готовим ссылки
             if (c.telegram) {
                 const username = c.telegram.replace(/^@/, '');
                 telegramLink.href = `https://t.me/${username}`;
@@ -90,11 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 portfolioLink.style.display = 'inline-block';
             }
 
-            // Логика кнопки "Открыть контакты"
             if (c.telegram || c.portfolio) {
                 showContactsBtn.addEventListener('click', () => {
-                    showContactsBtn.style.display = 'none'; // Скрываем кнопку
-                   revealedContacts.style.display = 'flex'; // Показываем ссылки
+                    showContactsBtn.style.display = 'none'; 
+                   revealedContacts.style.display = 'flex'; 
                 });
             } else {
                 showContactsBtn.textContent = 'Контакты не указаны';

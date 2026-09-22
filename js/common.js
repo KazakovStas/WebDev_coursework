@@ -244,7 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const saved = localStorage.getItem('currentUser');
     if (saved) { try { showUserProfile(JSON.parse(saved)); } catch(e) {} }
 
-        // === БУРГЕР-МЕНЮ ===
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileJoinBtn = document.getElementById('mobileJoinBtn');
@@ -253,7 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (burgerBtn && mobileMenu) {
         burgerBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('active');
-            // Анимация бургера
             const spans = burgerBtn.querySelectorAll('span');
             if (mobileMenu.classList.contains('active')) {
                 spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
@@ -266,7 +264,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Закрытие при клике на ссылку
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
@@ -277,7 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Дублируем функционал кнопок для мобильного меню
         if (mobileJoinBtn) {
             mobileJoinBtn.addEventListener('click', (e) => {
                 e.preventDefault();
